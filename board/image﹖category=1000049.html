@@ -1,0 +1,1684 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+
+<head>
+	<title>크롤링테스트 : 사진게시판</title>
+	<meta name="description" content="" />
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="referrer" content="unsafe-url">
+	<meta name="viewport" content="width=1280" />
+	<meta name="author" content="크롤링테스트" />
+	<meta name="apple-mobile-web-app-title" content="크롤링테스트">
+
+	<link rel="canonical" href="image.html">
+
+	<link rel="stylesheet" href="../css/font-awesome.min%EF%B9%960510v1.css">
+	<link rel="stylesheet" href="../css/fontello%EF%B9%960510v1.css">
+
+	<link rel="stylesheet" href="../css/clien%EF%B9%960515v1.css">
+	<link rel="stylesheet" href="../css/clien.scheme%EF%B9%960515v1.css">
+
+	<link rel="stylesheet" href="../css/font-Noto%EF%B9%960510v1.css">
+
+
+
+	<link rel="stylesheet" href="../css/jquery-ui.css">
+
+	<link rel="shortcut icon" href="../image/favicon.ico">
+
+	<link rel=apple-touch-icon href="../image/icon180x180.png" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<script>
+		googletag.cmd.push(function () {
+			googletag.defineSlot('/44950606/cs4-pc-list-top', [728, 90], 'div-pc-list-top').addService(googletag.pubads());
+			googletag.defineSlot('/44950606/cs4-pc-list-below', [728, 90], 'div-pc-list-below').addService(googletag.pubads());
+			googletag.defineSlot('/44950606/cs4-pc-side', [160, 600], 'div-pc-side').addService(googletag.pubads());
+			googletag.pubads().setTargeting('board', ["image"]);
+			googletag.enableServices();
+		});
+	</script>
+
+</head>
+
+<body>
+
+
+	<div class="back-to-top" id="top"></div>
+	<nav class="header_wrap">
+		<div class="nav_header" data-role="account-open">
+			<h1 class="header_logo" style="color:white">
+				CRAWING
+			</h1>
+			<a href="#div_content" class="skip_to">본문 바로가기</a>
+			<a href="#menuTop" class="skip_to">메뉴 바로가기</a>
+			<a href="javascript:;" class="skip_to text-large">폰트크기변경</a>
+			<a href="javascript:;" class="skip_to button-dark">색상반전보기</a>
+			<div class="header_menu">
+				<a href="" class="all_view" title="톺아보기 바로가기">톺아보기</a>
+				<a href="" class="all_symph" title="톺아보기의 공감글">공감글</a>
+				<a href="../recommend.html" class="all_recommend" title="추천글 바로가기">추천글</a>
+			</div>
+
+			<div class="search ad_banner" data-role="total-search">
+				<input type="search" name="search" class="search_input" data-role="total-input-keyword" title="통합검색"
+					placeholder="검색어를 입력하세요." />
+				<button type="button" class="search_button" data-role="total-submit" title="검색하기"><span
+						class="fa fa-search"></span></button>
+			</div>
+
+		</div>
+	</nav>
+
+	<Script>
+
+		var setEventDay = [{ month: 3, day: 1, class: 'kr', url: '/service/image/kflag.png', size: 26 }
+			, { month: 4, day: 16, class: 'ribbon', url: '/service/image/ribbon.png', size: 21 }
+			, { month: 6, day: 6, class: 'kr', url: '/service/image/kflag.png', size: 26 }
+			, { month: 8, day: 15, class: 'kr', url: '/service/image/kflag.png', size: 26 }, { month: 10, day: 3, class: 'kr', url: '/service/image/kflag.png', size: 26 }
+			, { month: 10, day: 9, class: 'han', url: '/service/image/han_clien_m.png', size: 108 }
+			, { month: 10, day: 29, class: 'ribbon', url: '/service/image/ribbon_b.png', size: 21 }];
+
+		var eventNowDay = new Date();
+		var eventNowMonth = eventNowDay.getMonth() + 1;
+		var eventNowDay = eventNowDay.getDate();
+		var eventIsVaild = false;
+		var eventLogoHtml = '';
+
+		setEventDay.forEach(function (value) {
+
+			if (eventNowMonth == value.month && eventNowDay == value.day) {
+				if (value.class == 'han') {
+					eventLogoHtml = '<a href="/service" class="image_logo han" title="크롤링테스트홈 바로가기"><img src="' + value.url + '" width="' + value.size + 'px"></a>';
+				} else {
+					eventLogoHtml = '<span class="image_logo ' + value.class + '"><img src="' + value.url + '" width="' + value.size + 'px"></span>';
+				}
+				eventIsVaild = true;
+			};
+		});
+
+
+		if (eventIsVaild) {
+			console.log(eventLogoHtml);
+			document.getElementById("eventImgLogo").innerHTML = eventLogoHtml;
+		};
+
+	</script>
+	<div class="nav_container">
+		<div class="snb" id="menuTop">
+			<div class="side_nav" id="menu-scroll">
+
+				<div class="navmenu">
+
+
+					<a class="menu-group all" href="">
+
+						<span class="fa fa-angle-right"></span>
+						<span class="menu_over">커뮤니티</span>
+
+
+						<a class="menu-group" href="">
+
+							<span class="icon-board">C</span>
+							<span class="menu_over">모두의광장</span>
+
+
+							<a class="menu-list" href="park.html">
+
+								<span class="icon-board">F</span>
+								<span class="menu_over">모두의공원</span>
+
+
+								<a class="menu-list" href="image.html">
+
+									<span class="icon-board">I</span>
+									<span class="menu_over">사진게시판</span>
+
+
+									<a class="menu-list" href="kin.html">
+
+										<span class="icon-board">Q</span>
+										<span class="menu_over">아무거나질문</span>
+
+
+										<a class="menu-group" href="">
+
+											<span class="icon-board">D</span>
+											<span class="menu_over">정보와자료</span>
+
+
+											<a class="menu-list" href="news.html">
+
+												<span class="icon-board">N</span>
+												<span class="menu_over">새로운소식</span>
+
+
+												<a class="menu-list" href="useful.html">
+
+													<span class="icon-board">T</span>
+													<span class="menu_over">유용한사이트</span>
+
+
+													<a class="menu-list" href="pds.html">
+
+														<span class="icon-board">P</span>
+														<span class="menu_over">자료실</span>
+
+
+														<a class="menu-group" href="">
+
+															<span class="icon-board">E</span>
+															<span class="menu_over">강좌/사용기</span>
+
+
+															<a class="menu-list" href="lecture.html">
+
+																<span class="icon-board">L</span>
+																<span class="menu_over">팁과강좌</span>
+
+
+																<a class="menu-list" href="use.html">
+
+																	<span class="icon-board">U</span>
+																	<span class="menu_over">사용기</span>
+
+
+																	<a class="menu-list" href="chehum.html">
+
+																		<span class="icon-board">·</span>
+																		<span class="menu_over">체험단사용기</span>
+
+
+																		<a class="menu-group"
+																			href="https://www.clien.net/service/group/allsell">
+
+																			<span class="icon-board">W</span>
+																			<span class="menu_over">사고팔고</span>
+
+
+																			<a class="menu-list" href="jirum.html">
+
+																				<span class="icon-board">J</span>
+																				<span class="menu_over">알뜰구매</span>
+
+
+																				<a class="menu-list" href="sold.html">
+
+																					<span class="icon-board">S</span>
+																					<span
+																						class="menu_over">회원중고장터</span>
+
+
+																					<a class="menu-list"
+																						href="hongbo.html">
+
+																						<span
+																							class="icon-board">B</span>
+																						<span
+																							class="menu_over">직접홍보</span>
+
+
+																						<a class="menu-insurance"
+																							href="">
+
+																							<span
+																								class="icon-board">·</span>
+																							<span
+																								class="menu_over">보험상담실</span>
+
+
+																							<a class="menu-promo invisible"
+																								href="../index.html">
+
+																								<span
+																									class="icon-board">H</span>
+																								<span
+																									class="menu_over">크롤링테스트홈</span>
+				</div>
+				<button type="button" class="button_more_nav" id="nav-more"><span class="fa fa-angle-down"></span><span
+						class="fa fa-angle-up"></span></button>
+				<div class="menu_somoim">
+					<a class="menu-group all somoim" href="../somoim.html">
+						<span class="fa fa-angle-right"></span>
+						<span class="menu_over">소모임</span>
+					</a>
+					<a class="menu-group somoim" href="">
+						<span class="fa fa-bookmark"></span>
+						<span class="menu_over">소모임전체</span>
+					</a>
+					<a class="menu-group somoim etc" href="cm_main.html">
+						<span class="fa fa-plus-square-o"></span>
+						<span class="menu_over">임시소모임</span>
+					</a>
+
+					<a class="menu-list somoim" href="cm_car.html"><span class="icon-board">·</span><span
+							class="menu_over">굴러간당</span></a>
+					<a class="menu-list somoim" href="cm_iphonien.html"><span class="icon-board">·</span><span
+							class="menu_over">아이포니앙</span></a>
+					<a class="menu-list somoim" href="cm_bike.html"><span class="icon-board">·</span><span
+							class="menu_over">자전거당</span></a>
+					<a class="menu-list somoim" href="cm_mac.html"><span class="icon-board">·</span><span
+							class="menu_over">MaCrawling</span></a>
+					<a class="menu-list somoim" href="cm_stock.html"><span class="icon-board">·</span><span
+							class="menu_over">주식한당</span></a>
+					<a class="menu-list somoim" href="cm_bts.html"><span class="icon-board">·</span><span
+							class="menu_over">방탄소년당</span></a>
+					<a class="menu-list somoim" href="cm_dia.html"><span class="icon-board">·</span><span
+							class="menu_over">디아블로당</span></a>
+					<a class="menu-list somoim" href="cm_japanlive.html"><span class="icon-board">·</span><span
+							class="menu_over">일본산당</span></a>
+					<a class="menu-list somoim" href="cm_golf.html"><span class="icon-board">·</span><span
+							class="menu_over">골프당</span></a>
+					<a class="menu-list somoim" href="cm_oversea.html"><span class="icon-board">·</span><span
+							class="menu_over">바다건너당</span></a>
+					<a class="menu-list somoim" href="cm_nas.html"><span class="icon-board">·</span><span
+							class="menu_over">나스당</span></a>
+					<a class="menu-list somoim" href="cm_werule.html"><span class="icon-board">·</span><span
+							class="menu_over">소셜게임한당</span></a>
+					<a class="menu-list somoim" href="cm_aigurim.html"><span class="icon-board">·</span><span
+							class="menu_over">AI그림당</span></a>
+					<a class="menu-list somoim" href="cm_andro.html"><span class="icon-board">·</span><span
+							class="menu_over">안드로메당</span></a>
+					<a class="menu-list somoim" href="cm_vcoin.html"><span class="icon-board">·</span><span
+							class="menu_over">가상화폐당</span></a>
+					<a class="menu-list somoim" href="cm_keyboard.html"><span class="icon-board">·</span><span
+							class="menu_over">키보드당</span></a>
+					<a class="menu-list somoim" href="cm_gym.html"><span class="icon-board">·</span><span
+							class="menu_over">땀흘린당</span></a>
+					<a class="menu-list somoim" href="cm_rowing.html"><span class="icon-board">·</span><span
+							class="menu_over">노젓는당</span></a>
+					<a class="menu-list somoim" href="cm_military.html"><span class="icon-board">·</span><span
+							class="menu_over">밀리터리당</span></a>
+					<a class="menu-list somoim" href="cm_console.html"><span class="icon-board">·</span><span
+							class="menu_over">콘솔한당</span></a>
+					<a class="menu-list somoim" href="cm_baby.html"><span class="icon-board">·</span><span
+							class="menu_over">육아당</span></a>
+					<a class="menu-list somoim" href="cm_app.html"><span class="icon-board">·</span><span
+							class="menu_over">개발한당</span></a>
+					<a class="menu-list somoim" href="cm_kordle.html"><span class="icon-board">·</span><span
+							class="menu_over">꼬들한당</span></a>
+					<a class="menu-list somoim" href="cm_swim.html"><span class="icon-board">·</span><span
+							class="menu_over">퐁당퐁당</span></a>
+					<a class="menu-list somoim" href="cm_airplane.html"><span class="icon-board">·</span><span
+							class="menu_over">날아간당</span></a>
+					<a class="menu-list somoim" href="cm_lego.html"><span class="icon-board">·</span><span
+							class="menu_over">레고당</span></a>
+					<a class="menu-list somoim" href="cm_cat.html"><span class="icon-board">·</span><span
+							class="menu_over">냐옹이당</span></a>
+					<a class="menu-list somoim" href="cm_girl.html"><span class="icon-board">·</span><span
+							class="menu_over">소시당</span></a>
+					<a class="menu-list somoim" href="cm_camp.html"><span class="icon-board">·</span><span
+							class="menu_over">캠핑간당</span></a>
+					<a class="menu-list somoim" href="cm_coffee.html"><span class="icon-board">·</span><span
+							class="menu_over">클다방</span></a>
+					<a class="menu-list somoim" href="cm_vr.html"><span class="icon-board">·</span><span
+							class="menu_over">VR당</span></a>
+					<a class="menu-list somoim" href="cm_edc.html"><span class="icon-board">·</span><span
+							class="menu_over">갖고다닌당</span></a>
+					<a class="menu-list somoim" href="cm_pctuning.html"><span class="icon-board">·</span><span
+							class="menu_over">PC튜닝한당</span></a>
+					<a class="menu-list somoim" href="cm_mbike.html"><span class="icon-board">·</span><span
+							class="menu_over">이륜차당</span></a>
+					<a class="menu-list somoim" href="cm_tennis.html"><span class="icon-board">·</span><span
+							class="menu_over">테니스친당</span></a>
+					<a class="menu-list somoim" href="cm_formula1.html"><span class="icon-board">·</span><span
+							class="menu_over">포뮬러당</span></a>
+					<a class="menu-list somoim" href="cm_poe.html"><span class="icon-board">·</span><span
+							class="menu_over">패스오브엑자일당</span></a>
+					<a class="menu-list somoim" href="cm_baseball.html"><span class="icon-board">·</span><span
+							class="menu_over">야구당</span></a>
+					<a class="menu-list somoim" href="cm_ai.html"><span class="icon-board">·</span><span
+							class="menu_over">AI당</span></a>
+					<a class="menu-list somoim" href="cm_applewatch.html"><span class="icon-board">·</span><span
+							class="menu_over">사과시계당</span></a>
+					<a class="menu-list somoim" href="cm_soccer.html"><span class="icon-board">·</span><span
+							class="menu_over">축구당</span></a>
+					<a class="menu-list somoim" href="cm_dduk.html"><span class="icon-board">·</span><span
+							class="menu_over">뚝딱뚝당</span></a>
+					<a class="menu-list somoim" href="cm_pic.html"><span class="icon-board">·</span><span
+							class="menu_over">그림그린당</span></a>
+					<a class="menu-list somoim" href="cm_adhd.html"><span class="icon-board">·</span><span
+							class="menu_over">ADHD당</span></a>
+					<a class="menu-list somoim" href="cm_glasses.html"><span class="icon-board">·</span><span
+							class="menu_over">안경쓴당</span></a>
+					<a class="menu-list somoim" href="cm_wine.html"><span class="icon-board">·</span><span
+							class="menu_over">와인마신당</span></a>
+					<a class="menu-list somoim" href="cm_iot.html"><span class="icon-board">·</span><span
+							class="menu_over">IoT당</span></a>
+					<a class="menu-list somoim" href="cm_gemwar.html"><span class="icon-board">·</span><span
+							class="menu_over">젬워한당</span></a>
+					<a class="menu-list somoim" href="cm_ku.html"><span class="icon-board">·</span><span
+							class="menu_over">덕질한당</span></a>
+					<a class="menu-list somoim" href="cm_linux.html"><span class="icon-board">·</span><span
+							class="menu_over">리눅서당</span></a>
+					<a class="menu-list somoim" href="cm_cook.html"><span class="icon-board">·</span><span
+							class="menu_over">요리한당</span></a>
+					<a class="menu-list somoim" href="cm_ebicycle.html"><span class="icon-board">·</span><span
+							class="menu_over">전기자전거당</span></a>
+					<a class="menu-list somoim" href="cm_food.html"><span class="icon-board">·</span><span
+							class="menu_over">맛있겠당</span></a>
+					<a class="menu-list somoim" href="cm_onair.html"><span class="icon-board">·</span><span
+							class="menu_over">방송한당</span></a>
+					<a class="menu-list somoim" href="cm_rasp.html"><span class="icon-board">·</span><span
+							class="menu_over">라즈베리파이당</span></a>
+					<a class="menu-list somoim" href="cm_bb.html"><span class="icon-board">·</span><span
+							class="menu_over">블랙베리당</span></a>
+					<a class="menu-list somoim" href="cm_book.html"><span class="icon-board">·</span><span
+							class="menu_over">활자중독당</span></a>
+					<a class="menu-list somoim" href="cm_mine.html"><span class="icon-board">·</span><span
+							class="menu_over">땅판당</span></a>
+					<a class="menu-list somoim" href="cm_heroes.html"><span class="icon-board">·</span><span
+							class="menu_over">히어로즈한당</span></a>
+					<a class="menu-list somoim" href="cm_star.html"><span class="icon-board">·</span><span
+							class="menu_over">스타한당</span></a>
+					<a class="menu-list somoim" href="cm_fisher.html"><span class="icon-board">·</span><span
+							class="menu_over">도시어부당</span></a>
+					<a class="menu-list somoim" href="cm_3dmaking.html"><span class="icon-board">·</span><span
+							class="menu_over">3D메이킹</span></a>
+					<a class="menu-list somoim" href="cm_watch.html"><span class="icon-board">·</span><span
+							class="menu_over">시계찬당</span></a>
+					<a class="menu-list somoim" href="cm_lang.html"><span class="icon-board">·</span><span
+							class="menu_over">어학당</span></a>
+					<a class="menu-list somoim" href="cm_movie.html"><span class="icon-board">·</span><span
+							class="menu_over">영화본당</span></a>
+					<a class="menu-list somoim" href="cm_tour.html"><span class="icon-board">·</span><span
+							class="menu_over">여행을떠난당</span></a>
+					<a class="menu-list somoim" href="cm_venture.html"><span class="icon-board">·</span><span
+							class="menu_over">창업한당</span></a>
+					<a class="menu-list somoim" href="cm_danger.html"><span class="icon-board">·</span><span
+							class="menu_over">DANGER당</span></a>
+					<a class="menu-list somoim" href="cm_photo.html"><span class="icon-board">·</span><span
+							class="menu_over">찰칵찍당</span></a>
+					<a class="menu-list somoim" href="cm_drone.html"><span class="icon-board">·</span><span
+							class="menu_over">날아올랑</span></a>
+					<a class="menu-list somoim" href="cm_midra.html"><span class="icon-board">·</span><span
+							class="menu_over">미드당</span></a>
+					<a class="menu-list somoim" href="cm_70.html"><span class="icon-board">·</span><span
+							class="menu_over">X세대당</span></a>
+					<a class="menu-list somoim" href="cm_badmin.html"><span class="icon-board">·</span><span
+							class="menu_over">배드민턴당</span></a>
+					<a class="menu-list somoim" href="cm_basket.html"><span class="icon-board">·</span><span
+							class="menu_over">농구당</span></a>
+					<a class="menu-list somoim" href="cm_bear.html"><span class="icon-board">·</span><span
+							class="menu_over">곰돌이당</span></a>
+					<a class="menu-list somoim" href="cm_billiards.html"><span class="icon-board">·</span><span
+							class="menu_over">뽀록이당(당구)</span></a>
+					<a class="menu-list somoim" href="cm_blockchain.html"><span class="icon-board">·</span><span
+							class="menu_over">블록체인당</span></a>
+					<a class="menu-list somoim" href="cm_board.html"><span class="icon-board">·</span><span
+							class="menu_over">보드게임당</span></a>
+					<a class="menu-list somoim" href="cm_bowling.html"><span class="icon-board">·</span><span
+							class="menu_over">볼링친당</span></a>
+					<a class="menu-list somoim" href="cm_civilize.html"><span class="icon-board">·</span><span
+							class="menu_over">문명하셨당</span></a>
+					<a class="menu-list somoim" href="cm_classic.html"><span class="icon-board">·</span><span
+							class="menu_over">클래시앙</span></a>
+					<a class="menu-list somoim" href="cm_cookierun.html"><span class="icon-board">·</span><span
+							class="menu_over">쿠키런당</span></a>
+					<a class="menu-list somoim" href="cm_daegu.html"><span class="icon-board">·</span><span
+							class="menu_over">대구당</span></a>
+					<a class="menu-list somoim" href="cm_dog.html"><span class="icon-board">·</span><span
+							class="menu_over">개판이당</span></a>
+					<a class="menu-list somoim" href="cm_dongsup.html"><span class="icon-board">·</span><span
+							class="menu_over">동숲한당</span></a>
+					<a class="menu-list somoim" href="cm_ebook.html"><span class="icon-board">·</span><span
+							class="menu_over">e북본당</span></a>
+					<a class="menu-list somoim" href="cm_eve.html"><span class="icon-board">·</span><span
+							class="menu_over">이브한당</span></a>
+					<a class="menu-list somoim" href="cm_fashion.html"><span class="icon-board">·</span><span
+							class="menu_over">패셔니앙</span></a>
+					<a class="menu-list somoim" href="cm_fish.html"><span class="icon-board">·</span><span
+							class="menu_over">물고기당</span></a>
+					<a class="menu-list somoim" href="cm_fm.html"><span class="icon-board">·</span><span
+							class="menu_over">FM한당</span></a>
+					<a class="menu-list somoim" href="cm_girlgroup.html"><span class="icon-board">·</span><span
+							class="menu_over">걸그룹당</span></a>
+					<a class="menu-list somoim" href="cm_gta.html"><span class="icon-board">·</span><span
+							class="menu_over">차턴당</span></a>
+					<a class="menu-list somoim" href="cm_gun.html"><span class="icon-board">·</span><span
+							class="menu_over">총쏜당</span></a>
+					<a class="menu-list somoim" href="../close.html"><span class="icon-board">·</span><span
+							class="menu_over">내집마련당</span></a>
+					<a class="menu-list somoim" href="cm_hearth.html"><span class="icon-board">·</span><span
+							class="menu_over">하스스톤한당</span></a>
+					<a class="menu-list somoim" href="cm_instar.html"><span class="icon-board">·</span><span
+							class="menu_over">인스타한당</span></a>
+					<a class="menu-list somoim" href="cm_kara.html"><span class="icon-board">·</span><span
+							class="menu_over">KARA당</span></a>
+					<a class="menu-list somoim" href="cm_leather.html"><span class="icon-board">·</span><span
+							class="menu_over">가죽당</span></a>
+					<a class="menu-list somoim" href="cm_lol.html"><span class="icon-board">·</span><span
+							class="menu_over">LOLien</span></a>
+					<a class="menu-list somoim" href="cm_mabi.html"><span class="icon-board">·</span><span
+							class="menu_over">Mabinogien</span></a>
+					<a class="menu-list somoim" href="cm_main.html"><span class="icon-board">·</span><span
+							class="menu_over">임시소모임</span></a>
+					<a class="menu-list somoim" href="cm_monhunt.html"><span class="icon-board">·</span><span
+							class="menu_over">헌팅한당</span></a>
+					<a class="menu-list somoim" href="cm_mount.html"><span class="icon-board">·</span><span
+							class="menu_over">오른당</span></a>
+					<a class="menu-list somoim" href="cm_mtg.html"><span class="icon-board">·</span><span
+							class="menu_over">MTG한당</span></a>
+					<a class="menu-list somoim" href="cm_music.html"><span class="icon-board">·</span><span
+							class="menu_over">소리당</span></a>
+					<a class="menu-list somoim" href="cm_nokien.html"><span class="icon-board">·</span><span
+							class="menu_over">노키앙</span></a>
+					<a class="menu-list somoim" href="cm_note.html"><span class="icon-board">·</span><span
+							class="menu_over">적는당</span></a>
+					<a class="menu-list somoim" href="cm_picnic.html"><span class="icon-board">·</span><span
+							class="menu_over">소풍간당</span></a>
+					<a class="menu-list somoim" href="cm_plant.html"><span class="icon-board">·</span><span
+							class="menu_over">심는당</span></a>
+					<a class="menu-list somoim" href="cm_redeem.html"><span class="icon-board">·</span><span
+							class="menu_over">품앱이당</span></a>
+					<a class="menu-list somoim" href="cm_rhythm.html"><span class="icon-board">·</span><span
+							class="menu_over">리듬탄당</span></a>
+					<a class="menu-list somoim" href="cm_sea.html"><span class="icon-board">·</span><span
+							class="menu_over">Sea마당</span></a>
+					<a class="menu-list somoim" href="cm_sim.html"><span class="icon-board">·</span><span
+							class="menu_over">SimSim하당</span></a>
+					<a class="menu-list somoim" href="cm_simsik.html"><span class="icon-board">·</span><span
+							class="menu_over">심야식당</span></a>
+					<a class="menu-list somoim" href="cm_slate.html"><span class="icon-board">·</span><span
+							class="menu_over">윈태블릿당</span></a>
+					<a class="menu-list somoim" href="cm_snow.html"><span class="icon-board">·</span><span
+							class="menu_over">미끄러진당</span></a>
+					<a class="menu-list somoim" href="cm_solo.html"><span class="icon-board">·</span><span
+							class="menu_over">나혼자산당</span></a>
+					<a class="menu-list somoim" href="cm_steam.html"><span class="icon-board">·</span><span
+							class="menu_over">스팀한당</span></a>
+					<a class="menu-list somoim" href="cm_surfing.html"><span class="icon-board">·</span><span
+							class="menu_over">파도탄당</span></a>
+					<a class="menu-list somoim" href="cm_test.html"><span class="icon-board">·</span><span
+							class="menu_over">테스트당</span></a>
+					<a class="menu-list somoim" href="cm_thinkpad.html"><span class="icon-board">·</span><span
+							class="menu_over">빨콩이당</span></a>
+					<a class="menu-list somoim" href="cm_tiwatch.html"><span class="icon-board">·</span><span
+							class="menu_over">공대시계당</span></a>
+					<a class="menu-list somoim" href="cm_tpad.html"><span class="icon-board">·</span><span
+							class="menu_over">터치패드당</span></a>
+					<a class="menu-list somoim" href="cm_twit.html"><span class="icon-board">·</span><span
+							class="menu_over">트윗당</span></a>
+					<a class="menu-list somoim" href="cm_webos.html"><span class="icon-board">·</span><span
+							class="menu_over">WebOs당</span></a>
+					<a class="menu-list somoim" href="cm_wow.html"><span class="icon-board">·</span><span
+							class="menu_over">WOW당</span></a>
+					<a class="menu-list somoim" href="cm_wp.html"><span class="icon-board">·</span><span
+							class="menu_over">윈폰이당</span></a>
+				</div>
+
+			</div>
+
+		</div>
+		<div class="nav_body">
+			<div class="nav_content">
+				<div class="bullhorn info" style="display: none;" id="noticeBullhom">
+					<div class="bullhorn_msg">
+						<span class="bullhorn_label">공지</span><span class="bullhorn_txt">잠시후(19일 0시) 서버 점검이 진행될
+							예정입니다.</span>
+						<a href="annonce/18086663.html" class="bullhorn_link">더보기</a>
+						<button type="button" class="bullhorn_button" onclick="setNoticeCookie();">
+							<div class="button_close"></div>
+						</button>
+					</div>
+				</div>
+
+				<div class="content_list" id="div_content">
+					<div class="board_head ">
+						<div class="board_name">
+							<span class="board_icon">i</span>
+
+
+							<h2><a href="image.html">사진게시판</a></h2>
+
+						</div>
+
+						<div class="board_intro ">
+							<span>
+							</span>
+						</div>
+
+						<div class="board_user">
+							<span class="board_block" id="blockCountSpan" style="display:none;">
+								<span>차단글 : <span class="block_count" id="blockCount">0</span>건</span>
+							</span>
+
+							<a class="button_recent" href="../recent.html" title="내가본글"><i
+									class="fa fa-check-circle"></i> 내가본글</a>
+						</div>
+					</div>
+
+
+
+
+
+
+
+
+
+
+					<div class="board_nav">
+						<div class="board_navigation">
+							<div class="board_filter">
+								<select class="select" name="od" onchange="paging.getBoard('odtype')">
+									<option value="T31" selected>등록일순</option>
+									<option value="T32">댓글등록순</option>
+									<option value="T33">공감순</option>
+									<option value="T34">댓글순</option>
+								</select>
+							</div>
+
+						</div>
+						<div class="board_option">
+							<a href="javascript:;" class="text-large tooltip">
+								<span class="fa fa-text-height"></span><span class="tooltiptext">글자크기</span>
+							</a>
+							<a href="javascript:;" class="button-dark tooltip">
+								<span class="fa fa-adjust"></span>
+								<span class="tooltiptext">색상반전</span>
+							</a>
+
+							<div class="board_filter font_style">
+								<select class="select" id="fontSetting">
+									<option value="basic">본고딕</option>
+									<option value="fontNanum">나눔고딕</option>
+									<option value="fontMg">맑은고딕</option>
+									<option value="fontGulim">굴림</option>
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div class="list_category ">
+						<span class="category_item"><a href="image.html">전체보기</a></span>
+						<span class="category_item"><a href="image%EF%B9%96category=1000046.html">풍경</a></span>
+						<span class="category_item"><a href="image%EF%B9%96category=1000049.html"
+								class="current">인물</a></span>
+						<span class="category_item"><a
+								href="https://www.clien.net/service/board/image?category=1000048">가족</a></span>
+						<span class="category_item"><a
+								href="https://www.clien.net/service/board/image?category=1000054">동식물</a></span>
+						<span class="category_item"><a
+								href="https://www.clien.net/service/board/image?category=1000052">음식</a></span>
+						<span class="category_item"><a
+								href="https://www.clien.net/service/board/image?category=1000043">그림/만화</a></span>
+						<span class="category_item"><a
+								href="https://www.clien.net/service/board/image?category=1000044">기계/장비</a></span>
+						<span class="category_item"><a
+								href="https://www.clien.net/service/board/image?category=1000041">클리에 관련</a></span>
+						<span class="category_item"><a
+								href="https://www.clien.net/service/board/image?category=1000040">기타</a></span>
+					</div>
+
+
+
+					<div class="list_item notice">
+						<div class="list_symph">
+							<span>공지</span>
+						</div>
+						<div class="list_title">
+							<a class="list_subject" href="rule/10707403.html">사이트 이용규칙 (종합)</a>
+						</div>
+						<div class="list_author">
+							<span class="nickname">
+								<img src="https://edgio.clien.net/F94/10160260/8d1e3e7e4c521a.gif" alt="운영.A" />
+							</span>
+						</div>
+
+						<div class="list_hit">
+							<span class="hit">1.5 M</span>
+						</div>
+
+						<div class="list_time">
+							<span class="time popover">05-07<span class="timestamp">2017-05-07 01:52:42</span></span>
+						</div>
+					</div>
+
+					<div class="list_item hongbo" id="hongboInfoList"></div>
+
+
+
+
+
+					<div class="list_content">
+
+
+
+
+
+
+
+						<div class="card">
+
+
+							<div class="card_item " data-role="list-row" data-author-id="hookerggli"
+								data-board-sn="18128283" data-comment-count="4">
+								<a class="card_image" data-role="card-content"
+									href="https://www.clien.net/service/board/image/18128283?od=T31&amp;po=0&amp;category=1000049&amp;groupCd=">
+									<span class="list_stare" style="display: none;" data-role="observeIcon"><i
+											class="fa fa-eye"></i></span>
+									<span class="icon-gif" alt="/F01/14209689/212864ddc6441e.jpg"></span>
+									<div class="img_box">
+										<img src="https://edgio.clien.net/F01/14209689/212864ddc6441e.jpg?scale=width%5B480%5D,options%5Blimit%5D"
+											alt="평산책방에서 소원성취했습니더^^ 사진" width="auto"
+											onerror="this.src='/service/image/image_thnoimage.png'">
+									</div>
+								</a>
+								<div class="card_contents">
+									<a class="card_subject"
+										href="https://www.clien.net/service/board/image/18128283?od=T31&amp;po=0&amp;category=1000049&amp;groupCd="
+										data-role="cut-string">
+
+										<span class="subject_category">인물</span>
+										<span title="평산책방에서 소원성취했습니더^^">평산책방에서 소원성취했습니더^^</span>
+										<div class="card_preview"><span>아침에 날씨보고 평산마을로 달렸습니다. 5번째도전에 드뎌오늘 성취했습니다.
+												행복합니다^^</span></div>
+									</a>
+									<div class="list_time">
+										<span class="time popover">06-11<span class="timestamp">2023-06-11
+												12:27:56</span></span>
+									</div>
+									<div class="list_active">
+										<div class="button_active symph_row">
+											<div class="list_symph view_symph" data-role="list-like-count"><span><i
+														class="fa fa-heart"></i> 19</span></div>
+											<a class="list_reply reply_symph" data-role="ele-after"
+												onclick="location.href='/service/board/image/18128283?od=T31&po=0&category=1000049&groupCd=#comment-point'">
+												<span class="rSymph05"><i class="fa fa-comment"></i> 4</span>
+												<strong class="color_red" data-role="observeCmCount"></strong>
+												<strong class="color_red" data-role="recentCmCount"></strong>
+											</a>
+										</div>
+										<div class="list_author" data-role="list-author">
+											<span class="memo none" data-role="list_memo"></span>
+
+
+											<span class="nickname"">
+			 
+					<span title=" 끌리는놈">끌리는놈</span>
+											</span>
+
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+							<div class="card_item " data-role="list-row" data-author-id="skygogoso"
+								data-board-sn="18115078" data-comment-count="6">
+								<a class="card_image" data-role="card-content"
+									href="https://www.clien.net/service/board/image/18115078?od=T31&amp;po=0&amp;category=1000049&amp;groupCd=">
+									<span class="list_stare" style="display: none;" data-role="observeIcon"><i
+											class="fa fa-eye"></i></span>
+									<span class="icon-gif" alt="/F01/14190192/1ed9cc086b8826.jpg"></span>
+									<div class="img_box">
+										<img src="https://edgio.clien.net/F01/14190192/1ed9cc086b8826.jpg?scale=width%5B480%5D,options%5Blimit%5D"
+											alt="장미 아가씨 사진" width="auto"
+											onerror="this.src='/service/image/image_thnoimage.png'">
+									</div>
+								</a>
+								<div class="card_contents">
+									<a class="card_subject"
+										href="https://www.clien.net/service/board/image/18115078?od=T31&amp;po=0&amp;category=1000049&amp;groupCd="
+										data-role="cut-string">
+
+										<span class="subject_category">인물</span>
+										<span title="장미 아가씨">장미 아가씨</span>
+										<div class="card_preview"><span>곡성입니다. 얼굴은 작게 </span></div>
+									</a>
+									<div class="list_time">
+										<span class="time popover">06-04<span class="timestamp">2023-06-04
+												00:03:58</span></span>
+									</div>
+									<div class="list_active">
+										<div class="button_active symph_row">
+											<div class="list_symph view_symph" data-role="list-like-count"><span><i
+														class="fa fa-heart"></i> 3</span></div>
+											<a class="list_reply reply_symph" data-role="ele-after"
+												onclick="location.href='/service/board/image/18115078?od=T31&po=0&category=1000049&groupCd=#comment-point'">
+												<span class="rSymph05"><i class="fa fa-comment"></i> 6</span>
+												<strong class="color_red" data-role="observeCmCount"></strong>
+												<strong class="color_red" data-role="recentCmCount"></strong>
+											</a>
+										</div>
+										<div class="list_author" data-role="list-author">
+											<span class="memo none" data-role="list_memo"></span>
+
+
+											<span class="nickname"">
+			 
+					<span title=" 새솔">새솔</span>
+											</span>
+
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+							<div class="card_item " data-role="list-row" data-author-id="smileso"
+								data-board-sn="18101731" data-comment-count="2">
+								<a class="card_image" data-role="card-content"
+									href="https://www.clien.net/service/board/image/18101731?od=T31&amp;po=0&amp;category=1000049&amp;groupCd=">
+									<span class="list_stare" style="display: none;" data-role="observeIcon"><i
+											class="fa fa-eye"></i></span>
+									<span class="icon-gif" alt="/F01/14168901/2935faf94ad73.jpeg"></span>
+									<div class="img_box">
+										<img src="https://edgio.clien.net/F01/14168901/2935faf94ad73.jpeg?scale=width%5B480%5D,options%5Blimit%5D"
+											alt="전주축제 전주문화재야행 사진" width="auto"
+											onerror="this.src='/service/image/image_thnoimage.png'">
+									</div>
+								</a>
+								<div class="card_contents">
+									<a class="card_subject"
+										href="https://www.clien.net/service/board/image/18101731?od=T31&amp;po=0&amp;category=1000049&amp;groupCd="
+										data-role="cut-string">
+
+										<span class="subject_category">인물</span>
+										<span title="전주축제 전주문화재야행">전주축제 전주문화재야행</span>
+										<div class="card_preview"><span>전주 음식과 놀이문화와 공연을 즐길 수 있는 축제가 한옥마을에서 열리고 있습니다. 오늘
+												밤 11시까지입니다^^</span></div>
+									</a>
+									<div class="list_time">
+										<span class="time popover">05-27<span class="timestamp">2023-05-27
+												09:57:30</span></span>
+									</div>
+									<div class="list_active">
+										<div class="button_active symph_row">
+											<div class="list_symph view_symph" data-role="list-like-count"><span><i
+														class="fa fa-heart"></i> 10</span></div>
+											<a class="list_reply reply_symph" data-role="ele-after"
+												onclick="location.href='/service/board/image/18101731?od=T31&po=0&category=1000049&groupCd=#comment-point'">
+												<span class="rSymph05"><i class="fa fa-comment"></i> 2</span>
+												<strong class="color_red" data-role="observeCmCount"></strong>
+												<strong class="color_red" data-role="recentCmCount"></strong>
+											</a>
+										</div>
+										<div class="list_author" data-role="list-author">
+											<span class="memo none" data-role="list_memo"></span>
+
+
+											<span class="nickname"">
+			 
+				<img src=" https://edgio.clien.net/F94/1091703/3fb778a08a21478197e.gif" alt="smileso" title="smileso">
+											</span>
+
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+							<div class="card_item " data-role="list-row" data-author-id="mathkr"
+								data-board-sn="18089216" data-comment-count="0">
+								<a class="card_image" data-role="card-content"
+									href="https://www.clien.net/service/board/image/18089216?od=T31&amp;po=0&amp;category=1000049&amp;groupCd=">
+									<span class="list_stare" style="display: none;" data-role="observeIcon"><i
+											class="fa fa-eye"></i></span>
+									<span class="icon-gif" alt="/F01/14148188/1a31ab5c5dabe9.jpg"></span>
+									<div class="img_box">
+										<img src="https://edgio.clien.net/F01/14148188/1a31ab5c5dabe9.jpg?scale=width%5B480%5D,options%5Blimit%5D"
+											alt="퇴근길..따릉이를 멈추고 담은 풍경. 사진" width="auto"
+											onerror="this.src='/service/image/image_thnoimage.png'">
+									</div>
+								</a>
+								<div class="card_contents">
+									<a class="card_subject"
+										href="https://www.clien.net/service/board/image/18089216?od=T31&amp;po=0&amp;category=1000049&amp;groupCd="
+										data-role="cut-string">
+
+										<span class="subject_category">인물</span>
+										<span title="퇴근길..따릉이를 멈추고 담은 풍경.">퇴근길..따릉이를 멈추고 담은 풍경.</span>
+										<div class="card_preview"><span>오늘 오후 날씨 오묘하네요. 맑았다 비떨어질것같다가 한두방울 뿌리고 다시
+												맑고..</span></div>
+									</a>
+									<div class="list_time">
+										<span class="time popover">05-19<span class="timestamp">2023-05-19
+												19:59:28</span></span>
+									</div>
+									<div class="list_active">
+										<div class="button_active symph_row">
+											<div class="list_symph view_symph" data-role="list-like-count"><span><i
+														class="fa fa-heart"></i> 3</span></div>
+										</div>
+										<div class="list_author" data-role="list-author">
+											<span class="memo none" data-role="list_memo"></span>
+
+
+											<span class="nickname"">
+			 
+					<span title=" kayfc">kayfc</span>
+											</span>
+
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+							<div class="card_item " data-role="list-row" data-author-id="eva2014az"
+								data-board-sn="18086715" data-comment-count="6">
+								<a class="card_image" data-role="card-content"
+									href="https://www.clien.net/service/board/image/18086715?od=T31&amp;po=0&amp;category=1000049&amp;groupCd=">
+									<span class="list_stare" style="display: none;" data-role="observeIcon"><i
+											class="fa fa-eye"></i></span>
+									<span class="icon-gif" alt="/F01/14143974/19cc378393e260.JPG"></span>
+									<div class="img_box">
+										<img src="https://edgio.clien.net/F01/14143974/19cc378393e260.JPG?scale=width%5B480%5D,options%5Blimit%5D"
+											alt="KOBA 2023이 열리는 코엑스에서 캐논 부스 모델 분들입니다. 사진" width="auto"
+											onerror="this.src='/service/image/image_thnoimage.png'">
+									</div>
+								</a>
+								<div class="card_contents">
+									<a class="card_subject"
+										href="https://www.clien.net/service/board/image/18086715?od=T31&amp;po=0&amp;category=1000049&amp;groupCd="
+										data-role="cut-string">
+
+										<span class="subject_category">인물</span>
+										<span title="KOBA 2023이 열리는 코엑스에서 캐논 부스 모델 분들입니다.">KOBA 2023이 열리는 코엑스에서 캐논 부스 모델
+											분들입니다.</span>
+										<div class="card_preview"><span> KOBA 2023이 열리는 코엑스에서 캐논 부스 모델들 입니다. 영상 카메라의 성능을
+												확인해볼 수 있도록 작게 만들어진 스튜디오</span></div>
+									</a>
+									<div class="list_time">
+										<span class="time popover">05-18<span class="timestamp">2023-05-18
+												13:02:31</span></span>
+									</div>
+									<div class="list_active">
+										<div class="button_active symph_row">
+											<div class="list_symph view_symph" data-role="list-like-count"><span><i
+														class="fa fa-heart"></i> 1</span></div>
+											<a class="list_reply reply_symph" data-role="ele-after"
+												onclick="location.href='/service/board/image/18086715?od=T31&po=0&category=1000049&groupCd=#comment-point'">
+												<span class="rSymph05"><i class="fa fa-comment"></i> 6</span>
+												<strong class="color_red" data-role="observeCmCount"></strong>
+												<strong class="color_red" data-role="recentCmCount"></strong>
+											</a>
+										</div>
+										<div class="list_author" data-role="list-author">
+											<span class="memo none" data-role="list_memo"></span>
+
+
+											<span class="nickname"">
+			 
+					<span title=" 현수아빠다요">현수아빠다요</span>
+											</span>
+
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+							<div class="card_item " data-role="list-row" data-author-id="mook630"
+								data-board-sn="18075912" data-comment-count="3">
+								<a class="card_image" data-role="card-content"
+									href="https://www.clien.net/service/board/image/18075912?od=T31&amp;po=0&amp;category=1000049&amp;groupCd=">
+									<span class="list_stare" style="display: none;" data-role="observeIcon"><i
+											class="fa fa-eye"></i></span>
+									<span class="icon-gif" alt="/F01/14127488/17ef777d80bccf.jpg"></span>
+									<div class="img_box">
+										<img src="https://edgio.clien.net/F01/14127488/17ef777d80bccf.jpg?scale=width%5B480%5D,options%5Blimit%5D"
+											alt="인천대학교 축제에 다녀왔습니다 사진" width="auto"
+											onerror="this.src='/service/image/image_thnoimage.png'">
+									</div>
+								</a>
+								<div class="card_contents">
+									<a class="card_subject"
+										href="https://www.clien.net/service/board/image/18075912?od=T31&amp;po=0&amp;category=1000049&amp;groupCd="
+										data-role="cut-string">
+
+										<span class="subject_category">인물</span>
+										<span title="인천대학교 축제에 다녀왔습니다">인천대학교 축제에 다녀왔습니다</span>
+										<div class="card_preview"><span>현아...무대 찢었다 닐보이...누군지 모르겠습니다 ㅠㅠ 노라조...노래보다 더 유쾌한
+												입담 </span></div>
+									</a>
+									<div class="list_time">
+										<span class="time popover">05-12<span class="timestamp">2023-05-12
+												11:24:21</span></span>
+									</div>
+									<div class="list_active">
+										<div class="button_active symph_row">
+											<div class="list_symph view_symph" data-role="list-like-count"><span><i
+														class="fa fa-heart"></i> 2</span></div>
+											<a class="list_reply reply_symph" data-role="ele-after"
+												onclick="location.href='/service/board/image/18075912?od=T31&po=0&category=1000049&groupCd=#comment-point'">
+												<span class="rSymph05"><i class="fa fa-comment"></i> 3</span>
+												<strong class="color_red" data-role="observeCmCount"></strong>
+												<strong class="color_red" data-role="recentCmCount"></strong>
+											</a>
+										</div>
+										<div class="list_author" data-role="list-author">
+											<span class="memo none" data-role="list_memo"></span>
+
+
+											<span class="nickname"">
+			 
+					<span title=" 0테니스왕자0">0테니스왕자0</span>
+											</span>
+
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+							<div class="card_item " data-role="list-row" data-author-id="mathkr"
+								data-board-sn="18075241" data-comment-count="3">
+								<a class="card_image" data-role="card-content"
+									href="https://www.clien.net/service/board/image/18075241?od=T31&amp;po=0&amp;category=1000049&amp;groupCd=">
+									<span class="list_stare" style="display: none;" data-role="observeIcon"><i
+											class="fa fa-eye"></i></span>
+									<span class="icon-gif" alt="/F01/14126492/17c3a66647d69e.jpg"></span>
+									<div class="img_box">
+										<img src="https://edgio.clien.net/F01/14126492/17c3a66647d69e.jpg?scale=width%5B480%5D,options%5Blimit%5D"
+											alt="서울야경 사진" width="auto"
+											onerror="this.src='/service/image/image_thnoimage.png'">
+									</div>
+								</a>
+								<div class="card_contents">
+									<a class="card_subject"
+										href="https://www.clien.net/service/board/image/18075241?od=T31&amp;po=0&amp;category=1000049&amp;groupCd="
+										data-role="cut-string">
+
+										<span class="subject_category">인물</span>
+										<span title="서울야경">서울야경</span>
+										<div class="card_preview"><span>좋네요. 테이크아웃해서 야경보며 저녁먹고 돌아가는 길입니다. ^^</span>
+										</div>
+									</a>
+									<div class="list_time">
+										<span class="time popover">05-11<span class="timestamp">2023-05-11
+												22:00:43</span></span>
+									</div>
+									<div class="list_active">
+										<div class="button_active symph_row">
+											<div class="list_symph view_symph" data-role="list-like-count"><span><i
+														class="fa fa-heart"></i> 5</span></div>
+											<a class="list_reply reply_symph" data-role="ele-after"
+												onclick="location.href='/service/board/image/18075241?od=T31&po=0&category=1000049&groupCd=#comment-point'">
+												<span class="rSymph05"><i class="fa fa-comment"></i> 3</span>
+												<strong class="color_red" data-role="observeCmCount"></strong>
+												<strong class="color_red" data-role="recentCmCount"></strong>
+											</a>
+										</div>
+										<div class="list_author" data-role="list-author">
+											<span class="memo none" data-role="list_memo"></span>
+
+
+											<span class="nickname"">
+			 
+					<span title=" kayfc">kayfc</span>
+											</span>
+
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+							<div class="card_item " data-role="list-row" data-author-id="skygogoso"
+								data-board-sn="18073553" data-comment-count="2">
+								<a class="card_image" data-role="card-content"
+									href="https://www.clien.net/service/board/image/18073553?od=T31&amp;po=0&amp;category=1000049&amp;groupCd=">
+									<span class="list_stare" style="display: none;" data-role="observeIcon"><i
+											class="fa fa-eye"></i></span>
+									<span class="icon-gif" alt="/F01/14123884/177c97e9c53a10.jpg"></span>
+									<div class="img_box">
+										<img src="https://edgio.clien.net/F01/14123884/177c97e9c53a10.jpg?scale=width%5B480%5D,options%5Blimit%5D"
+											alt="꽃바구니 사진" width="auto"
+											onerror="this.src='/service/image/image_thnoimage.png'">
+									</div>
+								</a>
+								<div class="card_contents">
+									<a class="card_subject"
+										href="https://www.clien.net/service/board/image/18073553?od=T31&amp;po=0&amp;category=1000049&amp;groupCd="
+										data-role="cut-string">
+
+										<span class="subject_category">인물</span>
+										<span title="꽃바구니">꽃바구니</span>
+										<div class="card_preview"><span> 며칠 전이 어버이날이었지요. 고운 손이 있어 덜 외로울 것 같아요.</span>
+										</div>
+									</a>
+									<div class="list_time">
+										<span class="time popover">05-11<span class="timestamp">2023-05-11
+												00:17:25</span></span>
+									</div>
+									<div class="list_active">
+										<div class="button_active symph_row">
+											<div class="list_symph view_symph" data-role="list-like-count"><span><i
+														class="fa fa-heart"></i> 11</span></div>
+											<a class="list_reply reply_symph" data-role="ele-after"
+												onclick="location.href='/service/board/image/18073553?od=T31&po=0&category=1000049&groupCd=#comment-point'">
+												<span class="rSymph05"><i class="fa fa-comment"></i> 2</span>
+												<strong class="color_red" data-role="observeCmCount"></strong>
+												<strong class="color_red" data-role="recentCmCount"></strong>
+											</a>
+										</div>
+										<div class="list_author" data-role="list-author">
+											<span class="memo none" data-role="list_memo"></span>
+
+
+											<span class="nickname"">
+			 
+					<span title=" 새솔">새솔</span>
+											</span>
+
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+							<div class="card_item " data-role="list-row" data-author-id="lvodman"
+								data-board-sn="18055464" data-comment-count="5">
+								<a class="card_image" data-role="card-content"
+									href="https://www.clien.net/service/board/image/18055464?od=T31&amp;po=0&amp;category=1000049&amp;groupCd=">
+									<span class="list_stare" style="display: none;" data-role="observeIcon"><i
+											class="fa fa-eye"></i></span>
+									<span class="icon-gif" alt="/F01/14094311/14694bd0e4a3bd.jpeg"></span>
+									<div class="img_box">
+										<img src="https://edgio.clien.net/F01/14094311/14694bd0e4a3bd.jpeg?scale=width%5B480%5D,options%5Blimit%5D"
+											alt="박경리 선생님 사진" width="auto"
+											onerror="this.src='/service/image/image_thnoimage.png'">
+									</div>
+								</a>
+								<div class="card_contents">
+									<a class="card_subject"
+										href="https://www.clien.net/service/board/image/18055464?od=T31&amp;po=0&amp;category=1000049&amp;groupCd="
+										data-role="cut-string">
+
+										<span class="subject_category">인물</span>
+										<span title="박경리 선생님">박경리 선생님</span>
+										<div class="card_preview"><span>통영에 간 김에 박경리기념관엘 다녀왔습니다. 2층 잔디밭에 선생님 동상이 있길래 한
+												컷. </span></div>
+									</a>
+									<div class="list_time">
+										<span class="time popover">04-30<span class="timestamp">2023-04-30
+												23:49:17</span></span>
+									</div>
+									<div class="list_active">
+										<div class="button_active symph_row">
+											<div class="list_symph view_symph" data-role="list-like-count"><span><i
+														class="fa fa-heart"></i> 11</span></div>
+											<a class="list_reply reply_symph" data-role="ele-after"
+												onclick="location.href='/service/board/image/18055464?od=T31&po=0&category=1000049&groupCd=#comment-point'">
+												<span class="rSymph05"><i class="fa fa-comment"></i> 5</span>
+												<strong class="color_red" data-role="observeCmCount"></strong>
+												<strong class="color_red" data-role="recentCmCount"></strong>
+											</a>
+										</div>
+										<div class="list_author" data-role="list-author">
+											<span class="memo none" data-role="list_memo"></span>
+
+
+											<span class="nickname"">
+			 
+				<img src=" https://edgio.clien.net/F94/1089415/d6c3d31f58b34409bfb.gif" alt="버리곰탱" title="버리곰탱">
+											</span>
+
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+							<div class="card_item " data-role="list-row" data-author-id="lsw2250"
+								data-board-sn="18018736" data-comment-count="1">
+								<a class="card_image" data-role="card-content"
+									href="https://www.clien.net/service/board/image/18018736?od=T31&amp;po=0&amp;category=1000049&amp;groupCd=">
+									<span class="list_stare" style="display: none;" data-role="observeIcon"><i
+											class="fa fa-eye"></i></span>
+									<span class="icon-gif" alt="/F01/14037379/e93025254d47b.jpg"></span>
+									<div class="img_box">
+										<img src="https://edgio.clien.net/F01/14037379/e93025254d47b.jpg?scale=width%5B480%5D,options%5Blimit%5D"
+											alt="봄 생각나는 사진. 사진" width="auto"
+											onerror="this.src='/service/image/image_thnoimage.png'">
+									</div>
+								</a>
+								<div class="card_contents">
+									<a class="card_subject"
+										href="https://www.clien.net/service/board/image/18018736?od=T31&amp;po=0&amp;category=1000049&amp;groupCd="
+										data-role="cut-string">
+
+										<span class="subject_category">인물</span>
+										<span title="봄 생각나는 사진.">봄 생각나는 사진.</span>
+										<div class="card_preview"><span> a7m3 + Samyang 50mm f1.4</span></div>
+									</a>
+									<div class="list_time">
+										<span class="time popover">04-11<span class="timestamp">2023-04-11
+												23:26:35</span></span>
+									</div>
+									<div class="list_active">
+										<div class="button_active symph_row">
+											<div class="list_symph view_symph" data-role="list-like-count"><span><i
+														class="fa fa-heart"></i> 7</span></div>
+											<a class="list_reply reply_symph" data-role="ele-after"
+												onclick="location.href='/service/board/image/18018736?od=T31&po=0&category=1000049&groupCd=#comment-point'">
+												<span class="rSymph05"><i class="fa fa-comment"></i> 1</span>
+												<strong class="color_red" data-role="observeCmCount"></strong>
+												<strong class="color_red" data-role="recentCmCount"></strong>
+											</a>
+										</div>
+										<div class="list_author" data-role="list-author">
+											<span class="memo none" data-role="list_memo"></span>
+
+
+											<span class="nickname"">
+			 
+					<span title=" 천향-">천향-</span>
+											</span>
+
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+							<div class="card_item " data-role="list-row" data-author-id="wlgur64"
+								data-board-sn="18014962" data-comment-count="3">
+								<a class="card_image" data-role="card-content"
+									href="https://www.clien.net/service/board/image/18014962?od=T31&amp;po=0&amp;category=1000049&amp;groupCd=">
+									<span class="list_stare" style="display: none;" data-role="observeIcon"><i
+											class="fa fa-eye"></i></span>
+									<span class="icon-gif" alt="/F01/14031327/e151979ab39d3.jpeg"></span>
+									<div class="img_box">
+										<img src="https://edgio.clien.net/F01/14031327/e151979ab39d3.jpeg?scale=width%5B480%5D,options%5Blimit%5D"
+											alt="어디서나 당당하게 걷기 사진" width="auto"
+											onerror="this.src='/service/image/image_thnoimage.png'">
+									</div>
+								</a>
+								<div class="card_contents">
+									<a class="card_subject"
+										href="https://www.clien.net/service/board/image/18014962?od=T31&amp;po=0&amp;category=1000049&amp;groupCd="
+										data-role="cut-string">
+
+										<span class="subject_category">인물</span>
+										<span title="어디서나 당당하게 걷기">어디서나 당당하게 걷기</span>
+										<div class="card_preview"><span>기존 쓰던 카메라를 망가트려버리고.. 오랜만에 시그마 DP2M을 꺼내봤습니다
+												🙂</span></div>
+									</a>
+									<div class="list_time">
+										<span class="time popover">04-10<span class="timestamp">2023-04-10
+												09:00:37</span></span>
+									</div>
+									<div class="list_active">
+										<div class="button_active symph_row">
+											<div class="list_symph view_symph" data-role="list-like-count"><span><i
+														class="fa fa-heart"></i> 2</span></div>
+											<a class="list_reply reply_symph" data-role="ele-after"
+												onclick="location.href='/service/board/image/18014962?od=T31&po=0&category=1000049&groupCd=#comment-point'">
+												<span class="rSymph05"><i class="fa fa-comment"></i> 3</span>
+												<strong class="color_red" data-role="observeCmCount"></strong>
+												<strong class="color_red" data-role="recentCmCount"></strong>
+											</a>
+										</div>
+										<div class="list_author" data-role="list-author">
+											<span class="memo none" data-role="list_memo"></span>
+
+
+											<span class="nickname"">
+			 
+				<img src=" https://edgio.clien.net/F94/1092707/d3e2861918dd44eaa35.gif" alt="Lavient" title="Lavient">
+											</span>
+
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+							<div class="card_item " data-role="list-row" data-author-id="paulshole"
+								data-board-sn="18014633" data-comment-count="7">
+								<a class="card_image" data-role="card-content"
+									href="https://www.clien.net/service/board/image/18014633?od=T31&amp;po=0&amp;category=1000049&amp;groupCd=">
+									<span class="list_stare" style="display: none;" data-role="observeIcon"><i
+											class="fa fa-eye"></i></span>
+									<span class="icon-gif" alt="/F01/14030794/df39b895cd8c8.jpg"></span>
+									<div class="img_box">
+										<img src="https://edgio.clien.net/F01/14030794/df39b895cd8c8.jpg?scale=width%5B480%5D,options%5Blimit%5D"
+											alt="우하단 사람좀 지워주실분.. 사진" width="auto"
+											onerror="this.src='/service/image/image_thnoimage.png'">
+									</div>
+								</a>
+								<div class="card_contents">
+									<a class="card_subject"
+										href="https://www.clien.net/service/board/image/18014633?od=T31&amp;po=0&amp;category=1000049&amp;groupCd="
+										data-role="cut-string">
+
+										<span class="subject_category">인물</span>
+										<span title="우하단 사람좀 지워주실분..">우하단 사람좀 지워주실분..</span>
+										<div class="card_preview"><span>혹시 가능할까요 능력자님들!</span></div>
+									</a>
+									<div class="list_time">
+										<span class="time popover">04-09<span class="timestamp">2023-04-09
+												22:45:35</span></span>
+									</div>
+									<div class="list_active">
+										<div class="button_active symph_row">
+											<div class="list_symph view_symph" data-role="list-like-count"><span><i
+														class="fa fa-heart"></i> 1</span></div>
+											<a class="list_reply reply_symph" data-role="ele-after"
+												onclick="location.href='/service/board/image/18014633?od=T31&po=0&category=1000049&groupCd=#comment-point'">
+												<span class="rSymph05"><i class="fa fa-comment"></i> 7</span>
+												<strong class="color_red" data-role="observeCmCount"></strong>
+												<strong class="color_red" data-role="recentCmCount"></strong>
+											</a>
+										</div>
+										<div class="list_author" data-role="list-author">
+											<span class="memo none" data-role="list_memo"></span>
+
+
+											<span class="nickname"">
+			 
+				<img src=" https://edgio.clien.net/F94/1090492/5504f0f90c9a4072a55.gif" alt="PROZAC" title="PROZAC">
+											</span>
+
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+
+					<div class="list_button_area">
+						<a href="javascript:;" class="button_next_page" onclick="paging.getBoard('side_plus')"><span
+								class="button_name">다음페이지</span><i class="fa fa-caret-right"></i></a>
+
+
+
+						<div class="board-pagination">
+							<div class="board-nav">
+
+
+
+
+								<div class="board-nav-area">
+									<a href="javascript:paging.getBoard('direct', 0);" id="pagingActiveId_1"
+										class="board-nav-page">1</a>
+									<a href="javascript:paging.getBoard('direct', 1);" id="pagingActiveId_2"
+										class="board-nav-page">2</a>
+									<a href="javascript:paging.getBoard('direct', 2);" id="pagingActiveId_3"
+										class="board-nav-page">3</a>
+									<a href="javascript:paging.getBoard('direct', 3);" id="pagingActiveId_4"
+										class="board-nav-page">4</a>
+									<a href="javascript:paging.getBoard('direct', 4);" id="pagingActiveId_5"
+										class="board-nav-page">5</a>
+									<a href="javascript:paging.getBoard('direct', 5);" id="pagingActiveId_6"
+										class="board-nav-page">6</a>
+									<a href="javascript:paging.getBoard('direct', 6);" id="pagingActiveId_7"
+										class="board-nav-page">7</a>
+									<a href="javascript:paging.getBoard('direct', 7);" id="pagingActiveId_8"
+										class="board-nav-page">8</a>
+									<a href="javascript:paging.getBoard('direct', 8);" id="pagingActiveId_9"
+										class="board-nav-page">9</a>
+									<a href="javascript:paging.getBoard('direct', 9);" id="pagingActiveId_10"
+										class="board-nav-page">10</a>
+								</div>
+
+								<a href="javascript:paging.getBoard('direct', 10);" class="board-nav-next">다음</a>
+
+							</div>
+						</div>
+
+						<input type="hidden" value="1" id="startPagePo">
+
+						<script>
+							var num = 0 + 1;
+							var activeId = 'pagingActiveId_' + num.toString();
+							document.getElementById(activeId).className += " active";
+						</script>
+
+						<div class="button_post">
+
+							<div class="action_write" data-role="dropdown-write-article">
+								<a href="javascript:;" class="action_icon fix blue tooltip">
+									<span class="fa fa-pencil button_icon"></span>
+									<span class="tooltiptext">글쓰기</span>
+								</a>
+
+								<div class="dropdown-menu post_menu" data-role="select-depth"
+									data-action="/service/board/regist">
+									<div class="post_menu_title">사진게시판 게시판</div>
+									<ul class="post_menu_list">
+
+
+										<li><a href="javascript:;" onclick="ui.moveWriteGroupPage('hongbo')">직접홍보</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+
+
+				</div>
+			</div>
+
+
+
+		</div>
+		<div class="aside">
+
+
+
+
+
+
+		</div>
+	</div>
+
+
+
+	<script>
+		var today = new Date();
+		document.getElementById("nowYear").innerHTML = today.getFullYear();
+
+		function deleteViewCookie() {
+			var expire = new Date();
+			expire.setDate(expire.getDate() - 1);
+			cookies = "P2M=; domain=.clien.net; path=/; expires=" + expire.toGMTString() + ";";
+			document.cookie = cookies;
+
+			var url = document.location.href;
+			url = url.replace("www", "m");
+			location.href = url;
+		}
+	</script>
+
+	<script src="../js/lib/jquery-1.11.1.min.js"></script>
+	<script src="../js/lib/jquery-ui.min.js"></script>
+	<script src="../js/lib/isMobile.min.js"></script>
+	<script src="../js/lib/cl.dropmenu.js"></script>
+	<script src="../js/lib/jquery.extend.js"></script>
+	<script src="../js/lib/jquery.cookie.js"></script>
+
+	<script>
+		var IS_DEBUG = false;
+		var BASE_URL = "/service";
+		var API_HOST = "/service/api";
+		var CDN_URL = "https://edgio.clien.net";
+		var COOKIE_DOMAIN = "clien.net";
+
+		var IS_LOGIN = false;
+		var sessionUserId = '';
+
+
+		var IsMobile = false;
+
+
+		var PAGE_SETTING_THEME = "";
+		var PAGE_SETTING_FONT_SIZE = "";
+		var PAGE_SETTING_KIND_OF_FONT = "";
+		var PAGE_SETTING_SHORT_CUT = "";
+		var PAGE_SETTING_LIST_SIZE = "";
+
+		PAGE_SETTING_THEME = "white";
+		PAGE_SETTING_FONT_SIZE = "normal";
+		PAGE_SETTING_KIND_OF_FONT = "basic";
+		PAGE_SETTING_SHORT_CUT = "on";
+		PAGE_SETTING_LIST_SIZE = "normal";
+
+		var HONGBO_IMG_PARAMETER = "?scale=width[320],options[limit]";
+		var COMMENT_IMG_PARAMETER = "?scale=width[480],options[limit]";
+		var IMG_PARAMETER = "?scale=width[740],options[limit]";
+
+		var keyData = new Object();
+		keyData[""] = "/service/group/board_all";
+		keyData["c"] = "/service/group/community";
+		keyData["f"] = "/service/board/park";
+		keyData["i"] = "/service/board/image";
+		keyData["q"] = "/service/board/kin";
+		keyData["d"] = "/service/group/allinfo";
+		keyData["n"] = "/service/board/news";
+		keyData["t"] = "/service/board/useful";
+		keyData["p"] = "/service/board/pds";
+		keyData["e"] = "/service/group/allreview";
+		keyData["l"] = "/service/board/lecture";
+		keyData["u"] = "/service/board/use";
+		keyData[""] = "/service/board/chehum";
+		keyData["w"] = "/service/group/allsell";
+		keyData["j"] = "/service/board/jirum";
+		keyData["s"] = "/service/board/sold";
+		keyData["b"] = "/service/board/hongbo";
+		keyData[""] = "/service/group/insure";
+		keyData["h"] = "/service/";
+		keyData[""] = "/service/group/cm_all";
+		keyData[""] = "/service/somoim";
+		keyData[""] = "/service/board/cm_main";
+		keyData[""] = "/service/board/cm_cat";
+		keyData[""] = "/service/board/cm_dog";
+		keyData[""] = "/service/board/cm_fish";
+		keyData[""] = "/service/board/cm_app";
+		keyData[""] = "/service/board/cm_note";
+		keyData[""] = "/service/board/cm_redeem";
+		keyData[""] = "/service/board/cm_stock";
+		keyData[""] = "/service/board/cm_vcoin";
+		keyData[""] = "/service/board/cm_venture";
+		keyData[""] = "/service/board/cm_lang";
+		keyData[""] = "/service/board/cm_wine";
+		keyData[""] = "/service/board/cm_cook";
+		keyData[""] = "/service/board/cm_food";
+		keyData[""] = "/service/board/cm_simsik";
+		keyData[""] = "/service/board/cm_iphonien";
+		keyData[""] = "/service/board/cm_mac";
+		keyData[""] = "/service/board/cm_bike";
+		keyData[""] = "/service/board/cm_nas";
+		keyData[""] = "/service/board/cm_andro";
+		keyData[""] = "/service/board/cm_keyboard";
+		keyData[""] = "/service/board/cm_airplane";
+		keyData[""] = "/service/board/cm_formula1";
+		keyData[""] = "/service/board/cm_pctuning";
+		keyData[""] = "/service/board/cm_iot";
+		keyData[""] = "/service/board/cm_applewatch";
+		keyData[""] = "/service/board/cm_mbike";
+		keyData[""] = "/service/board/cm_watch";
+		keyData[""] = "/service/board/cm_rasp";
+		keyData[""] = "/service/board/cm_slate";
+		keyData[""] = "/service/board/cm_ebook";
+		keyData[""] = "/service/board/cm_blockchain";
+		keyData[""] = "/service/board/cm_thinkpad";
+		keyData[""] = "/service/board/cm_bb";
+		keyData[""] = "/service/board/cm_tpad";
+		keyData[""] = "/service/board/cm_drone";
+		keyData[""] = "/service/board/cm_nokien";
+		keyData[""] = "/service/board/cm_ebicycle";
+		keyData[""] = "/service/board/cm_tiwatch";
+		keyData[""] = "/service/board/cm_webos";
+		keyData[""] = "/service/board/cm_wp";
+		keyData[""] = "/service/board/cm_aigurim";
+		keyData[""] = "/service/board/cm_ai";
+		keyData[""] = "/service/board/cm_console";
+		keyData[""] = "/service/board/cm_werule";
+		keyData[""] = "/service/board/cm_dia";
+		keyData[""] = "/service/board/cm_steam";
+		keyData[""] = "/service/board/cm_poe";
+		keyData[""] = "/service/board/cm_kordle";
+		keyData[""] = "/service/board/cm_lol";
+		keyData[""] = "/service/board/cm_heroes";
+		keyData[""] = "/service/board/cm_gemwar";
+		keyData[""] = "/service/board/cm_board";
+		keyData[""] = "/service/board/";
+		keyData[""] = "/service/board/cm_dongsup";
+		keyData[""] = "/service/board/cm_civilize";
+		keyData[""] = "/service/board/cm_cookierun";
+		keyData[""] = "/service/board/cm_eve";
+		keyData[""] = "/service/board/cm_fm";
+		keyData[""] = "/service/board/cm_gta";
+		keyData[""] = "/service/board/cm_gun";
+		keyData[""] = "/service/board/cm_hearth";
+		keyData[""] = "/service/board/cm_mabi";
+		keyData[""] = "/service/board/cm_mine";
+		keyData[""] = "/service/board/cm_mtg";
+		keyData[""] = "/service/board/cm_rhythm";
+		keyData[""] = "/service/board/cm_sim";
+		keyData[""] = "/service/board/cm_star";
+		keyData[""] = "/service/board/cm_wow";
+		keyData[""] = "/service/board/cm_keyboard";
+		keyData[""] = "/service/board/cm_rowing";
+		keyData[""] = "/service/board/cm_lego";
+		keyData[""] = "/service/board/cm_ku";
+		keyData[""] = "/service/board/cm_dduk";
+		keyData[""] = "/service/board/cm_wine";
+		keyData[""] = "/service/board/cm_onair";
+		keyData[""] = "/service/board/cm_book";
+		keyData[""] = "/service/board/cm_photo";
+		keyData[""] = "/service/board/cm_3dmaking";
+		keyData[""] = "/service/board/cm_ebook";
+		keyData[""] = "/service/board/cm_midra";
+		keyData[""] = "/service/board/cm_surfing";
+		keyData[""] = "/service/board/cm_military";
+		keyData[""] = "/service/board/cm_classic";
+		keyData[""] = "/service/board/cm_drone";
+		keyData[""] = "/service/board/cm_fisher";
+		keyData[""] = "/service/board/cm_movie";
+		keyData[""] = "/service/board/cm_baby";
+		keyData[""] = "/service/board/cm_glasses";
+		keyData[""] = "/service/board/cm_edc";
+		keyData[""] = "/service/board/cm_danger";
+		keyData[""] = "/service/board/cm_adhd";
+		keyData[""] = "/service/board/cm_fashion";
+		keyData[""] = "/service/board/cm_japanlive";
+		keyData[""] = "/service/board/cm_oversea";
+		keyData[""] = "/service/board/cm_daegu";
+		keyData[""] = "/service/board/cm_instar";
+		keyData[""] = "/service/board/cm_solo";
+		keyData[""] = "/service/board/cm_70";
+		keyData[""] = "/service/board/cm_fisher";
+		keyData[""] = "/service/board/cm_twit";
+		keyData[""] = "/service/board/cm_bts";
+		keyData[""] = "/service/board/cm_girl";
+		keyData[""] = "/service/board/cm_music";
+		keyData[""] = "/service/board/cm_classic";
+		keyData[""] = "/service/board/cm_kara";
+		keyData[""] = "/service/board/cm_bts";
+		keyData[""] = "/service/board/cm_girlgroup";
+		keyData[""] = "/service/board/cm_girl";
+		keyData[""] = "/service/board/cm_kara";
+		keyData[""] = "/service/board/cm_bike";
+		keyData[""] = "/service/board/cm_golf";
+		keyData[""] = "/service/board/cm_rowing";
+		keyData[""] = "/service/board/cm_soccer";
+		keyData[""] = "/service/board/cm_baseball";
+		keyData[""] = "/service/board/cm_gym";
+		keyData[""] = "/service/board/cm_swim";
+		keyData[""] = "/service/board/cm_billiards";
+		keyData[""] = "/service/board/cm_surfing";
+		keyData[""] = "/service/board/cm_snow";
+		keyData[""] = "/service/board/cm_badmin";
+		keyData[""] = "/service/board/cm_basket";
+		keyData[""] = "/service/board/cm_mount";
+		keyData[""] = "/service/board/cm_sea";
+		keyData[""] = "/service/board/cm_tennis";
+		keyData[""] = "/service/board/cm_camp";
+		keyData[""] = "/service/board/cm_tour";
+
+
+		$.ajaxSetup({
+			beforeSend: function (xhr, settings) {
+				if (settings.type == 'POST' || settings.type == 'PUT' || settings.type == 'DELETE') {
+					if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+						xhr.setRequestHeader("X-CSRF-TOKEN", "066e4515-17c7-4450-aa61-6e8d1b3da195");
+					}
+				}
+			}
+		});
+
+		setTimeout(function () {
+			var height = $('#div_content').outerHeight();
+			$("#sideBarHeight").css("height", height);
+		}, 2000);
+
+	</script>
+
+	<script src="../js/common/clien.storage%EF%B9%960503v1.js"></script>
+	<script src="../js/common/clien.alarm%EF%B9%960503v1.js"></script>
+	<script src="../js/common/clien.auth%EF%B9%960503v1.js"></script>
+	<script src="../js/common/clien.paging%EF%B9%960503v1.js"></script>
+	<script src="../js/common/clien.util%EF%B9%960503v1.js"></script>
+	<script src="../js/common/clien.popup%EF%B9%960503v1.js"></script>
+	<script src="../js/common/clien.setting%EF%B9%960503v1.js"></script>
+	<script src="../js/common/clien.search%EF%B9%960503v1.js"></script>
+
+	<script src="../js/app/clien.agent%EF%B9%960503v1.js"></script>
+	<script src="../js/app/clien.ui%EF%B9%960503v1.js"></script>
+
+	<script>
+		function detectBlockers() {
+			var ad = document.createElement('div');
+			ad.innerHTML = '&nbsp;';
+			ad.className = 'adsbox';
+			ad.style.position = 'absolute';
+			ad.style.fontSize = '0';
+			ad.style.height = '10px';
+			ad.style.width = '10px';
+			ad.style.zIndex = '-1000';
+			ad.style.top = '-1000px';
+			document.body.appendChild(ad);
+
+			setTimeout(function () {
+				if (ad.offsetHeight === 0) {
+					trackBlockerUsage();
+					console.log("adBolckUse");
+				}
+				document.body.removeChild(ad);
+			}, 100);
+		}
+
+		function trackBlockerUsage() {
+			if (typeof gtag !== 'undefined') {
+				gtag('event', 'adblocker_detected', {
+					'event_category': 'adblocker',
+					'event_label': 'Ad Blocker Usage'
+				});
+			}
+		}
+
+		window.onload = detectBlockers;
+	</script>
+
+
+	<input type="hidden" value="L12" id="confListType">
+	<input type="hidden" value="true" id="hongboUseYn"> <input type="hidden" value="0" id="po">
+	<input type="hidden" value="T31" id="od">
+	<input type="hidden" value="" id="sk">
+	<input type="hidden" value="" id="sv">
+	<input type="hidden" value="1000049" id="voCategory">
+
+	<input type="hidden" value="false" id="isGroup">
+	<input type="hidden" value="" id="groupCd">
+	<input type="hidden" value="image" id="boardCd">
+	<input type="hidden" value="사진게시판" id="boardName">
+	<input type="hidden" value="false" id="searchIsVaild">
+	<input type="hidden" value="0" id="pt">
+
+	<script src="../js/lib/mark.min.js"></script>
+	<script src="../js/lib/chart.min.js"></script>
+
+	<script src="../js/app/clien.hongbo%EF%B9%960503v1.js"></script>
+	<script src="../js/common/clien.dashboard%EF%B9%960503v1.js"></script>
+
+
+	<script src="../js/app/pageJs/list%EF%B9%960503v1.js"></script>
+	<script src="../js/common/clien.observe%EF%B9%960503v1.js"></script>
+</body>
+
+</html>

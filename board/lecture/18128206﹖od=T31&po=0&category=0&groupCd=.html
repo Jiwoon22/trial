@@ -1,0 +1,3705 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+
+<head>
+	<title>유니티로 간단한 게임 만들기 : 크롤링테스트</title>
+	<link rel="amphtml" href="">
+
+	<meta name="description"
+		content="안녕하세요? 유니티로 빠르게 간단한 게임을 만들어보는 강의를 준비했습니다 😊 이번에 만들 게임은 aa 라고 하는 요상한 제목을 가졌는데요. 놀랍게도 전세계적으로 5,000 만 이상의 다운로드를 기록한 간단하면서도 재밌는 게임이랍니다. 플레이 모습은 이런데요. 화면을 터치해서 빙글빙글 돌아가는 동그라미에 작은 동그라미를 쏩니다. GIF 그러면 마치 핀이 꽂히는 것처럼 작은 동그라미가 큰 동그라미에 달라붙고 함께 돌게 돼요. 이렇게 모든 동그라미를 쏴서 맞히는 것이 목표입니다. GIF 하지만 작은 동그라미끼리 부딪치게 되면 그 즉시 게임은 끝나게 돼요 GIF 무척 간단하죠? 레벨이 올라갈수록 돌아가는 속도가 달라지거나 방향이 바뀌거나 목표가 높아지는 등 난이도가 높아지는데, 빠르게 돌아가는 동그라미의 좁은 틈 사이로 쏙 하고 집어 넣게 되면 짜릿한 쾌감마저 느낄 수 있답니다 🤣 찾아보니 같은 아이디어를 빌려서 만든 게임도 있더라구요 그래픽이 들어가니 또 새로운 재미가 있는듯도 합니다. GIF aa 는 상대적으로 만들기가 수월한 게임입니다. 게임 이미지를 구할 필요가 없거든요 딱 원하는 게임 이미지 구하는게 참 힘든데 aa 는 단색 배경에 까만색 동그라미, 선이면 충분합니다. 그럼 먼저 게임 배경을 만들어볼게요. 유니티에서 배경은 카메라 선택하고 원하는 색으로 바꿔주면 끝이에요. 이번에는 동그라미를 만들고 색을 까맣게 해줍니다. 크기를 적당히 조정하고 화면 조금 윗쪽에 배치시켜볼게요. 여기에 작은 동그라미를 마구 쏠 겁니다. 일단 한 번 빙글빙글 돌려볼까요? 그냥 돌리면 티가 나지 않으니 확인을 위해 작은 하얀 동그라미를 하나 붙여볼게요. 스크립트로 간단하게 transform.Rotate() 메소드를 써서 돌려봤더니 빙글빙글 잘 도네요. GIF 이번에는 작은 동그라미, 우리가 쏠 녀석을 만들어볼게요. 편의상 핀(Pin)이라고 하겠습니다. 큰 동그라미때와 같은 방식으로 작은 동그라미를 만들구요. 윗쪽 방향으로 슉 올라가도록 스크립트를 적용하겠습니다. 나중에는 마우스로 클릭하면 이렇게 슉 쏘는 형태가 될 거에요. GIF 이제는 충돌 처리를 해볼까요? 작은 동그라미가 올라가다가 큰 동그라미와 닿으면 그 즉시 멈추고 큰 동그라미에 달라붙어서 함께 빙글빙글 돌아가면 되겠네요. 큰 동그라미, 작은 동그라미에 충돌 영역을 설정하기 위해 Circle Collider 2D 컴포넌트를 추가합니다. 물리법칙을 적용하기 위해 Rigidbody 2D 컴포넌트도 추가해주세요. 스크립트에서 충돌 됐을 때 작은 동그라미가 큰 동그라미에 달라붙도록 하기 위해서는 transform.SetParent() 를 쓰면 됩니다. GIF 잘 붙네요! 그런데 원래 게임에서는 두 동그라미가 이렇게 직접 맞닿지는 않았습니다. 그리고 둘을 서로 연결하는 길쭉한 선이 있었지요? 이 부분은 어떻게 처리할까 고민하다가 그냥 큰 동그라미의 충돌 영역을 조금 키워주기로 합니다. 그러면 동그라미와 다소 떨어져 있어도 이 곳에서 작은 동그라미는 멈추게 되겠지요. 그리고 작은 동그라미에는 충돌 영역이 없는 선을 하나 만들어줍니다. 처음에는 선을 안 보이게 숨겼다가 큰 동그라미와 충돌하게 되면 그때 이 선을 보여줄거에요. 감쪽같죠? GIF 지금까지는 핀을 하나만 쐈었는데 이번에는 마우스를 클릭해서 여러개를 쏠 수 있도록 해보겠습니다. 똑같은 형태의 핀을 여러 번 중복해서 만들기 위해서 핀을 프리팹으로 관리할게요. 프리팹은 마치 주문제작과 비슷하다고 생각하시면 됩니다. 어느 회사에서 단체로 옷을 맞추기로 한다면 업체에 디자인을 보내서 먼저 샘플을 만들어 볼겁니다. 그런 다음에 색이나 모양 등이 마음이 드는지 보고 필요하면 수정을 거듭해서 최종적으로 마음에 드는 결과물을 만들겠죠. 그때부터는 그 결과물과 똑같은 옷을 회사에서 주문하는 만큼 여러 벌 만들게 될겁니다. 프리팹도 동일해요. 어떤 게임 오브젝트(여기서는 핀)를 만들어서 크기와 모양 색깔, 충돌 영역 등 다양한 속성을 원하는 만큼 수정한 다음에 이와 똑같은 게임 오브젝트를 여러 개 만들 수 있도록 하기 위한 것이 바로 프리팹입니다. 총알이나 미사일, 아이템이나 적 캐릭터 등 여러 번 등장하는 것들은 매번 새롭게 만들 필요 없이 하나를 잘 만들어둔 다음에 복사해서 쓰면 되는 것이죠! 핀 프리팹을 만든 다음 정해진 위치(화면 아래)에서 핀이 만들어지도록 합니다. 마우스로 클릭해서 준비된 핀을 쏘고 나면 다음 핀을 준비시키도록 하면 되겠네요. GIF 이어서 목표 설정을 하겠습니다. 진짜 게임에서는 큰 동그라미 가운데에 현재 레벨이 숫자로 표시되는데, 우리는 그 위치에 목표로 하는 작은 동그라미의 수를 적도록 할게요. 10이라고 적혀 있으면 10개의 핀을 쏴서 올바로 맞춰야 하는 겁니다. UI - Text 를 이용하면 간단하게 만들 수 있는데, 충돌 처리 부분을 조금 보완해서 핀을 잘 쏜다면 목표 수를 감소 시켜주도록 하겠습니다. GIF 거의 다 왔네요. 이번에는 게임 오버 처리를 하겠습니다. 목표 수 만큼 모든 핀을 큰 동그라미에 올바로 꽂는다면 성공, 다른 핀과 쿵 하고 충돌하게 되면 실패로 끝나는 겁니다. 성공일 때는 배경색을 초록색으로, 실패일 때는 배경색을 빨간색으로 바꿔서 진짜 게임과 동일하게 해볼까요? GIF GIF 성공과 실패, 게임 결과에 따라 색이 잘 표시되는 것을 확인할 수 있네요! 이제는 게임이 끝나면 다시 시작할 수 있는 재시작 버튼을 넣어주겠습니다. UI - Button 을 이용해서 기본 색상에 글자만 키워주도록 할게요. 그리고 이 버튼을 누르면 지금 만들고 있는 이 게임 화면(Scene) 을 다시 로딩해서 새 게임을 시작할 수 있도록 하겠습니다. GIF 훌륭하네요! 마지막으로 난이도 조절을 해볼까요? 그냥 끝내기에는 뭔가 밋밋하고 조금 아쉬운 감이 없잖아 있어요. 왜냐면 한쪽 방향으로 같은 속도로 계속 돌아가니 게임이 너무 쉽거든요. 애니메이션 편집을 이용해서 1초는 빠르게 시계 방향으로, 1초는 느리게 반시계 방향으로 회전하는 것을 반복시켜볼게요. 그러면 잘 돌다가 잠깐 반대로 돌다가, 또 잘 돌다가 반대로 돌다가, 핀을 쏠 타이밍을 잡기 어렵게 되었습니다. GIF 훨씬 더 쫄깃한 맘으로 게임을 할 수 있겠죠? 이렇게 해서 모든 게임이 완성되었습니다. 아주 간편하면서도 재미있는 게임, 어린 자녀분들과 함께 플레이 해보면 정말 좋아할 거예요 😊 (못한다고 놀리거나, 너무 어렵게 만들지는 마세요 ㅋ 울어요... 해봐서 알아요) 게임을 만드는 방법은 이 곳에 하나의 영상으로 소개되어 있습니다. 유니티 게임 개발에 관심 있으신 분들께 도움되면 좋겠습니다! 긴 글 읽어주셔서 감사해요. 행복한 주말 되세요 🙌 GIF" />
+	<meta property="url" content="https://www.clien.net/service/board/lecture/18128206" />
+	<meta property="og:url" content="https://www.clien.net/service/board/lecture/18128206" />
+	<meta property="fb:app_id" content="306479129424503" />
+	<meta property="og:title" content="유니티로 간단한 게임 만들기 : 크롤링테스트" />
+	<meta property="og:description"
+		content="안녕하세요? 유니티로 빠르게 간단한 게임을 만들어보는 강의를 준비했습니다 😊 이번에 만들 게임은 aa 라고 하는 요상한 제목을 가졌는데요. 놀랍게도 전세계적으로 5,000 만 이상의 다운로드를 기록한 간단하면서도 재밌는 게임이랍니다. 플레이 모습은 이런데요. 화면을 터치해서 빙글빙글 돌아가는 동그라미에 작은 동그라미를 쏩니다. GIF 그러면 마치 핀이 꽂히는 것처럼 작은 동그라미가 큰 동그라미에 달라붙고 함께 돌게 돼요. 이렇게 모든 동그라미를 쏴서 맞히는 것이 목표입니다. GIF 하지만 작은 동그라미끼리 부딪치게 되면 그 즉시 게임은 끝나게 돼요 GIF 무척 간단하죠? 레벨이 올라갈수록 돌아가는 속도가 달라지거나 방향이 바뀌거나 목표가 높아지는 등 난이도가 높아지는데, 빠르게 돌아가는 동그라미의 좁은 틈 사이로 쏙 하고 집어 넣게 되면 짜릿한 쾌감마저 느낄 수 있답니다 🤣 찾아보니 같은 아이디어를 빌려서 만든 게임도 있더라구요 그래픽이 들어가니 또 새로운 재미가 있는듯도 합니다. GIF aa 는 상대적으로 만들기가 수월한 게임입니다. 게임 이미지를 구할 필요가 없거든요 딱 원하는 게임 이미지 구하는게 참 힘든데 aa 는 단색 배경에 까만색 동그라미, 선이면 충분합니다. 그럼 먼저 게임 배경을 만들어볼게요. 유니티에서 배경은 카메라 선택하고 원하는 색으로 바꿔주면 끝이에요. 이번에는 동그라미를 만들고 색을 까맣게 해줍니다. 크기를 적당히 조정하고 화면 조금 윗쪽에 배치시켜볼게요. 여기에 작은 동그라미를 마구 쏠 겁니다. 일단 한 번 빙글빙글 돌려볼까요? 그냥 돌리면 티가 나지 않으니 확인을 위해 작은 하얀 동그라미를 하나 붙여볼게요. 스크립트로 간단하게 transform.Rotate() 메소드를 써서 돌려봤더니 빙글빙글 잘 도네요. GIF 이번에는 작은 동그라미, 우리가 쏠 녀석을 만들어볼게요. 편의상 핀(Pin)이라고 하겠습니다. 큰 동그라미때와 같은 방식으로 작은 동그라미를 만들구요. 윗쪽 방향으로 슉 올라가도록 스크립트를 적용하겠습니다. 나중에는 마우스로 클릭하면 이렇게 슉 쏘는 형태가 될 거에요. GIF 이제는 충돌 처리를 해볼까요? 작은 동그라미가 올라가다가 큰 동그라미와 닿으면 그 즉시 멈추고 큰 동그라미에 달라붙어서 함께 빙글빙글 돌아가면 되겠네요. 큰 동그라미, 작은 동그라미에 충돌 영역을 설정하기 위해 Circle Collider 2D 컴포넌트를 추가합니다. 물리법칙을 적용하기 위해 Rigidbody 2D 컴포넌트도 추가해주세요. 스크립트에서 충돌 됐을 때 작은 동그라미가 큰 동그라미에 달라붙도록 하기 위해서는 transform.SetParent() 를 쓰면 됩니다. GIF 잘 붙네요! 그런데 원래 게임에서는 두 동그라미가 이렇게 직접 맞닿지는 않았습니다. 그리고 둘을 서로 연결하는 길쭉한 선이 있었지요? 이 부분은 어떻게 처리할까 고민하다가 그냥 큰 동그라미의 충돌 영역을 조금 키워주기로 합니다. 그러면 동그라미와 다소 떨어져 있어도 이 곳에서 작은 동그라미는 멈추게 되겠지요. 그리고 작은 동그라미에는 충돌 영역이 없는 선을 하나 만들어줍니다. 처음에는 선을 안 보이게 숨겼다가 큰 동그라미와 충돌하게 되면 그때 이 선을 보여줄거에요. 감쪽같죠? GIF 지금까지는 핀을 하나만 쐈었는데 이번에는 마우스를 클릭해서 여러개를 쏠 수 있도록 해보겠습니다. 똑같은 형태의 핀을 여러 번 중복해서 만들기 위해서 핀을 프리팹으로 관리할게요. 프리팹은 마치 주문제작과 비슷하다고 생각하시면 됩니다. 어느 회사에서 단체로 옷을 맞추기로 한다면 업체에 디자인을 보내서 먼저 샘플을 만들어 볼겁니다. 그런 다음에 색이나 모양 등이 마음이 드는지 보고 필요하면 수정을 거듭해서 최종적으로 마음에 드는 결과물을 만들겠죠. 그때부터는 그 결과물과 똑같은 옷을 회사에서 주문하는 만큼 여러 벌 만들게 될겁니다. 프리팹도 동일해요. 어떤 게임 오브젝트(여기서는 핀)를 만들어서 크기와 모양 색깔, 충돌 영역 등 다양한 속성을 원하는 만큼 수정한 다음에 이와 똑같은 게임 오브젝트를 여러 개 만들 수 있도록 하기 위한 것이 바로 프리팹입니다. 총알이나 미사일, 아이템이나 적 캐릭터 등 여러 번 등장하는 것들은 매번 새롭게 만들 필요 없이 하나를 잘 만들어둔 다음에 복사해서 쓰면 되는 것이죠! 핀 프리팹을 만든 다음 정해진 위치(화면 아래)에서 핀이 만들어지도록 합니다. 마우스로 클릭해서 준비된 핀을 쏘고 나면 다음 핀을 준비시키도록 하면 되겠네요. GIF 이어서 목표 설정을 하겠습니다. 진짜 게임에서는 큰 동그라미 가운데에 현재 레벨이 숫자로 표시되는데, 우리는 그 위치에 목표로 하는 작은 동그라미의 수를 적도록 할게요. 10이라고 적혀 있으면 10개의 핀을 쏴서 올바로 맞춰야 하는 겁니다. UI - Text 를 이용하면 간단하게 만들 수 있는데, 충돌 처리 부분을 조금 보완해서 핀을 잘 쏜다면 목표 수를 감소 시켜주도록 하겠습니다. GIF 거의 다 왔네요. 이번에는 게임 오버 처리를 하겠습니다. 목표 수 만큼 모든 핀을 큰 동그라미에 올바로 꽂는다면 성공, 다른 핀과 쿵 하고 충돌하게 되면 실패로 끝나는 겁니다. 성공일 때는 배경색을 초록색으로, 실패일 때는 배경색을 빨간색으로 바꿔서 진짜 게임과 동일하게 해볼까요? GIF GIF 성공과 실패, 게임 결과에 따라 색이 잘 표시되는 것을 확인할 수 있네요! 이제는 게임이 끝나면 다시 시작할 수 있는 재시작 버튼을 넣어주겠습니다. UI - Button 을 이용해서 기본 색상에 글자만 키워주도록 할게요. 그리고 이 버튼을 누르면 지금 만들고 있는 이 게임 화면(Scene) 을 다시 로딩해서 새 게임을 시작할 수 있도록 하겠습니다. GIF 훌륭하네요! 마지막으로 난이도 조절을 해볼까요? 그냥 끝내기에는 뭔가 밋밋하고 조금 아쉬운 감이 없잖아 있어요. 왜냐면 한쪽 방향으로 같은 속도로 계속 돌아가니 게임이 너무 쉽거든요. 애니메이션 편집을 이용해서 1초는 빠르게 시계 방향으로, 1초는 느리게 반시계 방향으로 회전하는 것을 반복시켜볼게요. 그러면 잘 돌다가 잠깐 반대로 돌다가, 또 잘 돌다가 반대로 돌다가, 핀을 쏠 타이밍을 잡기 어렵게 되었습니다. GIF 훨씬 더 쫄깃한 맘으로 게임을 할 수 있겠죠? 이렇게 해서 모든 게임이 완성되었습니다. 아주 간편하면서도 재미있는 게임, 어린 자녀분들과 함께 플레이 해보면 정말 좋아할 거예요 😊 (못한다고 놀리거나, 너무 어렵게 만들지는 마세요 ㅋ 울어요... 해봐서 알아요) 게임을 만드는 방법은 이 곳에 하나의 영상으로 소개되어 있습니다. 유니티 게임 개발에 관심 있으신 분들께 도움되면 좋겠습니다! 긴 글 읽어주셔서 감사해요. 행복한 주말 되세요 🙌 GIF" />
+
+	<meta property="og:image" content="https://edgio.clien.net/F01/14209463/73268b36fc703.gif" />
+
+	<link rel="stylesheet" href="https://www.clien.net/service/js/lib/tribute/tribute.css">
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="referrer" content="unsafe-url">
+	<meta name="viewport" content="width=1280" />
+	<meta name="author" content="크롤링테스트" />
+	<meta name="apple-mobile-web-app-title" content="크롤링테스트">
+
+	<link rel="canonical" href="18128206.html">
+
+	<link rel="stylesheet" href="../../css/font-awesome.min%EF%B9%960510v1.css">
+	<link rel="stylesheet" href="../../css/fontello%EF%B9%960510v1.css">
+
+	<link rel="stylesheet" href="../../css/clien%EF%B9%960515v1.css">
+	<link rel="stylesheet" href="../../css/clien.scheme%EF%B9%960515v1.css">
+
+	<link rel="stylesheet" href="../../css/font-Noto%EF%B9%960510v1.css">
+
+
+
+	<link rel="stylesheet" href="../../css/jquery-ui.css">
+
+	<link rel="shortcut icon" href="../../image/favicon.ico">
+
+	<link rel=apple-touch-icon href="../../image/icon180x180.png" />
+
+
+
+
+
+
+	<script async='async' src='https://www.googletagservices.com/tag/js/gpt.js'></script>
+
+	<script>
+		googletag.cmd.push(function () {
+			googletag.defineSlot('/44950606/cs4-pc-view-center', [300, 250], 'div-pc-view-center').addService(googletag.pubads());
+			googletag.defineSlot('/44950606/cs4-pc-side', [160, 600], 'div-pc-side').addService(googletag.pubads());
+			googletag.pubads().enableSingleRequest();
+			googletag.pubads().setTargeting('board', ["lecture"]);
+			googletag.enableServices();
+		});
+	</script>
+
+</head>
+
+<body>
+
+
+	<div class="back-to-top" id="top"></div>
+	<nav class="header_wrap">
+		<div class="nav_header" data-role="account-open">
+			<h1 class="header_logo" style="color:white">TESTWEB</h1>
+			<a href="#div_content" class="skip_to">본문 바로가기</a>
+			<a href="#menuTop" class="skip_to">메뉴 바로가기</a>
+			<a href="javascript:;" class="skip_to text-large">폰트크기변경</a>
+			<a href="javascript:;" class="skip_to button-dark">색상반전보기</a>
+			<div class="header_menu">
+				<a href="" class="all_view" title="톺아보기 바로가기">톺아보기</a>
+				<a href="" class="all_symph" title="톺아보기의 공감글">공감글</a>
+				<a href="../../recommend.html" class="all_recommend" title="추천글 바로가기">추천글</a>
+			</div>
+
+			<div class="search ad_banner" data-role="total-search">
+				<input type="search" name="search" class="search_input" data-role="total-input-keyword" title="통합검색"
+					placeholder="검색어를 입력하세요." />
+				<button type="button" class="search_button" data-role="total-submit" title="검색하기"><span
+						class="fa fa-search"></span></button>
+			</div>
+
+		</div>
+	</nav>
+
+	<Script>
+
+		var setEventDay = [{ month: 3, day: 1, class: 'kr', url: '/service/image/kflag.png', size: 26 }
+			, { month: 4, day: 16, class: 'ribbon', url: '/service/image/ribbon.png', size: 21 }
+			, { month: 6, day: 6, class: 'kr', url: '/service/image/kflag.png', size: 26 }
+			, { month: 8, day: 15, class: 'kr', url: '/service/image/kflag.png', size: 26 }, { month: 10, day: 3, class: 'kr', url: '/service/image/kflag.png', size: 26 }
+			, { month: 10, day: 9, class: 'han', url: '/service/image/han_clien_m.png', size: 108 }
+			, { month: 10, day: 29, class: 'ribbon', url: '/service/image/ribbon_b.png', size: 21 }];
+
+		var eventNowDay = new Date();
+		var eventNowMonth = eventNowDay.getMonth() + 1;
+		var eventNowDay = eventNowDay.getDate();
+		var eventIsVaild = false;
+		var eventLogoHtml = '';
+
+		setEventDay.forEach(function (value) {
+
+			if (eventNowMonth == value.month && eventNowDay == value.day) {
+				if (value.class == 'han') {
+					eventLogoHtml = '<a href="/service" class="image_logo han" title="크롤링테스트홈 바로가기"><img src="' + value.url + '" width="' + value.size + 'px"></a>';
+				} else {
+					eventLogoHtml = '<span class="image_logo ' + value.class + '"><img src="' + value.url + '" width="' + value.size + 'px"></span>';
+				}
+				eventIsVaild = true;
+			};
+		});
+
+
+		if (eventIsVaild) {
+			console.log(eventLogoHtml);
+			document.getElementById("eventImgLogo").innerHTML = eventLogoHtml;
+		};
+
+	</script>
+	<div class="nav_container">
+		<div class="snb" id="menuTop">
+			<div class="side_nav" id="menu-scroll">
+
+				<div class="navmenu">
+
+
+					<a class="menu-group all" href="">
+
+						<span class="fa fa-angle-right"></span>
+						<span class="menu_over">커뮤니티</span>
+
+
+						<a class="menu-group" href="">
+
+							<span class="icon-board">C</span>
+							<span class="menu_over">모두의광장</span>
+
+
+							<a class="menu-list" href="../park.html">
+
+								<span class="icon-board">F</span>
+								<span class="menu_over">모두의공원</span>
+
+
+								<a class="menu-list" href="../image.html">
+
+									<span class="icon-board">I</span>
+									<span class="menu_over">사진게시판</span>
+
+
+									<a class="menu-list" href="../kin.html">
+
+										<span class="icon-board">Q</span>
+										<span class="menu_over">아무거나질문</span>
+
+
+										<a class="menu-group" href="">
+
+											<span class="icon-board">D</span>
+											<span class="menu_over">정보와자료</span>
+
+
+											<a class="menu-list" href="../news.html">
+
+												<span class="icon-board">N</span>
+												<span class="menu_over">새로운소식</span>
+
+
+												<a class="menu-list" href="../useful.html">
+
+													<span class="icon-board">T</span>
+													<span class="menu_over">유용한사이트</span>
+
+
+													<a class="menu-list" href="../pds.html">
+
+														<span class="icon-board">P</span>
+														<span class="menu_over">자료실</span>
+
+
+														<a class="menu-group" href="">
+
+															<span class="icon-board">E</span>
+															<span class="menu_over">강좌/사용기</span>
+
+
+															<a class="menu-list" href="../lecture.html">
+
+																<span class="icon-board">L</span>
+																<span class="menu_over">팁과강좌</span>
+
+
+																<a class="menu-list" href="../use.html">
+
+																	<span class="icon-board">U</span>
+																	<span class="menu_over">사용기</span>
+
+
+																	<a class="menu-list" href="../chehum.html">
+
+																		<span class="icon-board">·</span>
+																		<span class="menu_over">체험단사용기</span>
+
+
+																		<a class="menu-group"
+																			href="https://www.clien.net/service/group/allsell">
+
+																			<span class="icon-board">W</span>
+																			<span class="menu_over">사고팔고</span>
+
+
+																			<a class="menu-list" href="../jirum.html">
+
+																				<span class="icon-board">J</span>
+																				<span class="menu_over">알뜰구매</span>
+
+
+																				<a class="menu-list"
+																					href="../sold.html">
+
+																					<span class="icon-board">S</span>
+																					<span
+																						class="menu_over">회원중고장터</span>
+
+
+																					<a class="menu-list"
+																						href="../hongbo.html">
+
+																						<span
+																							class="icon-board">B</span>
+																						<span
+																							class="menu_over">직접홍보</span>
+
+
+																						<a class="menu-insurance"
+																							href="">
+
+																							<span
+																								class="icon-board">·</span>
+																							<span
+																								class="menu_over">보험상담실</span>
+
+
+																							<a class="menu-promo invisible"
+																								href="../../index.html">
+
+																								<span
+																									class="icon-board">H</span>
+																								<span
+																									class="menu_over">크롤링테스트홈</span>
+				</div>
+				<button type="button" class="button_more_nav" id="nav-more"><span class="fa fa-angle-down"></span><span
+						class="fa fa-angle-up"></span></button>
+				<div class="menu_somoim">
+
+
+
+
+
+
+
+				</div>
+
+			</div>
+
+		</div>
+		<div class="nav_body">
+			<div class="nav_content">
+				<div class="bullhorn info" style="display: none;" id="noticeBullhom">
+					<div class="bullhorn_msg">
+						<span class="bullhorn_label">공지</span><span class="bullhorn_txt">잠시후(19일 0시) 서버 점검이 진행될
+							예정입니다.</span>
+						<a href="../annonce/18086663.html" class="bullhorn_link">더보기</a>
+						<button type="button" class="bullhorn_button" onclick="setNoticeCookie();">
+							<div class="button_close"></div>
+						</button>
+					</div>
+				</div>
+
+				<div class="content_view" id="div_content">
+					<div class="board_head">
+						<div class="board_name">
+
+							<span class="board_icon">l</span>
+							<h2><a href="../lecture.html">팁과강좌</a></h2>
+						</div>
+					</div>
+
+					<div class="post_title symph_row">
+						<h3 class="post_subject" data-role="cut-string">
+
+							<span class="post_category">기타</span>
+							<span>유니티로 간단한 게임 만들기</span>
+							<a class="post_reply" href="#comment-head" title="댓글 18개">
+								<span>18</span><span class="fa fa-angle-down"></span>
+							</a>
+						</h3>
+						<a href="#comment-head" class="post_symph view_symph" title="공감 59명">
+							<span>59</span>
+						</a>
+					</div>
+
+					<div class="post_info" data-role="post-info">
+						<div class="post_contact">
+							<span class="contact_name">
+
+
+								<span class="nickname"">
+			 
+				<img src=" https://edgio.clien.net/F94/8320843/b8075633a64e6.gif" alt="프라다2" title="프라다2">
+								</span>
+
+							</span>
+						</div>
+						<div class="view_info">
+							<span class="view_count">
+								<span class="fa fa-eye"></span> <strong>16,527</strong>
+							</span>
+							<span class="text-large">
+								<span class="fa fa-text-height"></span>
+							</span>
+							<span class="button-dark">
+								<span class="fa fa-adjust"></span>
+							</span>
+						</div>
+					</div>
+
+					<div class="post_view">
+						<div class="post_author">
+							<span>
+								<span class="fa fa-clock-o"></span> 2023-06-11 11:22:00
+
+								<span class="lastdate">수정일 : 2023-06-11 19:47:43</span>
+							</span>
+							<span><span class="fa fa-map-marker"></span> 61.♡.190.182</span>
+						</div>
+
+
+
+						<div class="post_content">
+
+							<article>
+								<div class="post_article">
+
+									<html>
+
+									<head></head>
+
+									<body>
+										<p>안녕하세요?</p>
+										<p>유니티로 빠르게 간단한 게임을 만들어보는 강의를 준비했습니다 😊</p>
+										<p><br></p>
+										<p>이번에 만들 게임은 aa 라고 하는 요상한 제목을 가졌는데요.</p>
+										<p>놀랍게도 전세계적으로 5,000 만 이상의 다운로드를 기록한 간단하면서도 재밌는 게임이랍니다.</p>
+										<p><br></p>
+										<p>플레이 모습은 이런데요.</p>
+										<p>화면을 터치해서 빙글빙글 돌아가는 동그라미에 작은 동그라미를 쏩니다.</p>
+										<p><br></p>
+										<p><span class="fr-video fr-fvc fr-dvi fr-draggable" data-file-sn="14209461"
+												data-role="image-mp4">
+												<video id="73268b36fc703"
+													poster="https://edgio.clien.net/F01/14209463/73268b36fc703.gif?scale=width%5B740%5D,options%5Blimit%5D"
+													autoplay loop="loop" playsinline webkit-playsinline muted
+													preload="auto" data-file-key="73268b36fc703">
+													<source src="https://edgio.clien.net/F01/14209461/73268b36fc703.mp4"
+														type="video/mp4">
+												</video><button class="search_link"
+													onclick="app.gifDownConfirm(&quot;14209463&quot;, &quot;73268b36fc703&quot;, &quot;354&quot;, &quot;634&quot;)"><i
+														class="fa fa-download"></i>GIF</button> </span></p>
+										<p><br></p>
+										<p><br></p>
+										<p>그러면 마치 핀이 꽂히는 것처럼 작은 동그라미가 큰 동그라미에 달라붙고 함께 돌게 돼요.</p>
+										<p>이렇게 모든 동그라미를 쏴서 맞히는 것이 목표입니다.</p>
+										<p><br></p>
+										<p><span class="fr-video fr-fvc fr-dvi fr-draggable" data-file-sn="14209467"
+												data-role="image-mp4">
+												<video id="7326deab7747e"
+													poster="https://edgio.clien.net/F01/14209469/7326deab7747e.gif?scale=width%5B740%5D,options%5Blimit%5D"
+													autoplay loop="loop" playsinline webkit-playsinline muted
+													preload="auto" data-file-key="7326deab7747e">
+													<source src="https://edgio.clien.net/F01/14209467/7326deab7747e.mp4"
+														type="video/mp4">
+												</video><button class="search_link"
+													onclick="app.gifDownConfirm(&quot;14209469&quot;, &quot;7326deab7747e&quot;, &quot;354&quot;, &quot;634&quot;)"><i
+														class="fa fa-download"></i>GIF</button> </span></p>
+										<p><br></p>
+										<p>하지만 작은 동그라미끼리 부딪치게 되면 그 즉시 게임은 끝나게 돼요</p>
+										<p><br></p>
+										<p><span class="fr-video fr-fvc fr-dvi fr-draggable" data-file-sn="14209470"
+												data-role="image-mp4">
+												<video id="21249da9b328fc"
+													poster="https://edgio.clien.net/F01/14209472/21249da9b328fc.gif?scale=width%5B740%5D,options%5Blimit%5D"
+													autoplay loop="loop" playsinline webkit-playsinline muted
+													preload="auto" data-file-key="21249da9b328fc">
+													<source
+														src="https://edgio.clien.net/F01/14209470/21249da9b328fc.mp4"
+														type="video/mp4">
+												</video><button class="search_link"
+													onclick="app.gifDownConfirm(&quot;14209472&quot;, &quot;21249da9b328fc&quot;, &quot;354&quot;, &quot;634&quot;)"><i
+														class="fa fa-download"></i>GIF</button> </span></p>
+										<p><br></p>
+										<p><br></p>
+										<p>무척 간단하죠?</p>
+										<p>레벨이 올라갈수록 돌아가는 속도가 달라지거나 방향이 바뀌거나 목표가 높아지는 등 난이도가 높아지는데,&nbsp;</p>
+										<p>빠르게 돌아가는 동그라미의 좁은 틈 사이로 쏙 하고 집어 넣게 되면 짜릿한 쾌감마저 느낄 수 있답니다 🤣</p>
+										<p><br></p>
+										<p>찾아보니 같은 아이디어를 빌려서 만든 게임도 있더라구요</p>
+										<p>그래픽이 들어가니 또 새로운 재미가 있는듯도 합니다.</p>
+										<p><br></p>
+										<p><span class="fr-video fr-fvc fr-dvi fr-draggable" data-file-sn="14209473"
+												data-role="image-mp4">
+												<video id="732730199a04a"
+													poster="https://edgio.clien.net/F01/14209475/732730199a04a.gif?scale=width%5B740%5D,options%5Blimit%5D"
+													autoplay loop="loop" playsinline webkit-playsinline muted
+													preload="auto" data-file-key="732730199a04a">
+													<source src="https://edgio.clien.net/F01/14209473/732730199a04a.mp4"
+														type="video/mp4">
+												</video><button class="search_link"
+													onclick="app.gifDownConfirm(&quot;14209475&quot;, &quot;732730199a04a&quot;, &quot;354&quot;, &quot;634&quot;)"><i
+														class="fa fa-download"></i>GIF</button> </span></p>
+										<p><br></p>
+										<p><br></p>
+										<p><br></p>
+										<p>aa 는 상대적으로 만들기가 수월한 게임입니다.</p>
+										<p>게임 이미지를 구할 필요가 없거든요</p>
+										<p>딱 원하는 게임 이미지 구하는게 참 힘든데 aa 는 단색 배경에 까만색 동그라미, 선이면 충분합니다.</p>
+										<p><br></p>
+										<p><img class="fr-dib fr-fil"
+												src="https://edgio.clien.net/F01/14209477/732752238421b.png?scale=width%5B740%5D,options%5Blimit%5D"
+												data-role="attach-image" data-gif="false" data-file-sn="14209477"
+												data-img-width="481" data-img-height="251" alt="5.png"> </p>
+										<p><br></p>
+										<p>그럼 먼저 게임 배경을 만들어볼게요.</p>
+										<p>유니티에서 배경은 카메라 선택하고 원하는 색으로 바꿔주면 끝이에요.</p>
+										<p><br></p>
+										<p><img class="fr-dib fr-fil"
+												src="https://edgio.clien.net/F01/14209478/2124a4e26ddca3.png?scale=width%5B740%5D,options%5Blimit%5D"
+												data-role="attach-image" data-gif="false" data-file-sn="14209478"
+												data-img-width="1350" data-img-height="542" alt="6.png"> </p>
+										<p><br></p>
+										<p><br></p>
+										<p>이번에는 동그라미를 만들고 색을 까맣게 해줍니다.</p>
+										<p>크기를 적당히 조정하고 화면 조금 윗쪽에 배치시켜볼게요.&nbsp;</p>
+										<p>여기에 작은 동그라미를 마구 쏠 겁니다.</p>
+										<p><br></p>
+										<p><img class="fr-dib fr-fil"
+												src="https://edgio.clien.net/F01/14209479/73279fef255ef.png?scale=width%5B740%5D,options%5Blimit%5D"
+												data-role="attach-image" data-gif="false" data-file-sn="14209479"
+												data-img-width="1268" data-img-height="500" alt="7.png"> </p>
+										<p><br></p>
+										<p><br></p>
+										<p>일단 한 번 빙글빙글 돌려볼까요?&nbsp;</p>
+										<p>그냥 돌리면 티가 나지 않으니 확인을 위해 작은 하얀 동그라미를 하나 붙여볼게요.</p>
+										<p><br></p>
+										<p><img class="fr-dib fr-fil"
+												src="https://edgio.clien.net/F01/14209480/2124a94fd3c0ae.png?scale=width%5B740%5D,options%5Blimit%5D"
+												data-role="attach-image" data-gif="false" data-file-sn="14209480"
+												data-img-width="595" data-img-height="457" alt="8.png"> </p>
+										<p><br></p>
+										<p><br></p>
+										<p>스크립트로 간단하게 transform.Rotate() 메소드를 써서 돌려봤더니 빙글빙글 잘 도네요.</p>
+										<p><br></p>
+										<p><span class="fr-video fr-fvc fr-dvi fr-draggable" data-file-sn="14209481"
+												data-role="image-mp4">
+												<video id="7327e2b26e3eb"
+													poster="https://edgio.clien.net/F01/14209483/7327e2b26e3eb.gif?scale=width%5B740%5D,options%5Blimit%5D"
+													autoplay loop="loop" playsinline webkit-playsinline muted
+													preload="auto" data-file-key="7327e2b26e3eb">
+													<source src="https://edgio.clien.net/F01/14209481/7327e2b26e3eb.mp4"
+														type="video/mp4">
+												</video><button class="search_link"
+													onclick="app.gifDownConfirm(&quot;14209483&quot;, &quot;7327e2b26e3eb&quot;, &quot;354&quot;, &quot;634&quot;)"><i
+														class="fa fa-download"></i>GIF</button> </span></p>
+										<p><br></p>
+										<p><br></p>
+										<p>이번에는 작은 동그라미, 우리가 쏠 녀석을 만들어볼게요.</p>
+										<p>편의상 핀(Pin)이라고 하겠습니다.</p>
+										<p><br></p>
+										<p>큰 동그라미때와 같은 방식으로 작은 동그라미를 만들구요.</p>
+										<p><br></p>
+										<p><img class="fr-dib fr-fil"
+												src="https://edgio.clien.net/F01/14209484/2124ad81dce6d3.png?scale=width%5B740%5D,options%5Blimit%5D"
+												data-role="attach-image" data-gif="false" data-file-sn="14209484"
+												data-img-width="338" data-img-height="564" alt="10.png"> </p>
+										<p><br></p>
+										<p><br></p>
+										<p>윗쪽 방향으로 슉 올라가도록 스크립트를 적용하겠습니다.</p>
+										<p>나중에는 마우스로 클릭하면 이렇게 슉 쏘는 형태가 될 거에요.</p>
+										<p><br></p>
+										<p><span class="fr-video fr-fvc fr-dvi fr-draggable" data-file-sn="14209485"
+												data-role="image-mp4">
+												<video id="732825e31f0e4"
+													poster="https://edgio.clien.net/F01/14209487/732825e31f0e4.gif?scale=width%5B740%5D,options%5Blimit%5D"
+													autoplay loop="loop" playsinline webkit-playsinline muted
+													preload="auto" data-file-key="732825e31f0e4">
+													<source src="https://edgio.clien.net/F01/14209485/732825e31f0e4.mp4"
+														type="video/mp4">
+												</video><button class="search_link"
+													onclick="app.gifDownConfirm(&quot;14209487&quot;, &quot;732825e31f0e4&quot;, &quot;354&quot;, &quot;634&quot;)"><i
+														class="fa fa-download"></i>GIF</button> </span></p>
+										<p><br></p>
+										<p><br></p>
+										<p>이제는 충돌 처리를 해볼까요?</p>
+										<p>작은 동그라미가 올라가다가 큰 동그라미와 닿으면 그 즉시 멈추고 큰 동그라미에 달라붙어서 함께 빙글빙글 돌아가면 되겠네요.</p>
+										<p><br></p>
+										<p>큰 동그라미, 작은 동그라미에 충돌 영역을 설정하기 위해 Circle Collider 2D 컴포넌트를 추가합니다.</p>
+										<p>물리법칙을 적용하기 위해 Rigidbody 2D 컴포넌트도 추가해주세요.</p>
+										<p><br></p>
+										<p><br></p>
+										<p><img class="fr-dib fr-fil"
+												src="https://edgio.clien.net/F01/14209488/2124b2d8b8d498.png?scale=width%5B740%5D,options%5Blimit%5D"
+												data-role="attach-image" data-gif="false" data-file-sn="14209488"
+												data-img-width="629" data-img-height="355" alt="12.png"> </p>
+										<p><br></p>
+										<p><img class="fr-dib fr-fil"
+												src="https://edgio.clien.net/F01/14209489/732857922558f.png?scale=width%5B740%5D,options%5Blimit%5D"
+												data-role="attach-image" data-gif="false" data-file-sn="14209489"
+												data-img-width="336" data-img-height="377" alt="13.png"> </p>
+										<p><br></p>
+										<p><br></p>
+										<p>스크립트에서 충돌 됐을 때 작은 동그라미가 큰 동그라미에 달라붙도록 하기 위해서는 transform.SetParent() 를 쓰면 됩니다.
+										</p>
+										<p><br></p>
+										<p><span class="fr-video fr-fvc fr-dvi fr-draggable" data-file-sn="14209492"
+												data-role="image-mp4">
+												<video id="2124b6e885010f"
+													poster="https://edgio.clien.net/F01/14209494/2124b6e885010f.gif?scale=width%5B740%5D,options%5Blimit%5D"
+													autoplay loop="loop" playsinline webkit-playsinline muted
+													preload="auto" data-file-key="2124b6e885010f">
+													<source
+														src="https://edgio.clien.net/F01/14209492/2124b6e885010f.mp4"
+														type="video/mp4">
+												</video><button class="search_link"
+													onclick="app.gifDownConfirm(&quot;14209494&quot;, &quot;2124b6e885010f&quot;, &quot;354&quot;, &quot;634&quot;)"><i
+														class="fa fa-download"></i>GIF</button> </span></p>
+										<p><br></p>
+										<p><br></p>
+										<p>잘 붙네요!</p>
+										<p><br></p>
+										<p>그런데 원래 게임에서는 두 동그라미가 이렇게 직접 맞닿지는 않았습니다.</p>
+										<p>그리고 둘을 서로 연결하는 길쭉한 선이 있었지요?</p>
+										<p><br></p>
+										<p><img class="fr-dib fr-fil"
+												src="https://edgio.clien.net/F01/14209495/2124b914580b7d.png?scale=width%5B740%5D,options%5Blimit%5D"
+												data-role="attach-image" data-gif="false" data-file-sn="14209495"
+												data-img-width="314" data-img-height="523" alt="15.png"> </p>
+										<p><br></p>
+										<p><br></p>
+										<p>이 부분은 어떻게 처리할까 고민하다가 그냥 큰 동그라미의 충돌 영역을 조금 키워주기로 합니다.</p>
+										<p>그러면 동그라미와 다소 떨어져 있어도 이 곳에서 작은 동그라미는 멈추게 되겠지요.</p>
+										<p><br></p>
+										<p><img class="fr-dib fr-fil"
+												src="https://edgio.clien.net/F01/14209496/7328d4f2dd79e.png?scale=width%5B740%5D,options%5Blimit%5D"
+												data-role="attach-image" data-gif="false" data-file-sn="14209496"
+												data-img-width="644" data-img-height="569" alt="16.png"> </p>
+										<p><br></p>
+										<p><br></p>
+										<p>그리고 작은 동그라미에는 충돌 영역이 없는 선을 하나 만들어줍니다.</p>
+										<p><br></p>
+										<p><img class="fr-dib fr-fil"
+												src="https://edgio.clien.net/F01/14209497/7328fd206019e.png?scale=width%5B740%5D,options%5Blimit%5D"
+												data-role="attach-image" data-gif="false" data-file-sn="14209497"
+												data-img-width="557" data-img-height="530" alt="17.png"> </p>
+										<p><br></p>
+										<p><br></p>
+										<p>처음에는 선을 안 보이게 숨겼다가 큰 동그라미와 충돌하게 되면 그때 이 선을 보여줄거에요.</p>
+										<p><br></p>
+										<p>감쪽같죠?</p>
+										<p><br></p>
+										<p><span class="fr-video fr-fvc fr-dvi fr-draggable" data-file-sn="14209498"
+												data-role="image-mp4">
+												<video id="2124bf8004257b"
+													poster="https://edgio.clien.net/F01/14209500/2124bf8004257b.gif?scale=width%5B740%5D,options%5Blimit%5D"
+													autoplay loop="loop" playsinline webkit-playsinline muted
+													preload="auto" data-file-key="2124bf8004257b">
+													<source
+														src="https://edgio.clien.net/F01/14209498/2124bf8004257b.mp4"
+														type="video/mp4">
+												</video><button class="search_link"
+													onclick="app.gifDownConfirm(&quot;14209500&quot;, &quot;2124bf8004257b&quot;, &quot;354&quot;, &quot;634&quot;)"><i
+														class="fa fa-download"></i>GIF</button> </span></p>
+										<p><br></p>
+										<p><br></p>
+										<p>지금까지는 핀을 하나만 쐈었는데 이번에는 마우스를 클릭해서 여러개를 쏠 수 있도록 해보겠습니다.</p>
+										<p>똑같은 형태의 핀을 여러 번 중복해서 만들기 위해서 핀을 프리팹으로 관리할게요.</p>
+										<p>프리팹은 마치 주문제작과 비슷하다고 생각하시면 됩니다.</p>
+										<p><br></p>
+										<p>어느 회사에서 단체로 옷을 맞추기로 한다면 업체에 디자인을 보내서 먼저 샘플을 만들어 볼겁니다.</p>
+										<p>그런 다음에 색이나 모양 등이 마음이 드는지 보고 필요하면 수정을 거듭해서 최종적으로 마음에 드는 결과물을 만들겠죠.</p>
+										<p>그때부터는 그 결과물과 똑같은 옷을 회사에서 주문하는 만큼 여러 벌 만들게 될겁니다.</p>
+										<p><br></p>
+										<p><img class="fr-dib fr-fil"
+												src="https://edgio.clien.net/F01/14209501/73294342ee5da.png?scale=width%5B740%5D,options%5Blimit%5D"
+												data-role="attach-image" data-gif="false" data-file-sn="14209501"
+												data-img-width="546" data-img-height="669" alt="19.png"> </p>
+										<p><br></p>
+										<p><br></p>
+										<p>프리팹도 동일해요.</p>
+										<p>어떤 게임 오브젝트(여기서는 핀)를 만들어서 크기와 모양 색깔, 충돌 영역 등 다양한 속성을 원하는 만큼 수정한 다음에 이와 똑같은 게임
+											오브젝트를 여러 개 만들 수 있도록 하기 위한 것이 바로 프리팹입니다. 총알이나 미사일, 아이템이나 적 캐릭터 등 여러 번 등장하는
+											것들은 매번 새롭게 만들 필요 없이 하나를 잘 만들어둔 다음에 복사해서 쓰면 되는 것이죠!</p>
+										<p><br></p>
+										<p><br></p>
+										<p>핀 프리팹을 만든 다음 정해진 위치(화면 아래)에서 핀이 만들어지도록 합니다.</p>
+										<p>마우스로 클릭해서 준비된 핀을 쏘고 나면 다음 핀을 준비시키도록 하면 되겠네요.</p>
+										<p><br></p>
+										<p><span class="fr-video fr-fvc fr-dvi fr-draggable" data-file-sn="14209502"
+												data-role="image-mp4">
+												<video id="2124c415921b6d"
+													poster="https://edgio.clien.net/F01/14209504/2124c415921b6d.gif?scale=width%5B740%5D,options%5Blimit%5D"
+													autoplay loop="loop" playsinline webkit-playsinline muted
+													preload="auto" data-file-key="2124c415921b6d">
+													<source
+														src="https://edgio.clien.net/F01/14209502/2124c415921b6d.mp4"
+														type="video/mp4">
+												</video><button class="search_link"
+													onclick="app.gifDownConfirm(&quot;14209504&quot;, &quot;2124c415921b6d&quot;, &quot;354&quot;, &quot;634&quot;)"><i
+														class="fa fa-download"></i>GIF</button> </span></p>
+										<p><br></p>
+										<p><br></p>
+										<p>이어서 목표 설정을 하겠습니다.</p>
+										<p><br></p>
+										<p>진짜 게임에서는 큰 동그라미 가운데에 현재 레벨이 숫자로 표시되는데, 우리는 그 위치에 목표로 하는 작은 동그라미의 수를 적도록 할게요.
+										</p>
+										<p>10이라고 적혀 있으면 10개의 핀을 쏴서 올바로 맞춰야 하는 겁니다.</p>
+										<p><br></p>
+										<p><img class="fr-dib fr-fil"
+												src="https://edgio.clien.net/F01/14209505/732988b3a274a.png?scale=width%5B740%5D,options%5Blimit%5D"
+												data-role="attach-image" data-gif="false" data-file-sn="14209505"
+												data-img-width="348" data-img-height="591" alt="21.png"> </p>
+										<p><br></p>
+										<p><br></p>
+										<p>UI - Text 를 이용하면 간단하게 만들 수 있는데, 충돌 처리 부분을 조금 보완해서 핀을 잘 쏜다면 목표 수를 감소 시켜주도록
+											하겠습니다.</p>
+										<p><br></p>
+										<p><span class="fr-video fr-fvc fr-dvi fr-draggable" data-file-sn="14209506"
+												data-role="image-mp4">
+												<video id="2124c8435de8e9"
+													poster="https://edgio.clien.net/F01/14209508/2124c8435de8e9.gif?scale=width%5B740%5D,options%5Blimit%5D"
+													autoplay loop="loop" playsinline webkit-playsinline muted
+													preload="auto" data-file-key="2124c8435de8e9">
+													<source
+														src="https://edgio.clien.net/F01/14209506/2124c8435de8e9.mp4"
+														type="video/mp4">
+												</video><button class="search_link"
+													onclick="app.gifDownConfirm(&quot;14209508&quot;, &quot;2124c8435de8e9&quot;, &quot;354&quot;, &quot;634&quot;)"><i
+														class="fa fa-download"></i>GIF</button> </span></p>
+										<p><br></p>
+										<p><br></p>
+										<p>거의 다 왔네요.</p>
+										<p><br></p>
+										<p>이번에는 게임 오버 처리를 하겠습니다.</p>
+										<p>목표 수 만큼 모든 핀을 큰 동그라미에 올바로 꽂는다면 성공,</p>
+										<p>다른 핀과 쿵 하고 충돌하게 되면 실패로 끝나는 겁니다.</p>
+										<p><br></p>
+										<p>성공일 때는 배경색을 초록색으로,</p>
+										<p>실패일 때는 배경색을 빨간색으로 바꿔서 진짜 게임과 동일하게 해볼까요?</p>
+										<p><br></p>
+										<p><span class="fr-video fr-fvc fr-dvi fr-draggable" data-file-sn="14209510"
+												data-role="image-mp4">
+												<video id="2124cbb5c5fad8"
+													poster="https://edgio.clien.net/F01/14209512/2124cbb5c5fad8.gif?scale=width%5B740%5D,options%5Blimit%5D"
+													autoplay loop="loop" playsinline webkit-playsinline muted
+													preload="auto" data-file-key="2124cbb5c5fad8">
+													<source
+														src="https://edgio.clien.net/F01/14209510/2124cbb5c5fad8.mp4"
+														type="video/mp4">
+												</video><button class="search_link"
+													onclick="app.gifDownConfirm(&quot;14209512&quot;, &quot;2124cbb5c5fad8&quot;, &quot;354&quot;, &quot;634&quot;)"><i
+														class="fa fa-download"></i>GIF</button> </span></p>
+										<p><br></p>
+										<p><span class="fr-video fr-fvc fr-dvi fr-draggable" data-file-sn="14209513"
+												data-role="image-mp4">
+												<video id="7329e865b3693"
+													poster="https://edgio.clien.net/F01/14209515/7329e865b3693.gif?scale=width%5B740%5D,options%5Blimit%5D"
+													autoplay loop="loop" playsinline webkit-playsinline muted
+													preload="auto" data-file-key="7329e865b3693">
+													<source src="https://edgio.clien.net/F01/14209513/7329e865b3693.mp4"
+														type="video/mp4">
+												</video><button class="search_link"
+													onclick="app.gifDownConfirm(&quot;14209515&quot;, &quot;7329e865b3693&quot;, &quot;354&quot;, &quot;634&quot;)"><i
+														class="fa fa-download"></i>GIF</button> </span></p>
+										<p><br></p>
+										<p>성공과 실패, 게임 결과에 따라 색이 잘 표시되는 것을 확인할 수 있네요!</p>
+										<p><br></p>
+										<p><br></p>
+										<p>이제는 게임이 끝나면 다시 시작할 수 있는 재시작 버튼을 넣어주겠습니다.</p>
+										<p>UI - Button 을 이용해서 기본 색상에 글자만 키워주도록 할게요.</p>
+										<p><br></p>
+										<p><img class="fr-dib fr-fil"
+												src="https://edgio.clien.net/F01/14209516/732a2625ca62a.png?scale=width%5B740%5D,options%5Blimit%5D"
+												data-role="attach-image" data-gif="false" data-file-sn="14209516"
+												data-img-width="293" data-img-height="328" alt="25.png"> </p>
+										<p><br></p>
+										<p><br></p>
+										<p>그리고 이 버튼을 누르면 지금 만들고 있는 이 게임 화면(Scene) 을 다시 로딩해서 새 게임을 시작할 수 있도록 하겠습니다.</p>
+										<p><br></p>
+										<p><span class="fr-video fr-fvc fr-dvi fr-draggable" data-file-sn="14209517"
+												data-role="image-mp4">
+												<video id="2124d1f6291bb1"
+													poster="https://edgio.clien.net/F01/14209519/2124d1f6291bb1.gif?scale=width%5B740%5D,options%5Blimit%5D"
+													autoplay loop="loop" playsinline webkit-playsinline muted
+													preload="auto" data-file-key="2124d1f6291bb1">
+													<source
+														src="https://edgio.clien.net/F01/14209517/2124d1f6291bb1.mp4"
+														type="video/mp4">
+												</video><button class="search_link"
+													onclick="app.gifDownConfirm(&quot;14209519&quot;, &quot;2124d1f6291bb1&quot;, &quot;354&quot;, &quot;634&quot;)"><i
+														class="fa fa-download"></i>GIF</button> </span></p>
+										<p><br></p>
+										<p>훌륭하네요!</p>
+										<p><br></p>
+										<p><br></p>
+										<p>마지막으로 난이도 조절을 해볼까요?</p>
+										<p><br></p>
+										<p>그냥 끝내기에는 뭔가 밋밋하고 조금 아쉬운 감이 없잖아 있어요.</p>
+										<p>왜냐면 한쪽 방향으로 같은 속도로 계속 돌아가니 게임이 너무 쉽거든요.</p>
+										<p><br></p>
+										<p>애니메이션 편집을 이용해서 1초는 빠르게 시계 방향으로, 1초는 느리게 반시계 방향으로 회전하는 것을 반복시켜볼게요.</p>
+										<p><br></p>
+										<p><img class="fr-dib fr-fil"
+												src="https://edgio.clien.net/F01/14209525/2124d4c4a976b8.png?scale=width%5B740%5D,options%5Blimit%5D"
+												data-role="attach-image" data-gif="false" data-file-sn="14209525"
+												data-img-width="958" data-img-height="419" alt="27.png"> </p>
+										<p><br></p>
+										<p><br></p>
+										<p>그러면 잘 돌다가 잠깐 반대로 돌다가, 또 잘 돌다가 반대로 돌다가, 핀을 쏠 타이밍을 잡기 어렵게 되었습니다.</p>
+										<p><br></p>
+										<p><span class="fr-video fr-fvc fr-dvi fr-draggable" data-file-sn="14209526"
+												data-role="image-mp4">
+												<video id="732a92031f631"
+													poster="https://edgio.clien.net/F01/14209528/732a92031f631.gif?scale=width%5B740%5D,options%5Blimit%5D"
+													autoplay loop="loop" playsinline webkit-playsinline muted
+													preload="auto" data-file-key="732a92031f631">
+													<source src="https://edgio.clien.net/F01/14209526/732a92031f631.mp4"
+														type="video/mp4">
+												</video><button class="search_link"
+													onclick="app.gifDownConfirm(&quot;14209528&quot;, &quot;732a92031f631&quot;, &quot;354&quot;, &quot;634&quot;)"><i
+														class="fa fa-download"></i>GIF</button> </span></p>
+										<p><br></p>
+										<p><br></p>
+										<p>훨씬 더 쫄깃한 맘으로 게임을 할 수 있겠죠?</p>
+										<p><br></p>
+										<p>이렇게 해서 모든 게임이 완성되었습니다.</p>
+										<p><br></p>
+										<p>아주 간편하면서도 재미있는 게임, 어린 자녀분들과 함께 플레이 해보면 정말 좋아할 거예요 😊&nbsp;</p>
+										<p>(못한다고 놀리거나, 너무 어렵게 만들지는 마세요 ㅋ 울어요...&nbsp; &nbsp; <s>해봐서 알아요</s>)</p>
+										<p><br></p>
+										<p><img class="fr-dib fr-fil"
+												src="https://edgio.clien.net/F01/14209529/2124ddd2ebfc1e.png?scale=width%5B740%5D,options%5Blimit%5D"
+												data-role="attach-image" data-gif="false" data-file-sn="14209529"
+												data-img-width="388" data-img-height="295" alt="29.png"> </p>
+										<p><br></p>
+										<p><br></p>
+										<p>게임을 만드는 방법은 이 곳에 하나의 영상으로 소개되어 있습니다.</p>
+										<p><br></p>
+										<p></p>
+										<p class="video"><iframe width="640" height="360"
+												src="https://www.youtube.com/embed/g3xKeBkGGRU" frameborder="0"
+												allowfullscreen></iframe></p>
+										<p></p>
+										<p><br></p>
+										<p>유니티 게임 개발에 관심 있으신 분들께 도움되면 좋겠습니다!</p>
+										<p>긴 글 읽어주셔서 감사해요.</p>
+										<p><br></p>
+										<p>행복한 주말 되세요 🙌</p>
+										<p><br></p>
+										<p><span class="fr-video fr-fvc fr-dvi fr-draggable" data-file-sn="14209531"
+												data-role="image-mp4">
+												<video id="2124e1c909903c"
+													poster="https://edgio.clien.net/F01/14209533/2124e1c909903c.gif?scale=width%5B740%5D,options%5Blimit%5D"
+													autoplay loop="loop" playsinline webkit-playsinline muted
+													preload="auto" data-file-key="2124e1c909903c">
+													<source
+														src="https://edgio.clien.net/F01/14209531/2124e1c909903c.mp4"
+														type="video/mp4">
+												</video><button class="search_link"
+													onclick="app.gifDownConfirm(&quot;14209533&quot;, &quot;2124e1c909903c&quot;, &quot;534&quot;, &quot;640&quot;)"><i
+														class="fa fa-download"></i>GIF</button> </span></p>
+										<p><br></p>
+										<p><br></p>
+									</body>
+
+									</html>
+
+								</div>
+							</article>
+							<div class="post_ccls">
+								<span class=""></span>
+							</div>
+						</div>
+
+
+
+
+						<div class="post_writer">
+
+							<div class="view_center_idlfksyenf">
+								<div id='div-pc-view-center' class="ad_banner"></div>
+							</div>
+
+							<div class="writer_board">
+								<div class="writer_menu">
+									<img src="https://edgio.clien.net/F94/8320843/b8075633a64e6.gif"
+										alt="프라다2"><span>님의</span>
+									<a href="javascript:;" class="menu line" onclick="app.articleWriterList();"
+										id="tab_writer_list_article">게시글</a>
+									<a href="javascript:;" class="menu" onclick="app.commentWriterList();"
+										id="tab_writer_list_comment">댓글</a>
+
+
+								</div>
+								<div class="writer_list" id="writerList_div"></div>
+							</div>
+						</div>
+
+
+						<div class="post_button" id="comment-head">
+							<button class="button_report" onclick="app.articleSingo('jenky');"><span
+									class="fa fa-ban"></span> 신고</button>
+							<button class="button_scrap" onclick="app.articleScrap();"><span
+									class="fa fa-bookmark"></span> 스크랩</button>
+							<div class="post_share">
+								<button class="button_share" data-toggle="dropdown"><span
+										class="fa fa-share-square-o"></span> 공유</button>
+								<ul class="dropdown-menu share">
+									<li><a href="javascript:;" class="btn" onclick="alert('주소가 복사되었습니다.');"
+											data-clipboard-text="https://www.clien.net/service/board/lecture/18128206"><span
+												class="fa fa-link"></span>주소복사</a></li>
+									<li><a href="http://www.facebook.com/sharer/sharer.php?u=https://www.clien.net/service/board/lecture/18128206"
+											class="facebook" target="_blank"><span
+												class="fa fa-facebook"></span>Facebook</a></li>
+									<li><a href="https://twitter.com/intent/tweet?text=%EC%9C%A0%EB%8B%88%ED%8B%B0%EB%A1%9C%20%EA%B0%84%EB%8B%A8%ED%95%9C%20%EA%B2%8C%EC%9E%84%20%EB%A7%8C%EB%93%A4%EA%B8%B0&amp;url=https://www.clien.net/service/board/lecture/18128206"
+											class="twitter" target="_blank"><span
+												class="fa fa-twitter"></span>Twitter</a></li>
+								</ul>
+							</div>
+							<button class="button_symph disable" onclick="like.addArticleSympathy();">
+								<span class="fa fa-heart"></span><span class="text"></span>
+							</button>
+							<a class="symph_count"><strong>59</strong>명</a>
+
+						</div>
+					</div>
+
+					<div class="post_comment">
+						<div class="comment_head" id="comment-point">
+							<a href="#comment_write_point"><i class="fa fa-commenting"></i> 댓글 •
+								[<strong>18</strong>]</a>
+							<div class="comment_tip_area ">
+								<a href="javascript:;" class="comment_tip memo-sync">메모동기화</a>
+								<div class="comment_tip"><i class="fa fa-file-text-o"></i> 을 누르면 회원메모를 할 수 있습니다.</div>
+							</div>
+						</div>
+
+						<div class="comment ad_banner" data-role="comment">
+
+
+
+
+
+
+
+
+
+							<div class="comment_row  " data-role="comment-row" data-author-id="503147"
+								data-comment-sn="142776498">
+								<span class="comment_point" id="142776498"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+					<span title=" 굥교육">굥교육</span>
+										</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142776498" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142776498" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142776498" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142776498" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142776498" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('503147', this, '142776498');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142776498');">#142776498</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">182.♡.176.23</span></div>
+										<div class="comment_time popover" dhata-role="comment-time">23-06-11
+											<span class="timestamp">2023-06-11 16:10:29
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142776498">
+											<button class="comment_re"
+												onclick="app.commentReEditorOpen('142776498', '503147');">대댓글</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142776498');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('503147', '142776498');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142776498"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142776498">1</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142776498">
+									<div class="comment_view" data-comment-view="142776498">
+										엄지척입니다!
+										<input type="hidden" value="엄지척입니다!" data-comment-modify="142776498">
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="comment_row by-author re" data-role="comment-row" data-author-id="jenky"
+								data-comment-sn="142777241">
+								<span class="comment_point" id="142777241"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+				<img src=" https://edgio.clien.net/F94/8320843/b8075633a64e6.gif" alt="프라다2" title="프라다2">
+											</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142777241" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142777241" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142777241" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142777241" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142777241" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('jenky', this, '142777241');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142777241');">#142777241</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">61.♡.190.182</span></div>
+										<div class="comment_time popover" dhata-role="comment-time">23-06-11
+											<span class="timestamp">2023-06-11 17:12:45
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142777241">
+											<button class="comment_re"
+												onclick="app.commentReMentionOpen('142777241', '142776498','jenky');">언급</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142777241');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('jenky', '142777241');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142777241" style="display:none;"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142777241">0</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142777241">
+									<div class="comment_view" data-comment-view="142777241">
+										<strong data-nick-id='503147' data-role='highlite'>@굥교육</strong>님 감사합니다 ^^
+										<input type="hidden" value="｢@굥교육＊503147＊님｣ 감사합니다 ^^"
+											data-comment-modify="142777241">
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="comment_row  " data-role="comment-row" data-author-id="skeewook"
+								data-comment-sn="142777141">
+								<span class="comment_point" id="142777141"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+				<img src=" https://edgio.clien.net/F94/9961804/7f8571f26830ba.gif" alt="단축키" title="단축키">
+											</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142777141" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142777141" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142777141" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142777141" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142777141" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('skeewook', this, '142777141');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142777141');">#142777141</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">106.♡.128.48</span></div>
+										<div class="comment_time popover" dhata-role="comment-time">23-06-11
+											<span class="timestamp">2023-06-11 17:03:32
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142777141">
+											<button class="comment_re"
+												onclick="app.commentReEditorOpen('142777141', 'skeewook');">대댓글</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142777141');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('skeewook', '142777141');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142777141" style="display:none;"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142777141">0</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142777141">
+									<div class="comment_view" data-comment-view="142777141">
+										재미있네요
+										<input type="hidden" value="재미있네요" data-comment-modify="142777141">
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="comment_row by-author re" data-role="comment-row" data-author-id="jenky"
+								data-comment-sn="142777245">
+								<span class="comment_point" id="142777245"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+				<img src=" https://edgio.clien.net/F94/8320843/b8075633a64e6.gif" alt="프라다2" title="프라다2">
+											</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142777245" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142777245" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142777245" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142777245" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142777245" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('jenky', this, '142777245');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142777245');">#142777245</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">61.♡.190.182</span></div>
+										<div class="comment_time popover" dhata-role="comment-time">23-06-11
+											<span class="timestamp">2023-06-11 17:13:10
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142777245">
+											<button class="comment_re"
+												onclick="app.commentReMentionOpen('142777245', '142777141','jenky');">언급</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142777245');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('jenky', '142777245');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142777245" style="display:none;"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142777245">0</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142777245">
+									<div class="comment_view" data-comment-view="142777245">
+										<strong>@<img data-role='highlite' data-nick-id='skeewook'
+												src='https://edgio.clien.net/F94/9961804/7f8571f26830ba.gif'
+												alt='단축키'></strong>님 참신한 게임 아이디어가 너무 부러워요 :)
+										<input type="hidden" value="｢@단축키＊skeewook＊님｣ 참신한 게임 아이디어가 너무 부러워요 :)"
+											data-comment-modify="142777245">
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="comment_row  " data-role="comment-row" data-author-id="ridou99"
+								data-comment-sn="142779684">
+								<span class="comment_point" id="142779684"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+					<span title=" 카슈밀">카슈밀</span>
+										</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142779684" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142779684" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142779684" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142779684" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142779684" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('ridou99', this, '142779684');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142779684');">#142779684</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">211.♡.129.84</span></div>
+										<div class="comment_time popover" dhata-role="comment-time">23-06-11
+											<span class="timestamp">2023-06-11 21:02:31
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142779684">
+											<button class="comment_re"
+												onclick="app.commentReEditorOpen('142779684', 'ridou99');">대댓글</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142779684');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('ridou99', '142779684');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142779684" style="display:none;"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142779684">0</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142779684">
+									<div class="comment_view" data-comment-view="142779684">
+										잘 봤습니다. 모델링 하는것도 강의가 있나요?
+										<input type="hidden" value="잘 봤습니다. 모델링 하는것도 강의가 있나요?"
+											data-comment-modify="142779684">
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="comment_row by-author re" data-role="comment-row" data-author-id="jenky"
+								data-comment-sn="142780808">
+								<span class="comment_point" id="142780808"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+				<img src=" https://edgio.clien.net/F94/8320843/b8075633a64e6.gif" alt="프라다2" title="프라다2">
+											</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142780808" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142780808" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142780808" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142780808" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142780808" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('jenky', this, '142780808');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142780808');">#142780808</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">61.♡.190.182</span></div>
+										<div class="comment_time popover" dhata-role="comment-time">23-06-11
+											<span class="timestamp">2023-06-11 22:33:46
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142780808">
+											<button class="comment_re"
+												onclick="app.commentReMentionOpen('142780808', '142779684','jenky');">언급</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142780808');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('jenky', '142780808');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142780808" style="display:none;"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142780808">0</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142780808">
+									<div class="comment_view" data-comment-view="142780808">
+										<strong data-nick-id='ridou99' data-role='highlite'>@카슈밀</strong>님 모델링 강의는 아직
+										없습니다 ^^;
+										<input type="hidden" value="｢@카슈밀＊ridou99＊님｣ 모델링 강의는 아직 없습니다 ^^;"
+											data-comment-modify="142780808">
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="comment_row  " data-role="comment-row" data-author-id="cyanluna"
+								data-comment-sn="142779706">
+								<span class="comment_point" id="142779706"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+					<span title=" 박달냥">박달냥</span>
+										</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142779706" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142779706" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142779706" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142779706" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142779706" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('cyanluna', this, '142779706');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142779706');">#142779706</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">121.♡.61.95</span></div>
+										<div class="comment_time popover" dhata-role="comment-time">23-06-11
+											<span class="timestamp">2023-06-11 21:04:52
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142779706">
+											<button class="comment_re"
+												onclick="app.commentReEditorOpen('142779706', 'cyanluna');">대댓글</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142779706');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('cyanluna', '142779706');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142779706" style="display:none;"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142779706">0</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142779706">
+									<div class="comment_view" data-comment-view="142779706">
+										일단 공감 감사합니다!!
+										<input type="hidden" value="일단 공감 감사합니다!!" data-comment-modify="142779706">
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="comment_row by-author re" data-role="comment-row" data-author-id="jenky"
+								data-comment-sn="142780811">
+								<span class="comment_point" id="142780811"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+				<img src=" https://edgio.clien.net/F94/8320843/b8075633a64e6.gif" alt="프라다2" title="프라다2">
+											</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142780811" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142780811" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142780811" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142780811" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142780811" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('jenky', this, '142780811');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142780811');">#142780811</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">61.♡.190.182</span></div>
+										<div class="comment_time popover" dhata-role="comment-time">23-06-11
+											<span class="timestamp">2023-06-11 22:33:56
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142780811">
+											<button class="comment_re"
+												onclick="app.commentReMentionOpen('142780811', '142779706','jenky');">언급</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142780811');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('jenky', '142780811');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142780811" style="display:none;"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142780811">0</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142780811">
+									<div class="comment_view" data-comment-view="142780811">
+										<strong data-nick-id='cyanluna' data-role='highlite'>@박달냥</strong>님 감사합니다!
+										<input type="hidden" value="｢@박달냥＊cyanluna＊님｣ 감사합니다!"
+											data-comment-modify="142780811">
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="comment_row  " data-role="comment-row" data-author-id="wooha"
+								data-comment-sn="142780281">
+								<span class="comment_point" id="142780281"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+					<span title=" 안녕킴밥">안녕킴밥</span>
+										</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142780281" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142780281" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142780281" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142780281" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142780281" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('wooha', this, '142780281');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142780281');">#142780281</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">125.♡.116.68</span></div>
+										<div class="comment_time popover" dhata-role="comment-time">23-06-11
+											<span class="timestamp">2023-06-11 21:50:51
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142780281">
+											<button class="comment_re"
+												onclick="app.commentReEditorOpen('142780281', 'wooha');">대댓글</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142780281');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('wooha', '142780281');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142780281"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142780281">1</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142780281">
+									<div class="comment_view" data-comment-view="142780281">
+										이제 광고 붙여서 돈버는 법 알려주세요.ㅎㅎ
+										<input type="hidden" value="이제 광고 붙여서 돈버는 법 알려주세요.ㅎㅎ"
+											data-comment-modify="142780281">
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="comment_row by-author re" data-role="comment-row" data-author-id="jenky"
+								data-comment-sn="142780814">
+								<span class="comment_point" id="142780814"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+				<img src=" https://edgio.clien.net/F94/8320843/b8075633a64e6.gif" alt="프라다2" title="프라다2">
+											</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142780814" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142780814" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142780814" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142780814" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142780814" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('jenky', this, '142780814');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142780814');">#142780814</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">61.♡.190.182</span></div>
+										<div class="comment_time popover" dhata-role="comment-time">23-06-11
+											<span class="timestamp">2023-06-11 22:34:25
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142780814">
+											<button class="comment_re"
+												onclick="app.commentReMentionOpen('142780814', '142780281','jenky');">언급</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142780814');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('jenky', '142780814');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142780814" style="display:none;"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142780814">0</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142780814">
+									<div class="comment_view" data-comment-view="142780814">
+										<strong data-nick-id='wooha' data-role='highlite'>@안녕킴밥</strong>님 구글 애즈 연동하는 것도
+										언젠가 한 번 다뤄보겠습니다 :)
+										<input type="hidden" value="｢@안녕킴밥＊wooha＊님｣ 구글 애즈 연동하는 것도 언젠가 한 번 다뤄보겠습니다 :)"
+											data-comment-modify="142780814">
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="comment_row  " data-role="comment-row" data-author-id="jmclien63"
+								data-comment-sn="142780390">
+								<span class="comment_point" id="142780390"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+					<span title=" 아무개다">아무개다</span>
+										</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142780390" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142780390" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142780390" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142780390" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142780390" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('jmclien63', this, '142780390');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142780390');">#142780390</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">1.♡.167.22</span></div>
+										<div class="comment_time popover" dhata-role="comment-time">23-06-11
+											<span class="timestamp">2023-06-11 21:59:16
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142780390">
+											<button class="comment_re"
+												onclick="app.commentReEditorOpen('142780390', 'jmclien63');">대댓글</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142780390');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('jmclien63', '142780390');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142780390" style="display:none;"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142780390">0</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142780390">
+									<div class="comment_view" data-comment-view="142780390">
+										팁과강좌는 유튜브 홍보 게시판이구나..
+										<input type="hidden" value="팁과강좌는 유튜브 홍보 게시판이구나.."
+											data-comment-modify="142780390">
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="comment_row by-author re" data-role="comment-row" data-author-id="jenky"
+								data-comment-sn="142780817">
+								<span class="comment_point" id="142780817"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+				<img src=" https://edgio.clien.net/F94/8320843/b8075633a64e6.gif" alt="프라다2" title="프라다2">
+											</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142780817" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142780817" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142780817" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142780817" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142780817" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('jenky', this, '142780817');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142780817');">#142780817</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">61.♡.190.182</span></div>
+										<div class="comment_time popover" dhata-role="comment-time">23-06-11
+											<span class="timestamp">2023-06-11 22:34:42
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142780817">
+											<button class="comment_re"
+												onclick="app.commentReMentionOpen('142780817', '142780390','jenky');">언급</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142780817');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('jenky', '142780817');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142780817" style="display:none;"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142780817">0</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142780817">
+									<div class="comment_view" data-comment-view="142780817">
+										<strong data-nick-id='jmclien63' data-role='highlite'>@아무개다</strong>님 유튜브 동영상이
+										불편하셨다면 사과드립니다.
+										<input type="hidden" value="｢@아무개다＊jmclien63＊님｣ 유튜브 동영상이 불편하셨다면 사과드립니다."
+											data-comment-modify="142780817">
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="comment_row  " data-role="comment-row" data-author-id="illwait"
+								data-comment-sn="142781248">
+								<span class="comment_point" id="142781248"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+					<span title=" OLD한량">OLD한량</span>
+										</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142781248" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142781248" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142781248" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142781248" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142781248" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('illwait', this, '142781248');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142781248');">#142781248</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">223.♡.180.37</span></div>
+										<div class="comment_time popover" dhata-role="comment-time">23-06-11
+											<span class="timestamp">2023-06-11 23:07:55
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142781248">
+											<button class="comment_re"
+												onclick="app.commentReEditorOpen('142781248', 'illwait');">대댓글</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142781248');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('illwait', '142781248');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142781248" style="display:none;"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142781248">0</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142781248">
+									<div class="comment_view" data-comment-view="142781248">
+										이런 글 좋아요<br>재밌어요
+										<input type="hidden" value="이런 글 좋아요
+재밌어요" data-comment-modify="142781248">
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="comment_row by-author re" data-role="comment-row" data-author-id="jenky"
+								data-comment-sn="142783776">
+								<span class="comment_point" id="142783776"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+				<img src=" https://edgio.clien.net/F94/8320843/b8075633a64e6.gif" alt="프라다2" title="프라다2">
+											</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142783776" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142783776" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142783776" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142783776" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142783776" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('jenky', this, '142783776');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142783776');">#142783776</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">61.♡.190.182</span></div>
+
+										<div class="comment_time popover" data-role="comment-time">08:41
+											<span class="timestamp">2023-06-12 08:41:09
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142783776">
+											<button class="comment_re"
+												onclick="app.commentReMentionOpen('142783776', '142781248','jenky');">언급</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142783776');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('jenky', '142783776');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142783776" style="display:none;"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142783776">0</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142783776">
+									<div class="comment_view" data-comment-view="142783776">
+										<strong data-nick-id='illwait' data-role='highlite'>@OLD한량</strong>님 재밌게 봐주셔서
+										감사해요 :)
+										<input type="hidden" value="｢@OLD한량＊illwait＊님｣ 재밌게 봐주셔서 감사해요 :)"
+											data-comment-modify="142783776">
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="comment_row  " data-role="comment-row" data-author-id="butbary"
+								data-comment-sn="142781417">
+								<span class="comment_point" id="142781417"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+					<span title=" 벗바리">벗바리</span>
+										</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142781417" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142781417" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142781417" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142781417" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142781417" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('butbary', this, '142781417');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142781417');">#142781417</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">14.♡.143.214</span></div>
+										<div class="comment_time popover" dhata-role="comment-time">23-06-11
+											<span class="timestamp">2023-06-11 23:23:53
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142781417">
+											<button class="comment_re"
+												onclick="app.commentReEditorOpen('142781417', 'butbary');">대댓글</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142781417');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('butbary', '142781417');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142781417" style="display:none;"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142781417">0</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142781417">
+									<div class="comment_view" data-comment-view="142781417">
+										오~ 재밋습니다. 강의 감사합니다. 그런데 crazy archery, twisty arrow란 게임들과 비슷하네요
+										<input type="hidden"
+											value="오~ 재밋습니다. 강의 감사합니다. 그런데 crazy archery, twisty arrow란 게임들과 비슷하네요"
+											data-comment-modify="142781417">
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="comment_row by-author re" data-role="comment-row" data-author-id="jenky"
+								data-comment-sn="142783786">
+								<span class="comment_point" id="142783786"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+				<img src=" https://edgio.clien.net/F94/8320843/b8075633a64e6.gif" alt="프라다2" title="프라다2">
+											</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142783786" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142783786" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142783786" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142783786" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142783786" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('jenky', this, '142783786');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142783786');">#142783786</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">61.♡.190.182</span></div>
+
+										<div class="comment_time popover" data-role="comment-time">08:42
+											<span class="timestamp">2023-06-12 08:42:15
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142783786">
+											<button class="comment_re"
+												onclick="app.commentReMentionOpen('142783786', '142781417','jenky');">언급</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142783786');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('jenky', '142783786');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142783786" style="display:none;"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142783786">0</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142783786">
+									<div class="comment_view" data-comment-view="142783786">
+										<strong data-nick-id='butbary' data-role='highlite'>@벗바리</strong>님 twisty arrow
+										는 완전 똑같아 보이네요 ㅋㅋ 구글 플레이 스토어에는 유명한 게임이 하나 있으면 줄줄이 따라서 카피 게임들이 만들어지는 것 같아요 ㅎ
+										<input type="hidden"
+											value="｢@벗바리＊butbary＊님｣ twisty arrow 는 완전 똑같아 보이네요 ㅋㅋ 구글 플레이 스토어에는 유명한 게임이 하나 있으면 줄줄이 따라서 카피 게임들이 만들어지는 것 같아요 ㅎ"
+											data-comment-modify="142783786">
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="comment_row  " data-role="comment-row" data-author-id="recin"
+								data-comment-sn="142783955">
+								<span class="comment_point" id="142783955"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+					<span title=" 야하하하">야하하하</span>
+										</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142783955" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142783955" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142783955" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142783955" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142783955" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('recin', this, '142783955');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142783955');">#142783955</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">61.♡.249.83</span></div>
+
+										<div class="comment_time popover" data-role="comment-time">08:55
+											<span class="timestamp">2023-06-12 08:55:25
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142783955">
+											<button class="comment_re"
+												onclick="app.commentReEditorOpen('142783955', 'recin');">대댓글</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142783955');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('recin', '142783955');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142783955" style="display:none;"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142783955">0</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142783955">
+									<div class="comment_view" data-comment-view="142783955">
+										와 신기하네요
+										<input type="hidden" value="와 신기하네요" data-comment-modify="142783955">
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="comment_row  " data-role="comment-row" data-author-id="apple_lemon"
+								data-comment-sn="142785236">
+								<span class="comment_point" id="142785236"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+					<span title=" 문짝문씨">문짝문씨</span>
+										</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142785236" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142785236" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142785236" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142785236" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142785236" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('apple_lemon', this, '142785236');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142785236');">#142785236</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">124.♡.216.32</span></div>
+
+										<div class="comment_time popover" data-role="comment-time">10:14
+											<span class="timestamp">2023-06-12 10:14:26
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142785236">
+											<button class="comment_re"
+												onclick="app.commentReEditorOpen('142785236', 'apple_lemon');">대댓글</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142785236');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('apple_lemon', '142785236');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142785236" style="display:none;"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142785236">0</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142785236">
+									<div class="comment_view" data-comment-view="142785236">
+										와 너무 멋지시네요!
+										<input type="hidden" value="와 너무 멋지시네요!" data-comment-modify="142785236">
+									</div>
+								</div>
+
+							</div>
+						</div>
+
+						<div class="comment_msg" data-role="comment-loading" style="display:none;">
+							<i class="fa fa-spinner fa-spin"></i>
+						</div>
+
+						<div class="comment_msg" data-role="comment-empty-result" style="display:none;">
+							<i class="fa fa-commenting loading"></i> 새로운 댓글이 없습니다.
+						</div>
+
+						<div class="comment_nav" data-role="comment-more" style="display:none;">
+							<button type="button" class="comment_more" onclick="app.getCommentList('next');">
+								<strong>다음 댓글 확인</strong>
+								<em>
+									<span data-role="comment-current-count"></span> / <span
+										data-role="comment-total-count">18</span>
+								</em>
+							</button>
+						</div>
+
+						<div class="comment_nav" data-role="comment-newest" style="display:none;">
+							<button type="button" class="comment_more" onclick="app.getCommentList('all');">
+								<strong>새로운 댓글 확인하기</strong>
+								<em>단축키 'R'</em>
+							</button>
+						</div>
+
+						<div class="comment_nav" data-role="comment-link" style="display:none;">
+							<button type="button" class="comment_more" onclick="app.getCommentList('all');">
+								<strong>다음 댓글 확인</strong>
+								<em>
+									<span data-role="comment-current-count"></span> / <span
+										data-role="comment-total-count">18</span>
+								</em>
+							</button>
+						</div>
+
+						<div id="comment_write_div" class="add_comment_focus">
+							<div class="comment_write_point" id="comment_write_point"></div>
+							<div class="add-comment open" onclick="location.href = '/service/auth/login';"
+								id="commentToogleBtn">
+								<button type="button" class="comment-open" value="">댓글은 로그인이 필요한 서비스 입니다.</button>
+							</div>
+
+							<div class="add-comment open active" id="oriCommentArea" style="display:none;">
+								<div class="loading-overlay" id="loading"><i
+										class="fa fa-spinner fa-spin fa-fw margin-bottom"></i></div>
+
+								<div class="commentEdit">
+									<textarea id="editCommentTextarea" class="autosize " rows="3"></textarea>
+								</div>
+
+								<button type="button" class="comment-submit" onclick="app.commentWrite();"
+									id="rewrite_height">댓글쓰기</button>
+
+								<div class="upload_comment">
+									<section>
+										<div id="dropzone_comment">
+											<form class="dropzone needsclick" id="comment-img-upload">
+												<div class="dz-message needsclick">
+													<span class="message_text"></span>
+												</div>
+											</form>
+										</div>
+									</section>
+
+									<div id="preview-comment-template" style="display: none;">
+										<div class="dz-preview dz-file-preview">
+											<div class="dz-image" data-role="img-prev">
+												<img data-dz-thumbnail="">
+											</div>
+											<div class="dz-infomation">
+												<div class="dz-details">
+													<div class="dz-filename">
+														<span data-dz-name=""></span>
+														<span data-dz-remove=""><i
+																class="fa fa-times-circle"></i></span>
+													</div>
+												</div>
+												<div class="dz-size"><span data-dz-size=""></span></div>
+												<div class="dz-progress"><span class="dz-upload"
+														data-dz-uploadprogress=""></span></div>
+												<div class="dz-error-message"><span data-dz-errormessage=""></span>
+												</div>
+												<div class="dz-error-mark"><i class="fa fa-ban"></i></div>
+											</div>
+										</div>
+									</div>
+
+									<div class="upload_tip_add">
+										이미지 최대 업로드 용량 <strong>15 MB</strong> / 업로드 가능 확장자
+										<strong>jpg,gif,png,jpeg</strong><br>지나치게 큰 이미지의 크기는 조정될 수 있습니다.
+									</div>
+								</div>
+
+							</div>
+						</div>
+						<div class="fr-overlay"></div>
+					</div>
+
+					<div class="view_button_area">
+						<a href="javascript:;" onclick="paging.getBoard('direct', '0');" class="button_list">
+							<span class="fa fa-list button_icon"></span><span class="button_name">목록으로</span>
+						</a>
+
+						<div class="button_post">
+							<a href="https://www.clien.net/service/board/regist?boardCd=lecture"
+								class="action_icon fix blue">
+								<span class="fa fa-pencil button_icon"></span>
+								<span class="tooltiptext">글쓰기</span>
+							</a>
+						</div>
+					</div>
+
+					<div class="viewListTop" id="viewListTop"></div>
+
+					<div id="naverAd"></div>
+					<div class="viewListArea">
+						<div class="view_list" id="listDiv"></div>
+					</div>
+
+
+				</div>
+			</div>
+			<div class="nav_action">
+				<div class="action_box">
+
+					<div class="action_write" data-role="dropdown-write-article">
+						<a href="https://www.clien.net/service/board/regist?boardCd=lecture"
+							class="action_icon fix blue tooltip">
+							<span class="fa fa-pencil button_icon"></span>
+							<span class="tooltiptext">글쓰기</span>
+						</a>
+
+					</div>
+
+
+					<a href="javascript:;" onclick="paging.getBoard('goList');" class="action_icon fix tooltip list">
+						<i class="fa fa-list"></i>
+						<span class="tooltiptext">목록으로</span>
+					</a>
+
+					<em class="hr"></em>
+					<a href="#comment-head" class="action_icon fix tooltip">
+						<i class="fa fa-commenting"></i>
+						<span class="tooltiptext">댓글보기</span>
+					</a>
+
+					<a href="javascript:;" class="action_icon tooltip prev" onclick="list.neiborArticle('prev')">
+						<i class="fa fa-long-arrow-left"></i>
+						<span class="tooltiptext">이전글</span>
+					</a>
+
+					<a href="javascript:;" class="action_icon tooltip next" onclick="list.neiborArticle('next')">
+						<i class="fa fa-long-arrow-right"></i>
+						<span class="tooltiptext">다음글</span>
+					</a>
+
+
+					<a href="#down" class="action_icon none" title="맨아래로 이동">
+						<i class="fa fa-caret-down"></i>
+					</a>
+
+					<div class="backtop" id="back-top">
+						<a href="#top" class="action_icon none" title="맨위로 이동">
+							<i class="fa fa-caret-up"></i>
+						</a>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div class="aside">
+
+			<div class="account_section">
+				<form id="loginForm">
+					<div class="account_swiper" id="otp">
+						<div class="side_account">
+							<div>
+								<input type="hidden" name="_csrf" value="066e4515-17c7-4450-aa61-6e8d1b3da195" />
+								<input type="text" autocapitalize="off" placeholder="아이디" name="userId" value=""
+									class="input_id" spellcheck="false">
+								<input type="password" placeholder="비밀번호" name="userPassword" value="" class="input_pw"
+									spellcheck="false">
+								<input type="hidden" id="deviceId" name="deviceId" value="" />
+								<div class="account_submit">
+									<label class="check_auto"><input type="checkbox" name="remember-me"><span
+											class="checkbox"></span>자동로그인</label>
+									<button type="button" onclick="auth.login()" name="로그인하기"
+										class="button_submit">로그인</button>
+								</div>
+								<div class="account_signup">
+									<a href="../../auth/findAccountCert.html" class="button_find">아이디·비번 찾기</a>
+									<em></em>
+									<a href="../../auth/join.html" class="button_signup">회원가입</a>
+								</div>
+							</div>
+						</div>
+
+						<div class="side_account">
+							<div class="account_subject">OTP 앱 인증코드</div>
+							<input type="text" placeholder="코드입력" id="totpcode" name="totpcode" value=""
+								class="input_code">
+							<div class="account_submit">
+								<label class="check_auto"><input type="checkbox" name="devicePass"><span
+										class="checkbox"></span>신뢰하는 기기</label>
+								<button type="button" onclick="auth.otpLoginConfirm();" name="인증하기"
+									class="button_submit" style="width: 100%">인증하기</button>
+							</div>
+							<div class="account_signup">
+								<a href="../faq/17526373.html#lost" class="button_find" style="width: 100%;"><span
+										class="fa fa-question-circle"></span> 인증코드를 받지 못하는 경우</a>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+
+
+
+
+		</div>
+	</div>
+
+
+
+	<script>
+		var today = new Date();
+		document.getElementById("nowYear").innerHTML = today.getFullYear();
+
+		function deleteViewCookie() {
+			var expire = new Date();
+			expire.setDate(expire.getDate() - 1);
+			cookies = "P2M=; domain=.clien.net; path=/; expires=" + expire.toGMTString() + ";";
+			document.cookie = cookies;
+
+			var url = document.location.href;
+			url = url.replace("www", "m");
+			location.href = url;
+		}
+	</script>
+
+	<script src="../../js/lib/jquery-1.11.1.min.js"></script>
+	<script src="../../js/lib/jquery-ui.min.js"></script>
+	<script src="../../js/lib/isMobile.min.js"></script>
+	<script src="../../js/lib/cl.dropmenu.js"></script>
+	<script src="../../js/lib/jquery.extend.js"></script>
+	<script src="../../js/lib/jquery.cookie.js"></script>
+
+	<script>
+		var IS_DEBUG = false;
+		var BASE_URL = "/service";
+		var API_HOST = "/service/api";
+		var CDN_URL = "https://edgio.clien.net";
+		var COOKIE_DOMAIN = "clien.net";
+
+		var IS_LOGIN = false;
+		var sessionUserId = '';
+
+
+		var IsMobile = false;
+
+
+		var PAGE_SETTING_THEME = "";
+		var PAGE_SETTING_FONT_SIZE = "";
+		var PAGE_SETTING_KIND_OF_FONT = "";
+		var PAGE_SETTING_SHORT_CUT = "";
+		var PAGE_SETTING_LIST_SIZE = "";
+
+		PAGE_SETTING_THEME = "white";
+		PAGE_SETTING_FONT_SIZE = "normal";
+		PAGE_SETTING_KIND_OF_FONT = "basic";
+		PAGE_SETTING_SHORT_CUT = "on";
+		PAGE_SETTING_LIST_SIZE = "normal";
+
+		var HONGBO_IMG_PARAMETER = "?scale=width[320],options[limit]";
+		var COMMENT_IMG_PARAMETER = "?scale=width[480],options[limit]";
+		var IMG_PARAMETER = "?scale=width[740],options[limit]";
+
+		var keyData = new Object();
+		keyData[""] = "/service/group/board_all";
+		keyData["c"] = "/service/group/community";
+		keyData["f"] = "/service/board/park";
+		keyData["i"] = "/service/board/image";
+		keyData["q"] = "/service/board/kin";
+		keyData["d"] = "/service/group/allinfo";
+		keyData["n"] = "/service/board/news";
+		keyData["t"] = "/service/board/useful";
+		keyData["p"] = "/service/board/pds";
+		keyData["e"] = "/service/group/allreview";
+		keyData["l"] = "/service/board/lecture";
+		keyData["u"] = "/service/board/use";
+		keyData[""] = "/service/board/chehum";
+		keyData["w"] = "/service/group/allsell";
+		keyData["j"] = "/service/board/jirum";
+		keyData["s"] = "/service/board/sold";
+		keyData["b"] = "/service/board/hongbo";
+		keyData[""] = "/service/group/insure";
+		keyData["h"] = "/service/";
+		keyData[""] = "/service/group/cm_all";
+		keyData[""] = "/service/somoim";
+		keyData[""] = "/service/board/cm_main";
+		keyData[""] = "/service/board/cm_cat";
+		keyData[""] = "/service/board/cm_dog";
+		keyData[""] = "/service/board/cm_fish";
+		keyData[""] = "/service/board/cm_app";
+		keyData[""] = "/service/board/cm_note";
+		keyData[""] = "/service/board/cm_redeem";
+		keyData[""] = "/service/board/cm_stock";
+		keyData[""] = "/service/board/cm_vcoin";
+		keyData[""] = "/service/board/cm_venture";
+		keyData[""] = "/service/board/cm_lang";
+		keyData[""] = "/service/board/cm_wine";
+		keyData[""] = "/service/board/cm_cook";
+		keyData[""] = "/service/board/cm_food";
+		keyData[""] = "/service/board/cm_simsik";
+		keyData[""] = "/service/board/cm_iphonien";
+		keyData[""] = "/service/board/cm_mac";
+		keyData[""] = "/service/board/cm_bike";
+		keyData[""] = "/service/board/cm_nas";
+		keyData[""] = "/service/board/cm_andro";
+		keyData[""] = "/service/board/cm_keyboard";
+		keyData[""] = "/service/board/cm_airplane";
+		keyData[""] = "/service/board/cm_formula1";
+		keyData[""] = "/service/board/cm_pctuning";
+		keyData[""] = "/service/board/cm_iot";
+		keyData[""] = "/service/board/cm_applewatch";
+		keyData[""] = "/service/board/cm_mbike";
+		keyData[""] = "/service/board/cm_watch";
+		keyData[""] = "/service/board/cm_rasp";
+		keyData[""] = "/service/board/cm_slate";
+		keyData[""] = "/service/board/cm_ebook";
+		keyData[""] = "/service/board/cm_blockchain";
+		keyData[""] = "/service/board/cm_thinkpad";
+		keyData[""] = "/service/board/cm_bb";
+		keyData[""] = "/service/board/cm_tpad";
+		keyData[""] = "/service/board/cm_drone";
+		keyData[""] = "/service/board/cm_nokien";
+		keyData[""] = "/service/board/cm_ebicycle";
+		keyData[""] = "/service/board/cm_tiwatch";
+		keyData[""] = "/service/board/cm_webos";
+		keyData[""] = "/service/board/cm_wp";
+		keyData[""] = "/service/board/cm_aigurim";
+		keyData[""] = "/service/board/cm_ai";
+		keyData[""] = "/service/board/cm_console";
+		keyData[""] = "/service/board/cm_werule";
+		keyData[""] = "/service/board/cm_dia";
+		keyData[""] = "/service/board/cm_steam";
+		keyData[""] = "/service/board/cm_poe";
+		keyData[""] = "/service/board/cm_kordle";
+		keyData[""] = "/service/board/cm_lol";
+		keyData[""] = "/service/board/cm_heroes";
+		keyData[""] = "/service/board/cm_gemwar";
+		keyData[""] = "/service/board/cm_board";
+		keyData[""] = "/service/board/";
+		keyData[""] = "/service/board/cm_dongsup";
+		keyData[""] = "/service/board/cm_civilize";
+		keyData[""] = "/service/board/cm_cookierun";
+		keyData[""] = "/service/board/cm_eve";
+		keyData[""] = "/service/board/cm_fm";
+		keyData[""] = "/service/board/cm_gta";
+		keyData[""] = "/service/board/cm_gun";
+		keyData[""] = "/service/board/cm_hearth";
+		keyData[""] = "/service/board/cm_mabi";
+		keyData[""] = "/service/board/cm_mine";
+		keyData[""] = "/service/board/cm_mtg";
+		keyData[""] = "/service/board/cm_rhythm";
+		keyData[""] = "/service/board/cm_sim";
+		keyData[""] = "/service/board/cm_star";
+		keyData[""] = "/service/board/cm_wow";
+		keyData[""] = "/service/board/cm_keyboard";
+		keyData[""] = "/service/board/cm_rowing";
+		keyData[""] = "/service/board/cm_lego";
+		keyData[""] = "/service/board/cm_ku";
+		keyData[""] = "/service/board/cm_dduk";
+		keyData[""] = "/service/board/cm_wine";
+		keyData[""] = "/service/board/cm_onair";
+		keyData[""] = "/service/board/cm_book";
+		keyData[""] = "/service/board/cm_photo";
+		keyData[""] = "/service/board/cm_3dmaking";
+		keyData[""] = "/service/board/cm_ebook";
+		keyData[""] = "/service/board/cm_midra";
+		keyData[""] = "/service/board/cm_surfing";
+		keyData[""] = "/service/board/cm_military";
+		keyData[""] = "/service/board/cm_classic";
+		keyData[""] = "/service/board/cm_drone";
+		keyData[""] = "/service/board/cm_fisher";
+		keyData[""] = "/service/board/cm_movie";
+		keyData[""] = "/service/board/cm_baby";
+		keyData[""] = "/service/board/cm_glasses";
+		keyData[""] = "/service/board/cm_edc";
+		keyData[""] = "/service/board/cm_danger";
+		keyData[""] = "/service/board/cm_adhd";
+		keyData[""] = "/service/board/cm_fashion";
+		keyData[""] = "/service/board/cm_japanlive";
+		keyData[""] = "/service/board/cm_oversea";
+		keyData[""] = "/service/board/cm_daegu";
+		keyData[""] = "/service/board/cm_instar";
+		keyData[""] = "/service/board/cm_solo";
+		keyData[""] = "/service/board/cm_70";
+		keyData[""] = "/service/board/cm_fisher";
+		keyData[""] = "/service/board/cm_twit";
+		keyData[""] = "/service/board/cm_bts";
+		keyData[""] = "/service/board/cm_girl";
+		keyData[""] = "/service/board/cm_music";
+		keyData[""] = "/service/board/cm_classic";
+		keyData[""] = "/service/board/cm_kara";
+		keyData[""] = "/service/board/cm_bts";
+		keyData[""] = "/service/board/cm_girlgroup";
+		keyData[""] = "/service/board/cm_girl";
+		keyData[""] = "/service/board/cm_kara";
+		keyData[""] = "/service/board/cm_bike";
+		keyData[""] = "/service/board/cm_golf";
+		keyData[""] = "/service/board/cm_rowing";
+		keyData[""] = "/service/board/cm_soccer";
+		keyData[""] = "/service/board/cm_baseball";
+		keyData[""] = "/service/board/cm_gym";
+		keyData[""] = "/service/board/cm_swim";
+		keyData[""] = "/service/board/cm_billiards";
+		keyData[""] = "/service/board/cm_surfing";
+		keyData[""] = "/service/board/cm_snow";
+		keyData[""] = "/service/board/cm_badmin";
+		keyData[""] = "/service/board/cm_basket";
+		keyData[""] = "/service/board/cm_mount";
+		keyData[""] = "/service/board/cm_sea";
+		keyData[""] = "/service/board/cm_tennis";
+		keyData[""] = "/service/board/cm_camp";
+		keyData[""] = "/service/board/cm_tour";
+
+
+		$.ajaxSetup({
+			beforeSend: function (xhr, settings) {
+				if (settings.type == 'POST' || settings.type == 'PUT' || settings.type == 'DELETE') {
+					if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+						xhr.setRequestHeader("X-CSRF-TOKEN", "066e4515-17c7-4450-aa61-6e8d1b3da195");
+					}
+				}
+			}
+		});
+
+		setTimeout(function () {
+			var height = $('#div_content').outerHeight();
+			$("#sideBarHeight").css("height", height);
+		}, 2000);
+
+	</script>
+
+	<script src="../../js/common/clien.storage%EF%B9%960503v1.js"></script>
+	<script src="../../js/common/clien.alarm%EF%B9%960503v1.js"></script>
+	<script src="../../js/common/clien.auth%EF%B9%960503v1.js"></script>
+	<script src="../../js/common/clien.paging%EF%B9%960503v1.js"></script>
+	<script src="../../js/common/clien.util%EF%B9%960503v1.js"></script>
+	<script src="../../js/common/clien.popup%EF%B9%960503v1.js"></script>
+	<script src="../../js/common/clien.setting%EF%B9%960503v1.js"></script>
+	<script src="../../js/common/clien.search%EF%B9%960503v1.js"></script>
+
+	<script src="../../js/app/clien.agent%EF%B9%960503v1.js"></script>
+	<script src="../../js/app/clien.ui%EF%B9%960503v1.js"></script>
+
+	<script>
+		function detectBlockers() {
+			var ad = document.createElement('div');
+			ad.innerHTML = '&nbsp;';
+			ad.className = 'adsbox';
+			ad.style.position = 'absolute';
+			ad.style.fontSize = '0';
+			ad.style.height = '10px';
+			ad.style.width = '10px';
+			ad.style.zIndex = '-1000';
+			ad.style.top = '-1000px';
+			document.body.appendChild(ad);
+
+			setTimeout(function () {
+				if (ad.offsetHeight === 0) {
+					trackBlockerUsage();
+					console.log("adBolckUse");
+				}
+				document.body.removeChild(ad);
+			}, 100);
+		}
+
+		function trackBlockerUsage() {
+			if (typeof gtag !== 'undefined') {
+				gtag('event', 'adblocker_detected', {
+					'event_category': 'adblocker',
+					'event_label': 'Ad Blocker Usage'
+				});
+			}
+		}
+
+		window.onload = detectBlockers;
+	</script>
+
+
+
+	<div class="modal_gif">
+		<div class="modal_gif_content">
+			<div class="modal_title">
+				<strong><i class="fa fa-download"></i> GIF 파일 다운로드</strong>
+				<button type="button" class="modal_close" onclick="app.gifDownClose();" aria-label="close">
+					<div class="modal_button_close"></div>
+				</button>
+			</div>
+			<div class="modal_key_display">
+				<span id="gif_modal_1">0</span>
+				<span id="gif_modal_2">0</span>
+				<span id="gif_modal_3">0</span>
+				<span id="gif_modal_4">0</span>
+			</div>
+			<div class="modal_help_msg">GIF 파일을 다운로드 받으려면<br>화면에 표시된 4자리 번호를 입력해주세요.</div>
+			<div class="modal_input">
+				<input id="gif_check" type="text" class="key_input" placeholder="번호를 입력하세요.">
+			</div>
+			<div class="modal_footer">
+				<button type="button" class="modal_button_confirm" onclick="app.gofDownCheck();">확인</button>
+				<button type="button" class="modal_button_cancel" onclick="app.gifDownClose();">취소</button>
+			</div>
+		</div>
+		<div class="modal_bg" onclick="app.gifDownClose();"></div>
+
+		<input type="hidden" id="gif_modal_file_sn" value="">
+		<input type="hidden" id="gif_modal_key" value="">
+		<input type="hidden" id="gif_modal_width" value="">
+		<input type="hidden" id="gif_modal_height" value="">
+	</div>
+
+	<div class="modal_clipboard" id="clipboard_modal">
+		<div class="modal_clipboard_content">
+			<div class="modal_title">
+				<strong>댓글 주소복사</strong>
+				<button type="button" class="modal_close" onclick="clipboardModalClose();" aria-label="close">
+					<div class="modal_button_close"></div>
+				</button>
+			</div>
+			<div class="modal_input">
+				<input id="commentClipboard_value" type="text" class="key_input" placeholder="URL" value="">
+				<button type="button" class="modal_button_confirm btn" data-clipboard-target="#commentClipboard_value"
+					title="주소복사"><i class="fa fa-clipboard"></i></button>
+			</div>
+		</div>
+	</div>
+
+
+	<script>
+		function clipboardModalClose() {
+			$('#clipboard_modal').removeClass('open');
+		}
+	</script>
+	<input type="hidden" value="jenky" id="writer">
+	<input type="hidden" value="" id="loginUserId">
+	<input type="hidden" value="lecture" id="boardCd">
+	<input type="hidden" value="18128206" id="boardSn">
+	<input type="hidden" value="1000031" id="category">
+	<input type="hidden" value="18" id="commentCount">
+	<input type="hidden" value="0">
+	<input type="hidden" value="18" id="nowCommentCount">
+	<input type="hidden" value="ST03" id="webTag">
+	<input type="hidden" value="https://www.clien.net/service/board/lecture/18128206" id="shareUrl">
+
+	<input type="hidden" value="write" id="comment_mode">
+	<input type="hidden" value="" id="comment_commentSn">
+	<input type="hidden" value="NO" id="comment_link_isvaild">
+
+	<input type="hidden" value="100" id="configCommentPageSize">
+	<input type="hidden" value="20000" id="configMaxContentLength">
+	<input type="hidden" value="3" id="configMinContentLength">
+	<input type="hidden" value="luxmall,레플리카, 레플,럭셔리몰, !important, fixed" id="configStopWord"> <input type="hidden"
+		value="T31" id="od">
+	<input type="hidden" value="0" id="po">
+	<input type="hidden" value="0" id="voCategory">
+	<input type="hidden" value="" id="sk">
+	<input type="hidden" value="" id="sv">
+	<input type="hidden" value="" id="groupCd"> <input type="hidden" value="0" id="pt">
+	<input type="hidden" value="팁과강좌" id="boardName">
+	<input type="hidden" value="유니티로 간단한 게임 만들기" id="subject">
+	<input type="hidden"
+		value="안녕하세요? 유니티로 빠르게 간단한 게임을 만들어보는 강의를 준비했습니다 😊 이번에 만들 게임은 aa 라고 하는 요상한 제목을 가졌는데요. 놀랍게도 전세계적으로 5,000 만 이상의 다운로드를 기록한 간단하면서도 재밌는 게임이랍니다. 플레이 모습은 이런데요. 화면을 터치해서 빙글빙글 돌아가는 동그라미에 작은 동그라미를 쏩니다. GIF 그러면 마치 핀이 꽂히는 것처럼 작은 동그라미가 큰 동그라미에 달라붙고 함께 돌게 돼요. 이렇게 모든 동그라미를 쏴서 맞히는 것이 목표입니다. GIF 하지만 작은 동그라미끼리 부딪치게 되면 그 즉시 게임은 끝나게 돼요 GIF 무척 간단하죠? 레벨이 올라갈수록 돌아가는 속도가 달라지거나 방향이 바뀌거나 목표가 높아지는 등 난이도가 높아지는데, 빠르게 돌아가는 동그라미의 좁은 틈 사이로 쏙 하고 집어 넣게 되면 짜릿한 쾌감마저 느낄 수 있답니다 🤣 찾아보니 같은 아이디어를 빌려서 만든 게임도 있더라구요 그래픽이 들어가니 또 새로운 재미가 있는듯도 합니다. GIF aa 는 상대적으로 만들기가 수월한 게임입니다. 게임 이미지를 구할 필요가 없거든요 딱 원하는 게임 이미지 구하는게 참 힘든데 aa 는 단색 배경에 까만색 동그라미, 선이면 충분합니다. 그럼 먼저 게임 배경을 만들어볼게요. 유니티에서 배경은 카메라 선택하고 원하는 색으로 바꿔주면 끝이에요. 이번에는 동그라미를 만들고 색을 까맣게 해줍니다. 크기를 적당히 조정하고 화면 조금 윗쪽에 배치시켜볼게요. 여기에 작은 동그라미를 마구 쏠 겁니다. 일단 한 번 빙글빙글 돌려볼까요? 그냥 돌리면 티가 나지 않으니 확인을 위해 작은 하얀 동그라미를 하나 붙여볼게요. 스크립트로 간단하게 transform.Rotate() 메소드를 써서 돌려봤더니 빙글빙글 잘 도네요. GIF 이번에는 작은 동그라미, 우리가 쏠 녀석을 만들어볼게요. 편의상 핀(Pin)이라고 하겠습니다. 큰 동그라미때와 같은 방식으로 작은 동그라미를 만들구요. 윗쪽 방향으로 슉 올라가도록 스크립트를 적용하겠습니다. 나중에는 마우스로 클릭하면 이렇게 슉 쏘는 형태가 될 거에요. GIF 이제는 충돌 처리를 해볼까요? 작은 동그라미가 올라가다가 큰 동그라미와 닿으면 그 즉시 멈추고 큰 동그라미에 달라붙어서 함께 빙글빙글 돌아가면 되겠네요. 큰 동그라미, 작은 동그라미에 충돌 영역을 설정하기 위해 Circle Collider 2D 컴포넌트를 추가합니다. 물리법칙을 적용하기 위해 Rigidbody 2D 컴포넌트도 추가해주세요. 스크립트에서 충돌 됐을 때 작은 동그라미가 큰 동그라미에 달라붙도록 하기 위해서는 transform.SetParent() 를 쓰면 됩니다. GIF 잘 붙네요! 그런데 원래 게임에서는 두 동그라미가 이렇게 직접 맞닿지는 않았습니다. 그리고 둘을 서로 연결하는 길쭉한 선이 있었지요? 이 부분은 어떻게 처리할까 고민하다가 그냥 큰 동그라미의 충돌 영역을 조금 키워주기로 합니다. 그러면 동그라미와 다소 떨어져 있어도 이 곳에서 작은 동그라미는 멈추게 되겠지요. 그리고 작은 동그라미에는 충돌 영역이 없는 선을 하나 만들어줍니다. 처음에는 선을 안 보이게 숨겼다가 큰 동그라미와 충돌하게 되면 그때 이 선을 보여줄거에요. 감쪽같죠? GIF 지금까지는 핀을 하나만 쐈었는데 이번에는 마우스를 클릭해서 여러개를 쏠 수 있도록 해보겠습니다. 똑같은 형태의 핀을 여러 번 중복해서 만들기 위해서 핀을 프리팹으로 관리할게요. 프리팹은 마치 주문제작과 비슷하다고 생각하시면 됩니다. 어느 회사에서 단체로 옷을 맞추기로 한다면 업체에 디자인을 보내서 먼저 샘플을 만들어 볼겁니다. 그런 다음에 색이나 모양 등이 마음이 드는지 보고 필요하면 수정을 거듭해서 최종적으로 마음에 드는 결과물을 만들겠죠. 그때부터는 그 결과물과 똑같은 옷을 회사에서 주문하는 만큼 여러 벌 만들게 될겁니다. 프리팹도 동일해요. 어떤 게임 오브젝트(여기서는 핀)를 만들어서 크기와 모양 색깔, 충돌 영역 등 다양한 속성을 원하는 만큼 수정한 다음에 이와 똑같은 게임 오브젝트를 여러 개 만들 수 있도록 하기 위한 것이 바로 프리팹입니다. 총알이나 미사일, 아이템이나 적 캐릭터 등 여러 번 등장하는 것들은 매번 새롭게 만들 필요 없이 하나를 잘 만들어둔 다음에 복사해서 쓰면 되는 것이죠! 핀 프리팹을 만든 다음 정해진 위치(화면 아래)에서 핀이 만들어지도록 합니다. 마우스로 클릭해서 준비된 핀을 쏘고 나면 다음 핀을 준비시키도록 하면 되겠네요. GIF 이어서 목표 설정을 하겠습니다. 진짜 게임에서는 큰 동그라미 가운데에 현재 레벨이 숫자로 표시되는데, 우리는 그 위치에 목표로 하는 작은 동그라미의 수를 적도록 할게요. 10이라고 적혀 있으면 10개의 핀을 쏴서 올바로 맞춰야 하는 겁니다. UI - Text 를 이용하면 간단하게 만들 수 있는데, 충돌 처리 부분을 조금 보완해서 핀을 잘 쏜다면 목표 수를 감소 시켜주도록 하겠습니다. GIF 거의 다 왔네요. 이번에는 게임 오버 처리를 하겠습니다. 목표 수 만큼 모든 핀을 큰 동그라미에 올바로 꽂는다면 성공, 다른 핀과 쿵 하고 충돌하게 되면 실패로 끝나는 겁니다. 성공일 때는 배경색을 초록색으로, 실패일 때는 배경색을 빨간색으로 바꿔서 진짜 게임과 동일하게 해볼까요? GIF GIF 성공과 실패, 게임 결과에 따라 색이 잘 표시되는 것을 확인할 수 있네요! 이제는 게임이 끝나면 다시 시작할 수 있는 재시작 버튼을 넣어주겠습니다. UI - Button 을 이용해서 기본 색상에 글자만 키워주도록 할게요. 그리고 이 버튼을 누르면 지금 만들고 있는 이 게임 화면(Scene) 을 다시 로딩해서 새 게임을 시작할 수 있도록 하겠습니다. GIF 훌륭하네요! 마지막으로 난이도 조절을 해볼까요? 그냥 끝내기에는 뭔가 밋밋하고 조금 아쉬운 감이 없잖아 있어요. 왜냐면 한쪽 방향으로 같은 속도로 계속 돌아가니 게임이 너무 쉽거든요. 애니메이션 편집을 이용해서 1초는 빠르게 시계 방향으로, 1초는 느리게 반시계 방향으로 회전하는 것을 반복시켜볼게요. 그러면 잘 돌다가 잠깐 반대로 돌다가, 또 잘 돌다가 반대로 돌다가, 핀을 쏠 타이밍을 잡기 어렵게 되었습니다. GIF 훨씬 더 쫄깃한 맘으로 게임을 할 수 있겠죠? 이렇게 해서 모든 게임이 완성되었습니다. 아주 간편하면서도 재미있는 게임, 어린 자녀분들과 함께 플레이 해보면 정말 좋아할 거예요 😊 (못한다고 놀리거나, 너무 어렵게 만들지는 마세요 ㅋ 울어요... 해봐서 알아요) 게임을 만드는 방법은 이 곳에 하나의 영상으로 소개되어 있습니다. 유니티 게임 개발에 관심 있으신 분들께 도움되면 좋겠습니다! 긴 글 읽어주셔서 감사해요. 행복한 주말 되세요 🙌 GIF"
+		id="content">
+	<input type="hidden" value="M01" id="mainTag">
+
+	<input type="hidden" value="boardView" id="pageName">
+	<input type="hidden" value="" id="bizType"> <input type="hidden" value="" id="preListType">
+	<input type="hidden" value="0" id="moreCount">
+
+	<input type="hidden" value="false" id="combine">
+	<input type="hidden" value="" id="combine_q">
+	<input type="hidden" value="0" id="combine_p">
+	<input type="hidden" value="recency" id="combine_sort">
+	<input type="hidden" value="lecture" id="combine_boardCd">
+	<input type="hidden" value="false" id="combine_isBoard">
+
+	<script src="https://www.clien.net/service/js/lib/tribute/tribute.min.js"></script>
+	<script src="../../js/lib/mark.min.js"></script>
+	<script src="https://www.clien.net/service/js/lib/clipboard.min.js"></script>
+
+	<script src="../../js/app/clien.hongbo%EF%B9%960503v1.js"></script>
+	<script src="../../js/common/clien.observe%EF%B9%960503v1.js"></script>
+	<script src="https://www.clien.net/service/js/common/clien.list.js?0503v1"></script>
+	<script src="../../js/common/clien.recommend%EF%B9%960503v1.js"></script>
+	<script src="https://www.clien.net/service/js/common/clien.myView.js?0503v1"></script>
+	<script src="https://www.clien.net/service/js/app/pageJs/view.js?0503v1"></script>
+	<script src="https://www.clien.net/service/js/common/clien.like.js?0503v1"></script>
+	<script src="https://www.clien.net/service/js/lib/dropzone/dropzone.min.js?20220308_1"></script>
+
+	<script>
+		function CommentImgUpload() {
+
+			var _this = this;
+
+			Dropzone.autoDiscover = false;
+
+			var dropzone_comment = new Dropzone('#comment-img-upload', {
+				previewTemplate: document.querySelector('#preview-comment-template').innerHTML,
+				url: API_HOST + '/file/uploads',
+				method: 'POST',
+				params: {
+					'fileType': 'F03'
+				},
+				parallelUploads: 1,
+				thumbnailHeight: null,
+				thumbnailWidth: 150,
+				maxFiles: 1, // 업로드 파일수
+				filesizeBase: 1024, // 파일 용량 표시 기준
+				maxFilesize: 15, // 파일 업로드 최대 용량 Mb단위
+				parallelUploads: 1, // 동시 파일업로드 수
+				acceptedFiles: '.jpg,.gif,.png,.jpeg,',
+				addRemoveLinks: false,
+				uploadMultiple: false,
+				autoProcessQueue: true,
+				dictRemoveFileConfirmation: '이미지를 삭제하시겠습니까?',
+				headers: {
+					'X-CSRF-Token': "066e4515-17c7-4450-aa61-6e8d1b3da195"
+				},
+				processing: function () {
+					$('.fr-overlay').addClass('active');
+					document.getElementById("loading").style.display = "block";
+				},
+				thumbnail: function (file, dataUrl, check) {
+
+					if (file.fileExt == 'mp4' || file.fileExt == 'org') {
+						file.previewElement.remove();
+					};
+
+					if (file.previewElement) {
+
+						file.previewElement.classList.remove("dz-file-preview");
+						var images = file.previewElement.querySelectorAll("[data-dz-thumbnail]");
+
+						for (var i = 0; i < images.length; i++) {
+							var thumbnailElement = images[i];
+							thumbnailElement.alt = file.name;
+							thumbnailElement.src = dataUrl;
+						}
+
+						if (check) {
+							var mp4IsVaild = false;
+							var mp4Sn = 0;
+							if (file.fileExt == 'gif') {
+								app.env.images.forEach(function (info, index) {
+									if (file.fileKey == info.fileKey && info.fileExt == 'mp4') {
+										mp4IsVaild = true;
+										mp4Sn = info.fileSn;
+									};
+								});
+							};
+
+							if (mp4IsVaild) {
+								file.previewElement.querySelector('.dz-filename').dataset.fileSn = mp4Sn;
+							} else {
+								file.previewElement.querySelector('.dz-filename').dataset.fileSn = file.fileSn;
+							}
+						}
+
+						setTimeout(function () {
+							file.previewElement.classList.add("dz-image-preview");
+						}, 1);
+					}
+				},
+				success: function (file, response) {
+					if (response.length == 1) {
+						app.env.images.push(response[0]);
+
+						file.previewElement.querySelector('.dz-image').dataset.url = response[0].url;
+						file.previewElement.querySelector('img').src = "https://edgio.clien.net" + response[0].url + IMG_PARAMETER;
+
+						file.previewElement.querySelector('.dz-filename').dataset.fileSn = response[0].fileSn;
+
+					} else if (response.length > 1) {
+						var fileSn = "";
+						var posterUrl = "";
+						var fileKey = "";
+						var url = "";
+
+						response.forEach(function (info, index) {
+							app.env.images.push(response[index]);
+
+							if ('gif' == info.fileExt) {
+								file.previewElement.querySelector('.dz-image').dataset.url = info.url;
+								posterUrl = info.url;
+								file.previewElement.querySelector('img').src = "https://edgio.clien.net" + info.url + IMG_PARAMETER;
+							} else if ('mp4' == info.fileExt) {
+								file.previewElement.querySelector('.dz-filename').dataset.fileSn = info.fileSn;
+								fileSn = info.fileSn;
+								fileKey = info.fileKey;
+								url = info.url;
+							};
+						});
+
+					}
+				},
+				error: function (file, response, e) {
+					var errorMessage = "";
+
+					file.previewElement.classList.add("clien-upload-error");
+
+					if (e == undefined) {
+						if (response.indexOf("You can not upload any more files") >= 0) {
+							errorMessage = '최대 업로드 개수를 초과. 다시 업로드 하려면 삭제하세요.';
+						};
+						if (response.indexOf("File is too big") >= 0) {
+							errorMessage = '최대 업로드 용량 초과';
+						};
+						if (response.indexOf("You can't upload files of this type") >= 0) {
+							errorMessage = '허용되지 않는 확장자 파일';
+						};
+					} else {
+						errorMessage = e.responseText;
+						if (errorMessage == undefined || errorMessage == null || errorMessage == '') {
+							errorMessage = '이미지 업로드 실패';
+						}
+						if (e.status != 400) {
+							errorMessage = '이미지 업로드 실패';
+						}
+					}
+
+					if (file.previewElement) {
+						file.previewElement.classList.add("dz-error");
+						for (let node of file.previewElement.querySelectorAll("[data-dz-errormessage]")) {
+							node.textContent = errorMessage;
+						}
+					}
+				},
+				queuecomplete: function (data) {
+					$('.fr-overlay').removeClass('active');
+					document.getElementById("loading").style.display = "none";
+				},
+				removedfile: function (file) {
+					var fileSn = file.previewElement.querySelector('.dz-filename').getAttribute('data-file-sn');
+					var thumbSn = '';
+					var oriSn = '';
+					var fileKey = '';
+					var fileExt = '';
+
+					if (fileSn == null) {
+						file.previewTemplate.remove();
+						return;
+					};
+
+					app.env.images.forEach(function (info, index) {
+						if (fileSn == info.fileSn) {
+							fileKey = info.fileKey;
+							fileExt = info.fileExt;
+						};
+					});
+
+					if (fileExt == 'mp4') {
+						app.env.images.forEach(function (info, index) {
+							if (fileKey == info.fileKey && info.fileExt == 'gif') {
+								thumbSn = info.fileSn;
+							} else if (fileKey == info.fileKey && info.fileExt == 'org') {
+								oriSn = info.fileSn;
+							}
+						});
+					};
+
+					var data = {
+						fileType: 'F01',
+						fileSn: fileSn,
+						thumbSn: thumbSn,
+						oriSn: oriSn,
+						k: fileKey
+					};
+
+					var url = API_HOST + '/file/delete';
+					$.ajax({
+						url: url,
+						type: 'POST',
+						data: data,
+						success: function (result) {
+							// 수정일 경우, 내가 할당한 데이터 수동으로 삭제하기 위해 만듬.
+							dropzone_comment.files = [];
+							app.env.images = [];
+
+							file.previewTemplate.remove();
+						},
+						error: function (result) {
+							var res = JSON.parse(result.responseText);
+							alert(res.message);
+						}
+					});
+
+				}
+			});
+
+			_this.modifyCommentImgSet = function () {
+				app.env.images.forEach(function (info, index) {
+
+					if (info.fileExt != 'mp4') {
+						info.name = info.originName;
+						info.size = info.fileSize;
+
+						dropzone_comment.emit("addedfile", info);
+						dropzone_comment.emit("thumbnail", info, CDN_URL + info.url + IMG_PARAMETER, true);
+						dropzone_comment.emit("complete", info);
+
+						var imgCnt = {
+							'accepted': true,
+							'fileSn': info.fileSn,
+							'fileKey': info.fileKey,
+							'fileExt': info.fileExt,
+							'originName': info.originName
+						};
+						dropzone_comment.files.push(imgCnt);
+					}
+				});
+			};
+
+			_this.initializationImgPrev = function () {
+				$('.dz-preview').remove();
+				dropzone_comment.files = [];
+			};
+
+		};
+
+		var commentImgUpload = new CommentImgUpload();
+	</script>
+
+	<script type="text/javascript"
+		src="https://ssl.pstatic.net/adimg3.search/adpost/js/adpost_show_ads_v2.min.js"></script>
+	<script src="https://www.clien.net/service/js/common/clien.naver.js?0503v1"></script>
+
+	<script type="text/javascript">
+
+
+		var title = "유니티로 간단한 게임 만들기";
+		title = util.cutByte(title, 99);
+
+		var content = "안녕하세요? 유니티로 빠르게 간단한 게임을 만들어보는 강의를 준비했습니다 😊 이번에 만들 게임은 aa 라고 하는 요상한 제목을 가졌는데요. 놀랍게도 전세계적으로 5,000 만 이상의 다운로드를 기록한 간단하면서도 재밌는 게임이랍니다. 플레이 모습은 이런데요. 화면을 터치해서 빙글빙글 돌아가는 동그라미에 작은 동그라미를 쏩니다. GIF 그러면 마치 핀이 꽂히는 것처럼 작은 동그라미가 큰 동그라미에 달라붙고 함께 돌게 돼요. 이렇게 모든 동그라미를 쏴서 맞히는 것이 목표입니다. GIF 하지만 작은 동그라미끼리 부딪치게 되면 그 즉시 게임은 끝나게 돼요 GIF 무척 간단하죠? 레벨이 올라갈수록 돌아가는 속도가 달라지거나 방향이 바뀌거나 목표가 높아지는 등 난이도가 높아지는데, 빠르게 돌아가는 동그라미의 좁은 틈 사이로 쏙 하고 집어 넣게 되면 짜릿한 쾌감마저 느낄 수 있답니다 🤣 찾아보니 같은 아이디어를 빌려서 만든 게임도 있더라구요 그래픽이 들어가니 또 새로운 재미가 있는듯도 합니다. GIF aa 는 상대적으로 만들기가 수월한 게임입니다. 게임 이미지를 구할 필요가 없거든요 딱 원하는 게임 이미지 구하는게 참 힘든데 aa 는 단색 배경에 까만색 동그라미, 선이면 충분합니다. 그럼 먼저 게임 배경을 만들어볼게요. 유니티에서 배경은 카메라 선택하고 원하는 색으로 바꿔주면 끝이에요. 이번에는 동그라미를 만들고 색을 까맣게 해줍니다. 크기를 적당히 조정하고 화면 조금 윗쪽에 배치시켜볼게요. 여기에 작은 동그라미를 마구 쏠 겁니다. 일단 한 번 빙글빙글 돌려볼까요? 그냥 돌리면 티가 나지 않으니 확인을 위해 작은 하얀 동그라미를 하나 붙여볼게요. 스크립트로 간단하게 transform.Rotate() 메소드를 써서 돌려봤더니 빙글빙글 잘 도네요. GIF 이번에는 작은 동그라미, 우리가 쏠 녀석을 만들어볼게요. 편의상 핀(Pin)이라고 하겠습니다. 큰 동그라미때와 같은 방식으로 작은 동그라미를 만들구요. 윗쪽 방향으로 슉 올라가도록 스크립트를 적용하겠습니다. 나중에는 마우스로 클릭하면 이렇게 슉 쏘는 형태가 될 거에요. GIF 이제는 충돌 처리를 해볼까요? 작은 동그라미가 올라가다가 큰 동그라미와 닿으면 그 즉시 멈추고 큰 동그라미에 달라붙어서 함께 빙글빙글 돌아가면 되겠네요. 큰 동그라미, 작은 동그라미에 충돌 영역을 설정하기 위해 Circle Collider 2D 컴포넌트를 추가합니다. 물리법칙을 적용하기 위해 Rigidbody 2D 컴포넌트도 추가해주세요. 스크립트에서 충돌 됐을 때 작은 동그라미가 큰 동그라미에 달라붙도록 하기 위해서는 transform.SetParent() 를 쓰면 됩니다. GIF 잘 붙네요! 그런데 원래 게임에서는 두 동그라미가 이렇게 직접 맞닿지는 않았습니다. 그리고 둘을 서로 연결하는 길쭉한 선이 있었지요? 이 부분은 어떻게 처리할까 고민하다가 그냥 큰 동그라미의 충돌 영역을 조금 키워주기로 합니다. 그러면 동그라미와 다소 떨어져 있어도 이 곳에서 작은 동그라미는 멈추게 되겠지요. 그리고 작은 동그라미에는 충돌 영역이 없는 선을 하나 만들어줍니다. 처음에는 선을 안 보이게 숨겼다가 큰 동그라미와 충돌하게 되면 그때 이 선을 보여줄거에요. 감쪽같죠? GIF 지금까지는 핀을 하나만 쐈었는데 이번에는 마우스를 클릭해서 여러개를 쏠 수 있도록 해보겠습니다. 똑같은 형태의 핀을 여러 번 중복해서 만들기 위해서 핀을 프리팹으로 관리할게요. 프리팹은 마치 주문제작과 비슷하다고 생각하시면 됩니다. 어느 회사에서 단체로 옷을 맞추기로 한다면 업체에 디자인을 보내서 먼저 샘플을 만들어 볼겁니다. 그런 다음에 색이나 모양 등이 마음이 드는지 보고 필요하면 수정을 거듭해서 최종적으로 마음에 드는 결과물을 만들겠죠. 그때부터는 그 결과물과 똑같은 옷을 회사에서 주문하는 만큼 여러 벌 만들게 될겁니다. 프리팹도 동일해요. 어떤 게임 오브젝트(여기서는 핀)를 만들어서 크기와 모양 색깔, 충돌 영역 등 다양한 속성을 원하는 만큼 수정한 다음에 이와 똑같은 게임 오브젝트를 여러 개 만들 수 있도록 하기 위한 것이 바로 프리팹입니다. 총알이나 미사일, 아이템이나 적 캐릭터 등 여러 번 등장하는 것들은 매번 새롭게 만들 필요 없이 하나를 잘 만들어둔 다음에 복사해서 쓰면 되는 것이죠! 핀 프리팹을 만든 다음 정해진 위치(화면 아래)에서 핀이 만들어지도록 합니다. 마우스로 클릭해서 준비된 핀을 쏘고 나면 다음 핀을 준비시키도록 하면 되겠네요. GIF 이어서 목표 설정을 하겠습니다. 진짜 게임에서는 큰 동그라미 가운데에 현재 레벨이 숫자로 표시되는데, 우리는 그 위치에 목표로 하는 작은 동그라미의 수를 적도록 할게요. 10이라고 적혀 있으면 10개의 핀을 쏴서 올바로 맞춰야 하는 겁니다. UI - Text 를 이용하면 간단하게 만들 수 있는데, 충돌 처리 부분을 조금 보완해서 핀을 잘 쏜다면 목표 수를 감소 시켜주도록 하겠습니다. GIF 거의 다 왔네요. 이번에는 게임 오버 처리를 하겠습니다. 목표 수 만큼 모든 핀을 큰 동그라미에 올바로 꽂는다면 성공, 다른 핀과 쿵 하고 충돌하게 되면 실패로 끝나는 겁니다. 성공일 때는 배경색을 초록색으로, 실패일 때는 배경색을 빨간색으로 바꿔서 진짜 게임과 동일하게 해볼까요? GIF GIF 성공과 실패, 게임 결과에 따라 색이 잘 표시되는 것을 확인할 수 있네요! 이제는 게임이 끝나면 다시 시작할 수 있는 재시작 버튼을 넣어주겠습니다. UI - Button 을 이용해서 기본 색상에 글자만 키워주도록 할게요. 그리고 이 버튼을 누르면 지금 만들고 있는 이 게임 화면(Scene) 을 다시 로딩해서 새 게임을 시작할 수 있도록 하겠습니다. GIF 훌륭하네요! 마지막으로 난이도 조절을 해볼까요? 그냥 끝내기에는 뭔가 밋밋하고 조금 아쉬운 감이 없잖아 있어요. 왜냐면 한쪽 방향으로 같은 속도로 계속 돌아가니 게임이 너무 쉽거든요. 애니메이션 편집을 이용해서 1초는 빠르게 시계 방향으로, 1초는 느리게 반시계 방향으로 회전하는 것을 반복시켜볼게요. 그러면 잘 돌다가 잠깐 반대로 돌다가, 또 잘 돌다가 반대로 돌다가, 핀을 쏠 타이밍을 잡기 어렵게 되었습니다. GIF 훨씬 더 쫄깃한 맘으로 게임을 할 수 있겠죠? 이렇게 해서 모든 게임이 완성되었습니다. 아주 간편하면서도 재미있는 게임, 어린 자녀분들과 함께 플레이 해보면 정말 좋아할 거예요 😊 (못한다고 놀리거나, 너무 어렵게 만들지는 마세요 ㅋ 울어요... 해봐서 알아요) 게임을 만드는 방법은 이 곳에 하나의 영상으로 소개되어 있습니다. 유니티 게임 개발에 관심 있으신 분들께 도움되면 좋겠습니다! 긴 글 읽어주셔서 감사해요. 행복한 주말 되세요 🙌 GIF";
+		content = util.cutByte(content, 999);
+
+		NAVER_ADPOST_V2({
+			channel: "clien.ch1"
+			, pageSize: 4
+			, url: document.location.href
+
+			, title: title
+			, content: content
+			, keywordGroup: "크롤링테스트_공통"
+
+			, test: false
+			, mock: false
+			, callback: "pc_naver_ads_view"
+		});
+
+	</script>
+
+	<script>
+		$("textarea.autosize").on('focus keydown keyup', function () {
+			$(this).height(1).height($(this).prop('scrollHeight') - 13);
+		});
+	</script>
+
+	<script>
+		var KAAN_CLIENT_ID = '125ftq6p04OPT0uUgs.www.clien.net';
+		(function (d) {
+			var se = d.createElement('script'); se.type = 'text/javascript'; se.async = true;
+			se.src = location.protocol + '//search1.daumcdn.net/kaan/kaan.js';
+			var s = d.getElementsByTagName('head')[0]; s.appendChild(se);
+		})(document);
+	</script>
+
+	<script>
+		function loadCountScript() {
+
+			var msCountDay = new Date();
+			var script = document.createElement('script');
+
+			var cntParameters = "&type=pc&boardCd=lecture&bot=N";
+			cntParameters += "&login=N&auth=N";
+
+			script.src = "/service/js/common/clien.count.js?" + msCountDay.getTime() + cntParameters;
+			document.getElementsByTagName('head')[0].appendChild(script);
+		};
+
+		loadCountScript(); 
+	</script>
+
+	<script>window._epn = { campaign: 5338113437 };</script>
+	<script src="https://epnt.ebay.com/static/epn-smart-tools.js"></script>
+
+</body>
+
+</html>

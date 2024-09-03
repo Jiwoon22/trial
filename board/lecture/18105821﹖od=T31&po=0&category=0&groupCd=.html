@@ -1,0 +1,3256 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+
+<head>
+	<title>Mac Arm CPU에서 WMware - Win11 ARM(가상) 활용방법(파일공유, 외부장치 연결 등) : 크롤링테스트</title>
+	<link rel="amphtml" href="">
+
+	<meta name="description"
+		content="※ 해당 내용은 아래 주소를 참고하여 작성하였습니다. 자세한 내용은 아래 주소에 첨부된 PDF 가이드(영문)을 참고해주세요. https://communities.vmware.com/t5/VMware-Fusion-Documents/The-Unofficial-Fusion-13-for-Apple-Silicon-Companion-Guide/ta-p/2939907 0. 실리콘 ARM CPU(M1, M2, ...)가 탑재된 MacOS에서 WMware Fusion 13을 이용한 Windows 11 ARM 설치하기 https://www.clien.net/service/board/lecture/18102257CLIEN 1. VMware에 설치된 가상 Windows - MacOS간 파일공유 공식적으로 VMware Fusion 13에서는 지원하지 않는 기능입니다. 하지만 출처에 명시된 비공식 가이드에 의하면 VMware에서 다음과 같은 방법으로 맥-가상윈도우간 파일 전송을 할 수 있습니다. 1) MacOS - Windows 파일 공유(SMB 공유): 홈 네트워크 등 신뢰할 수 있는 네트워크에만 사용하는 것을 권장. 공용 네트워크에 연결될 경우 보안 위험이 생길수 있음. 2) MacOS - 가상윈도우간 원격 데스크톱 프로그램 이용 3) Onedrive, Dropbox 등 클라우드 프로그램 설치 4) WinSCP와 같은 네트워크 파일 전송 유틸리티 프로그램 사용 본문에서는 1)의 방법을 설명하고자 합니다. - 예시로 MacOS에서는 '윈도우 공유' 폴더를, Windows에서는 '윈도우맥'이라는 폴더를 생성했습니다. - 터미널을 실행후 명령어 ' ifconfig '를 입력합니다.(윈도우에서 ipconfig와 비슷한 명령어) 하단에 표시된 스샷과 같이 bridge에 표기된 IPv4 주소를 메모합니다. - VMware Fusion에서 생성된 가상이미지 선택후 Virtual Machine - Settings을 클릭합니다. - 설정창이 나오면 'Network Adapter'을 클릭합니다. 여기서 확인해야 할 항목이 'Share with my Mac'과 'Private to my Mac'항목인데 간단히 설명하면 다음과 같습니다. (우측 영문 설명을 참고하셔도 됩니다.) * Share with my Mac: Mac의 네트워크 회선을 공유하여 인터넷 연결과 내부 네트워크 공유가 가능합니다. 인터넷(외부 네트워크망)이 끊기면 네트워크 공유가 불가능하며 공용 인터넷망에서 네트워크 공유시 보안 문제가 생길 수 있습니다. * Private to my Mac: 통신상태와 관계없이 Mac-가상윈도우간 네트워크 파일 공유를 할 수 있습니다. 단, 가상머신에서 인터넷(외부 네트워크망) 이용이 불가능합니다. 본문에서는 Private to my Mac에 체크한 것으로 진행합니다. Share with my Mac으로 체크해도 하단의 IPv4 주소만 다르고 방법은 거의 같습니다. - 먼저 Mac 계정에 접근할 수 있는 계정을 만듭니다. 설정 - 사용자 및 그룹 - 계정 추가 - 공유만 가능으로 선택후 계정을 만듭니다. 저는 vmware라는 계정을 미리 만들었습니다. - 설정 - 일반 - 공유 - 파일 공유 항목을 ON한 후 우측의 i를 눌러 상세 설정을 합니다. - '윈도우 공유' 폴더를 추가한 후 vmware 계정의 권한을 설정해줍니다. 설정을 완료하면 상단의 옵션...을 클릭합니다. - Windows 공유를 위해 SMB 공유를 활성화하기 위해 체크하고 하단에 윈도우에서 접근 가능하도록 위에 설정한 계정도 체크를 합니다. - 이번엔 가상윈도우에서 아래와 같이 네트워크 고급 공유 설정(설정 - 네트워크 및 인터넷 - 고급 네트워크 설정 - 고급 공유 설정)으로 들어간 후, 하단처럼 네트워크 공유 설정을 합니다. - 참고로 위의 VMware 네트워크 설정을 'Share with my Mac'로 세팅하고 있다면 네트워크 속성을 '개인 네트워크'로 맞춰놓는 것을 권장합니다. - 가상머신 윈도우에 들어가서 명렁 프롬포트(윈도우+R → CMD)를 실행합니다. ipconfig 명령어를 입력해 가상머신의 IPv4 주소를 확인한 후 위에서 확인한 Mac IPv4주소의 ping 테스트를 진행하여 패킷이 정상적으로 전송되는지 확인합니다. 마찬가지로 Mac 터미널에서 가상머신의 IPv4주소 ping 테스트를 진행(본문에서는 가상머신의 IPv4 주소가 172.16.132.130이므로 맥 터미널에서 'ping 172.16.132.130' 입력)하여 정상적으로 전송되는지 확인합니다. 두 곳에서 ping이 정상적으로 전송되면 사전작업을 마치게 됩니다. - 이제 가상 윈도우에서 Mac OS에 설정된 공유폴더에 접근하는 방법을 설명하겠습니다. 탐색기 주소창에서 Mac의 IPv4 주소를 입력합니다. (본문에서는 \\172.16.132.1) '네트워크 자격 증명 입력'창이 나오면 Mac OS에서 만들었던 공유 계정으로 로그인합니다. ※ [참고] 바탕화면에서 바로가기 생성 탭을 누르고 위의 Mac IPv4 주소를 입력하면 손쉽게 접근 가능합니다. - 로그인에 성공하면 설정했던 공유폴더에 접근을 할 수 있습니다. (아래처럼 폴더가 한글이 포함되어 있으면 자소분리로 표시될 수가 있는데 사용상에 지장은 없습니다) - 이번에는 가상 윈도우에서 생성한 '윈도우맥' 폴더를 Mac OS에서 접근하는 방법입니다. 설정 - 계정 - 다른 사용자 - 기타 사용자 탭에서 계정 추가를 누릅니다. - 오프라인 상태에서는 바로 로컬 계정을 만들 수 있지만 인터넷이 연결되어 있으면 기본적으로 하단처럼 마이크로소프트 계정을 요구합니다. 하단에 있는 방법처럼 진행해 로컬 계정을 만듭니다. - 하단처럼 로컬계정을 만듭니다. 저는 mactest라는 계정을 생성하였습니다. - 공유 폴더로 지정할 '윈도우맥'을 우클릭한 후 속성을 클릭합니다. - 공유 탭 - '고급 공유' 클릭후 '선택한 폴더 공유'를 체크합니다. '동시 사용자 수를~'는 적절히 조절한 후 확인을 누릅니다. 아직 창을 닫지 마세요. - 위의 '네트워크 파일 및 폴더 공유' 란에서 '공유'를 클릭한 후 아래처럼 'mactest' 계정을 추가합니다. 그리고 고급 공유에서 주석-권한에 공유할 사용자를 추가한 후 쓰기권한을 설정합니다. 이것으로 윈도우에서 공유 폴더 세팅을 마쳤습니다. - Mac OS에서 복귀한 후 Finder 상태에서 하단처럼 '이동 - 서버에 연결'을 클릭한 후 서버 주소를 가상 윈도우 IPv4주소를 하단과 같이 입력합니다.(본문에서는 smb://172.16.132.130) 로그인후 '윈도우맥' 항목을 클릭후 확인을 누르면 공유폴더에 접근할 수 있습니다. - [참고] 간혹 윈도우에서 맥 공유폴더로 접근할 때 권한 설정이 안됐다고 경고창이 뜰 때가 있는데, 하단의 방법처럼 맥의 공유 폴더 '우클릭-정보 가져오기' 항목에 접근합니다. 공유 및 사용 권한에서 '하위 항목에 적용'을 눌러야 풀립니다. ※ [참고] 간혹 윈도우에서 Mac OS IPv4 주소를 입력해도 접근이 안되는 문제가 있을 수 있는데, Mac OS 설정 - 일반 - 공유에서 '일반 공유' 끄고 재부팅 한 뒤에(재부팅하기 전 '다시 로그인하면 윈도우 다시 열기' 체크 해제) 다시 관련 설정을 ON하면 해결됩니다. 2. MacOS - 가상 Windows 11 ARM간 복사/붙여놓기 및 드래그&amp;드롭 공식적으로 VMware Fusion 13에서는 지원하지 않는 기능입니다. 출처에 소개된 비공식 가이드에 의하면 Microsoft Remote Desktop for the Mac(해당 앱은 윈11 엔터, 프로 버전만 원격 가능)와 같은 원격 데스크톱 프로그램을 이용하면 된다고 설명하고 있습니다. 3. 가상 Windows 11 ARM에서 USB 드라이버 인식 방법 * 별도의 설정을 안하고 기본적으로 VMware에서 외장장치를 어디로 연결할건지 묻습니다. * 직접 컨트롤하고 싶다면 다음과 같은 방법을 이용하면 됩니다. - 일단 NTFS 포맷은 Mac OS 상에서 '읽기'는 가능합니다. '쓰기'가 문제인데, 가장 쉬운 방법은 외장 드라이버를 exFAT로 포맷하는 방법이긴 합니다. 일단 여기에서는 가상 윈도우로 읽는 방법을 소개하겠습니다. - VMware 설정에서 USB &amp; Bluetooth 항목을 클릭합니다. - 외장 장치들이 연결된 것을 확인할 수 있는데 좌측에 관련 드라이버를 체크하고 잠시 기다리면... - 가상 윈도우에서 NTFS 포맷 드라이버를 읽는 것은 물론 쓰기 작업도 가능합니다. 4. 가상 Windows 11 ARM에서 윈도우스토어 실행 오류 출처 사이트에 제공하고 있는 비공식 가이드에 의하면 윈도우 스토어가 충돌로 인해 실행이 안될 수 있다고 합니다. 해결 방법은 관리자 권한으로 'CMD'나 'Powershell' 을 실행시킨 후, 아래의 명령어를 입력하여 윈도우스토어 재설치 작업을 완료하면 됩니다. (시간이 다소 소요될 수 있음) wsreset.exe -i 5. 가상 Windows 11 ARM에서 아이클라우드 설치 및 실행 오류 Visual C++ Redistributable package ARM64버전 설치후 아이클라우드 재설치하면 됩니다. https://download.visualstudio.microsoft.com/download/pr/eaab1f82-787d-4fd7-8c73-f782341a0c63/37342E0ABDAEAE0297F64A889F842AC9453139639FB0178C0754A7D2F330043A/VC_redist.arm64.exe" />
+	<meta property="url" content="https://www.clien.net/service/board/lecture/18105821" />
+	<meta property="og:url" content="https://www.clien.net/service/board/lecture/18105821" />
+	<meta property="fb:app_id" content="306479129424503" />
+	<meta property="og:title" content="Mac Arm CPU에서 WMware - Win11 ARM(가상) 활용방법(파일공유, 외부장치 연결 등) : 크롤링테스트" />
+	<meta property="og:description"
+		content="※ 해당 내용은 아래 주소를 참고하여 작성하였습니다. 자세한 내용은 아래 주소에 첨부된 PDF 가이드(영문)을 참고해주세요. https://communities.vmware.com/t5/VMware-Fusion-Documents/The-Unofficial-Fusion-13-for-Apple-Silicon-Companion-Guide/ta-p/2939907 0. 실리콘 ARM CPU(M1, M2, ...)가 탑재된 MacOS에서 WMware Fusion 13을 이용한 Windows 11 ARM 설치하기 https://www.clien.net/service/board/lecture/18102257CLIEN 1. VMware에 설치된 가상 Windows - MacOS간 파일공유 공식적으로 VMware Fusion 13에서는 지원하지 않는 기능입니다. 하지만 출처에 명시된 비공식 가이드에 의하면 VMware에서 다음과 같은 방법으로 맥-가상윈도우간 파일 전송을 할 수 있습니다. 1) MacOS - Windows 파일 공유(SMB 공유): 홈 네트워크 등 신뢰할 수 있는 네트워크에만 사용하는 것을 권장. 공용 네트워크에 연결될 경우 보안 위험이 생길수 있음. 2) MacOS - 가상윈도우간 원격 데스크톱 프로그램 이용 3) Onedrive, Dropbox 등 클라우드 프로그램 설치 4) WinSCP와 같은 네트워크 파일 전송 유틸리티 프로그램 사용 본문에서는 1)의 방법을 설명하고자 합니다. - 예시로 MacOS에서는 '윈도우 공유' 폴더를, Windows에서는 '윈도우맥'이라는 폴더를 생성했습니다. - 터미널을 실행후 명령어 ' ifconfig '를 입력합니다.(윈도우에서 ipconfig와 비슷한 명령어) 하단에 표시된 스샷과 같이 bridge에 표기된 IPv4 주소를 메모합니다. - VMware Fusion에서 생성된 가상이미지 선택후 Virtual Machine - Settings을 클릭합니다. - 설정창이 나오면 'Network Adapter'을 클릭합니다. 여기서 확인해야 할 항목이 'Share with my Mac'과 'Private to my Mac'항목인데 간단히 설명하면 다음과 같습니다. (우측 영문 설명을 참고하셔도 됩니다.) * Share with my Mac: Mac의 네트워크 회선을 공유하여 인터넷 연결과 내부 네트워크 공유가 가능합니다. 인터넷(외부 네트워크망)이 끊기면 네트워크 공유가 불가능하며 공용 인터넷망에서 네트워크 공유시 보안 문제가 생길 수 있습니다. * Private to my Mac: 통신상태와 관계없이 Mac-가상윈도우간 네트워크 파일 공유를 할 수 있습니다. 단, 가상머신에서 인터넷(외부 네트워크망) 이용이 불가능합니다. 본문에서는 Private to my Mac에 체크한 것으로 진행합니다. Share with my Mac으로 체크해도 하단의 IPv4 주소만 다르고 방법은 거의 같습니다. - 먼저 Mac 계정에 접근할 수 있는 계정을 만듭니다. 설정 - 사용자 및 그룹 - 계정 추가 - 공유만 가능으로 선택후 계정을 만듭니다. 저는 vmware라는 계정을 미리 만들었습니다. - 설정 - 일반 - 공유 - 파일 공유 항목을 ON한 후 우측의 i를 눌러 상세 설정을 합니다. - '윈도우 공유' 폴더를 추가한 후 vmware 계정의 권한을 설정해줍니다. 설정을 완료하면 상단의 옵션...을 클릭합니다. - Windows 공유를 위해 SMB 공유를 활성화하기 위해 체크하고 하단에 윈도우에서 접근 가능하도록 위에 설정한 계정도 체크를 합니다. - 이번엔 가상윈도우에서 아래와 같이 네트워크 고급 공유 설정(설정 - 네트워크 및 인터넷 - 고급 네트워크 설정 - 고급 공유 설정)으로 들어간 후, 하단처럼 네트워크 공유 설정을 합니다. - 참고로 위의 VMware 네트워크 설정을 'Share with my Mac'로 세팅하고 있다면 네트워크 속성을 '개인 네트워크'로 맞춰놓는 것을 권장합니다. - 가상머신 윈도우에 들어가서 명렁 프롬포트(윈도우+R → CMD)를 실행합니다. ipconfig 명령어를 입력해 가상머신의 IPv4 주소를 확인한 후 위에서 확인한 Mac IPv4주소의 ping 테스트를 진행하여 패킷이 정상적으로 전송되는지 확인합니다. 마찬가지로 Mac 터미널에서 가상머신의 IPv4주소 ping 테스트를 진행(본문에서는 가상머신의 IPv4 주소가 172.16.132.130이므로 맥 터미널에서 'ping 172.16.132.130' 입력)하여 정상적으로 전송되는지 확인합니다. 두 곳에서 ping이 정상적으로 전송되면 사전작업을 마치게 됩니다. - 이제 가상 윈도우에서 Mac OS에 설정된 공유폴더에 접근하는 방법을 설명하겠습니다. 탐색기 주소창에서 Mac의 IPv4 주소를 입력합니다. (본문에서는 \\172.16.132.1) '네트워크 자격 증명 입력'창이 나오면 Mac OS에서 만들었던 공유 계정으로 로그인합니다. ※ [참고] 바탕화면에서 바로가기 생성 탭을 누르고 위의 Mac IPv4 주소를 입력하면 손쉽게 접근 가능합니다. - 로그인에 성공하면 설정했던 공유폴더에 접근을 할 수 있습니다. (아래처럼 폴더가 한글이 포함되어 있으면 자소분리로 표시될 수가 있는데 사용상에 지장은 없습니다) - 이번에는 가상 윈도우에서 생성한 '윈도우맥' 폴더를 Mac OS에서 접근하는 방법입니다. 설정 - 계정 - 다른 사용자 - 기타 사용자 탭에서 계정 추가를 누릅니다. - 오프라인 상태에서는 바로 로컬 계정을 만들 수 있지만 인터넷이 연결되어 있으면 기본적으로 하단처럼 마이크로소프트 계정을 요구합니다. 하단에 있는 방법처럼 진행해 로컬 계정을 만듭니다. - 하단처럼 로컬계정을 만듭니다. 저는 mactest라는 계정을 생성하였습니다. - 공유 폴더로 지정할 '윈도우맥'을 우클릭한 후 속성을 클릭합니다. - 공유 탭 - '고급 공유' 클릭후 '선택한 폴더 공유'를 체크합니다. '동시 사용자 수를~'는 적절히 조절한 후 확인을 누릅니다. 아직 창을 닫지 마세요. - 위의 '네트워크 파일 및 폴더 공유' 란에서 '공유'를 클릭한 후 아래처럼 'mactest' 계정을 추가합니다. 그리고 고급 공유에서 주석-권한에 공유할 사용자를 추가한 후 쓰기권한을 설정합니다. 이것으로 윈도우에서 공유 폴더 세팅을 마쳤습니다. - Mac OS에서 복귀한 후 Finder 상태에서 하단처럼 '이동 - 서버에 연결'을 클릭한 후 서버 주소를 가상 윈도우 IPv4주소를 하단과 같이 입력합니다.(본문에서는 smb://172.16.132.130) 로그인후 '윈도우맥' 항목을 클릭후 확인을 누르면 공유폴더에 접근할 수 있습니다. - [참고] 간혹 윈도우에서 맥 공유폴더로 접근할 때 권한 설정이 안됐다고 경고창이 뜰 때가 있는데, 하단의 방법처럼 맥의 공유 폴더 '우클릭-정보 가져오기' 항목에 접근합니다. 공유 및 사용 권한에서 '하위 항목에 적용'을 눌러야 풀립니다. ※ [참고] 간혹 윈도우에서 Mac OS IPv4 주소를 입력해도 접근이 안되는 문제가 있을 수 있는데, Mac OS 설정 - 일반 - 공유에서 '일반 공유' 끄고 재부팅 한 뒤에(재부팅하기 전 '다시 로그인하면 윈도우 다시 열기' 체크 해제) 다시 관련 설정을 ON하면 해결됩니다. 2. MacOS - 가상 Windows 11 ARM간 복사/붙여놓기 및 드래그&amp;드롭 공식적으로 VMware Fusion 13에서는 지원하지 않는 기능입니다. 출처에 소개된 비공식 가이드에 의하면 Microsoft Remote Desktop for the Mac(해당 앱은 윈11 엔터, 프로 버전만 원격 가능)와 같은 원격 데스크톱 프로그램을 이용하면 된다고 설명하고 있습니다. 3. 가상 Windows 11 ARM에서 USB 드라이버 인식 방법 * 별도의 설정을 안하고 기본적으로 VMware에서 외장장치를 어디로 연결할건지 묻습니다. * 직접 컨트롤하고 싶다면 다음과 같은 방법을 이용하면 됩니다. - 일단 NTFS 포맷은 Mac OS 상에서 '읽기'는 가능합니다. '쓰기'가 문제인데, 가장 쉬운 방법은 외장 드라이버를 exFAT로 포맷하는 방법이긴 합니다. 일단 여기에서는 가상 윈도우로 읽는 방법을 소개하겠습니다. - VMware 설정에서 USB &amp; Bluetooth 항목을 클릭합니다. - 외장 장치들이 연결된 것을 확인할 수 있는데 좌측에 관련 드라이버를 체크하고 잠시 기다리면... - 가상 윈도우에서 NTFS 포맷 드라이버를 읽는 것은 물론 쓰기 작업도 가능합니다. 4. 가상 Windows 11 ARM에서 윈도우스토어 실행 오류 출처 사이트에 제공하고 있는 비공식 가이드에 의하면 윈도우 스토어가 충돌로 인해 실행이 안될 수 있다고 합니다. 해결 방법은 관리자 권한으로 'CMD'나 'Powershell' 을 실행시킨 후, 아래의 명령어를 입력하여 윈도우스토어 재설치 작업을 완료하면 됩니다. (시간이 다소 소요될 수 있음) wsreset.exe -i 5. 가상 Windows 11 ARM에서 아이클라우드 설치 및 실행 오류 Visual C++ Redistributable package ARM64버전 설치후 아이클라우드 재설치하면 됩니다. https://download.visualstudio.microsoft.com/download/pr/eaab1f82-787d-4fd7-8c73-f782341a0c63/37342E0ABDAEAE0297F64A889F842AC9453139639FB0178C0754A7D2F330043A/VC_redist.arm64.exe" />
+
+	<meta property="og:image" content="https://edgio.clien.net/F01/14175451/1d485d872367b7.png" />
+
+	<link rel="stylesheet" href="https://www.clien.net/service/js/lib/tribute/tribute.css">
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="referrer" content="unsafe-url">
+	<meta name="viewport" content="width=1280" />
+	<meta name="author" content="크롤링테스트" />
+	<meta name="apple-mobile-web-app-title" content="크롤링테스트">
+
+	<link rel="canonical" href="https://www.clien.net/service/board/lecture/18105821">
+
+	<link rel="stylesheet" href="../../css/font-awesome.min%EF%B9%960510v1.css">
+	<link rel="stylesheet" href="../../css/fontello%EF%B9%960510v1.css">
+
+	<link rel="stylesheet" href="../../css/clien%EF%B9%960515v1.css">
+	<link rel="stylesheet" href="../../css/clien.scheme%EF%B9%960515v1.css">
+
+	<link rel="stylesheet" href="../../css/font-Noto%EF%B9%960510v1.css">
+
+
+
+	<link rel="stylesheet" href="../../css/jquery-ui.css">
+
+	<link rel="shortcut icon" href="../../image/favicon.ico">
+
+	<link rel=apple-touch-icon href="../../image/icon180x180.png" />
+
+
+
+
+
+
+	<script async='async' src='https://www.googletagservices.com/tag/js/gpt.js'></script>
+
+	<script>
+		googletag.cmd.push(function () {
+			googletag.defineSlot('/44950606/cs4-pc-view-center', [300, 250], 'div-pc-view-center').addService(googletag.pubads());
+			googletag.defineSlot('/44950606/cs4-pc-side', [160, 600], 'div-pc-side').addService(googletag.pubads());
+			googletag.pubads().enableSingleRequest();
+			googletag.pubads().setTargeting('board', ["lecture"]);
+			googletag.enableServices();
+		});
+	</script>
+
+</head>
+
+<body>
+
+
+	<div class="back-to-top" id="top"></div>
+	<nav class="header_wrap">
+		<div class="nav_header" data-role="account-open">
+			<h1 class="header_logo" style="color:white">TESTWEB</h1>
+			<a href="#div_content" class="skip_to">본문 바로가기</a>
+			<a href="#menuTop" class="skip_to">메뉴 바로가기</a>
+			<a href="javascript:;" class="skip_to text-large">폰트크기변경</a>
+			<a href="javascript:;" class="skip_to button-dark">색상반전보기</a>
+			<div class="header_menu">
+				<a href="" class="all_view" title="톺아보기 바로가기">톺아보기</a>
+				<a href="
+				<a href=" ../../recommend.html" class="all_recommend" title="추천글 바로가기">추천글</a>
+			</div>
+
+			<div class="search ad_banner" data-role="total-search">
+				<input type="search" name="search" class="search_input" data-role="total-input-keyword" title="통합검색"
+					placeholder="검색어를 입력하세요." />
+				<button type="button" class="search_button" data-role="total-submit" title="검색하기"><span
+						class="fa fa-search"></span></button>
+			</div>
+
+		</div>
+	</nav>
+
+	<Script>
+
+		var setEventDay = [{ month: 3, day: 1, class: 'kr', url: '/service/image/kflag.png', size: 26 }
+			, { month: 4, day: 16, class: 'ribbon', url: '/service/image/ribbon.png', size: 21 }
+			, { month: 6, day: 6, class: 'kr', url: '/service/image/kflag.png', size: 26 }
+			, { month: 8, day: 15, class: 'kr', url: '/service/image/kflag.png', size: 26 }, { month: 10, day: 3, class: 'kr', url: '/service/image/kflag.png', size: 26 }
+			, { month: 10, day: 9, class: 'han', url: '/service/image/han_clien_m.png', size: 108 }
+			, { month: 10, day: 29, class: 'ribbon', url: '/service/image/ribbon_b.png', size: 21 }];
+
+		var eventNowDay = new Date();
+		var eventNowMonth = eventNowDay.getMonth() + 1;
+		var eventNowDay = eventNowDay.getDate();
+		var eventIsVaild = false;
+		var eventLogoHtml = '';
+
+		setEventDay.forEach(function (value) {
+
+			if (eventNowMonth == value.month && eventNowDay == value.day) {
+				if (value.class == 'han') {
+					eventLogoHtml = '<a href="/service" class="image_logo han" title="크롤링테스트홈 바로가기"><img src="' + value.url + '" width="' + value.size + 'px"></a>';
+				} else {
+					eventLogoHtml = '<span class="image_logo ' + value.class + '"><img src="' + value.url + '" width="' + value.size + 'px"></span>';
+				}
+				eventIsVaild = true;
+			};
+		});
+
+
+		if (eventIsVaild) {
+			console.log(eventLogoHtml);
+			document.getElementById("eventImgLogo").innerHTML = eventLogoHtml;
+		};
+
+	</script>
+	<div class="nav_container">
+		<div class="snb" id="menuTop">
+			<div class="side_nav" id="menu-scroll">
+
+				<div class="navmenu">
+
+
+					<a class="menu-group all" href="">
+
+						<span class="fa fa-angle-right"></span>
+						<span class="menu_over">커뮤니티</span>
+
+
+						<a class="menu-group" href="">
+
+							<span class="icon-board">C</span>
+							<span class="menu_over">모두의광장</span>
+
+
+							<a class="menu-list" href="../park.html">
+
+								<span class="icon-board">F</span>
+								<span class="menu_over">모두의공원</span>
+
+
+								<a class="menu-list" href="../image.html">
+
+									<span class="icon-board">I</span>
+									<span class="menu_over">사진게시판</span>
+
+
+									<a class="menu-list" href="../kin.html">
+
+										<span class="icon-board">Q</span>
+										<span class="menu_over">아무거나질문</span>
+
+
+										<a class="menu-group" href="">
+
+											<span class="icon-board">D</span>
+											<span class="menu_over">정보와자료</span>
+
+
+											<a class="menu-list" href="../news.html">
+
+												<span class="icon-board">N</span>
+												<span class="menu_over">새로운소식</span>
+
+
+												<a class="menu-list" href="../useful.html">
+
+													<span class="icon-board">T</span>
+													<span class="menu_over">유용한사이트</span>
+
+
+													<a class="menu-list" href="../pds.html">
+
+														<span class="icon-board">P</span>
+														<span class="menu_over">자료실</span>
+
+
+														<a class="menu-group" href="">
+
+															<span class="icon-board">E</span>
+															<span class="menu_over">강좌/사용기</span>
+
+
+															<a class="menu-list" href="../lecture.html">
+
+																<span class="icon-board">L</span>
+																<span class="menu_over">팁과강좌</span>
+
+
+																<a class="menu-list" href="../use.html">
+
+																	<span class="icon-board">U</span>
+																	<span class="menu_over">사용기</span>
+
+
+																	<a class="menu-list" href="../chehum.html">
+
+																		<span class="icon-board">·</span>
+																		<span class="menu_over">체험단사용기</span>
+
+
+																		<a class="menu-group"
+																			href="https://www.clien.net/service/group/allsell">
+
+																			<span class="icon-board">W</span>
+																			<span class="menu_over">사고팔고</span>
+
+
+																			<a class="menu-list" href="../jirum.html">
+
+																				<span class="icon-board">J</span>
+																				<span class="menu_over">알뜰구매</span>
+
+
+																				<a class="menu-list"
+																					href="../sold.html">
+
+																					<span class="icon-board">S</span>
+																					<span
+																						class="menu_over">회원중고장터</span>
+
+
+																					<a class="menu-list"
+																						href="../hongbo.html">
+
+																						<span
+																							class="icon-board">B</span>
+																						<span
+																							class="menu_over">직접홍보</span>
+
+
+																						<a class="menu-insurance"
+																							href="">
+
+																							<span
+																								class="icon-board">·</span>
+																							<span
+																								class="menu_over">보험상담실</span>
+
+
+																							<a class="menu-promo invisible"
+																								href="../../index.html">
+
+																								<span
+																									class="icon-board">H</span>
+																								<span
+																									class="menu_over">크롤링테스트홈</span>
+				</div>
+				<button type="button" class="button_more_nav" id="nav-more"><span class="fa fa-angle-down"></span><span
+						class="fa fa-angle-up"></span></button>
+				<div class="menu_somoim">
+
+
+
+
+
+
+
+				</div>
+
+			</div>
+
+		</div>
+		<div class="nav_body">
+			<div class="nav_content">
+				<div class="bullhorn info" style="display: none;" id="noticeBullhom">
+					<div class="bullhorn_msg">
+						<span class="bullhorn_label">공지</span><span class="bullhorn_txt">잠시후(19일 0시) 서버 점검이 진행될
+							예정입니다.</span>
+						<a href="../annonce/18086663.html" class="bullhorn_link">더보기</a>
+						<button type="button" class="bullhorn_button" onclick="setNoticeCookie();">
+							<div class="button_close"></div>
+						</button>
+					</div>
+				</div>
+
+				<div class="content_view" id="div_content">
+					<div class="board_head">
+						<div class="board_name">
+
+							<span class="board_icon">l</span>
+							<h2><a href="../lecture.html">팁과강좌</a></h2>
+						</div>
+					</div>
+
+					<div class="post_title symph_row">
+						<h3 class="post_subject" data-role="cut-string">
+
+							<span class="post_category">PC/모바일</span>
+							<span>Mac Arm CPU에서 WMware - Win11 ARM(가상) 활용방법(파일공유, 외부장치 연결 등)</span>
+							<a class="post_reply" href="#comment-head" title="댓글 15개">
+								<span>15</span><span class="fa fa-angle-down"></span>
+							</a>
+						</h3>
+						<a href="#comment-head" class="post_symph view_symph" title="공감 12명">
+							<span>12</span>
+						</a>
+					</div>
+
+					<div class="post_info" data-role="post-info">
+						<div class="post_contact">
+							<span class="contact_name">
+
+
+								<span class="nickname"">
+			 
+					<span title=" 레츠카페">레츠카페</span>
+							</span>
+
+							</span>
+						</div>
+						<div class="view_info">
+							<span class="view_count">
+								<span class="fa fa-eye"></span> <strong>20,263</strong>
+							</span>
+							<span class="text-large">
+								<span class="fa fa-text-height"></span>
+							</span>
+							<span class="button-dark">
+								<span class="fa fa-adjust"></span>
+							</span>
+						</div>
+					</div>
+
+					<div class="post_view">
+						<div class="post_author">
+							<span>
+								<span class="fa fa-clock-o"></span> 2023-05-30 01:07:16
+
+								<span class="lastdate">수정일 : 2023-06-01 13:29:40</span>
+							</span>
+							<span><span class="fa fa-map-marker"></span> 175.♡.209.219</span>
+						</div>
+
+
+
+						<div class="post_content">
+
+							<article>
+								<div class="post_article">
+
+									<html>
+
+									<head></head>
+
+									<body>
+										<p>※ 해당 내용은 아래 주소를 참고하여 작성하였습니다. 자세한 내용은 아래 주소에 첨부된 PDF 가이드(영문)을 참고해주세요.</p>
+										<p><span class="outlink"><a class="url"
+													href="https://communities.vmware.com/t5/VMware-Fusion-Documents/The-Unofficial-Fusion-13-for-Apple-Silicon-Companion-Guide/ta-p/2939907"
+													target="_blank">https://communities.vmware.com/t5/VMware-Fusion-Documents/The-Unofficial-Fusion-13-for-Apple-Silicon-Companion-Guide/ta-p/2939907</a></span>
+										</p>
+										<p><br></p>
+										<p><strong><span style="font-size: 24px;">0. 실리콘 ARM CPU(M1, M2, ...)가 탑재된
+													MacOS에서 WMware Fusion 13을 이용한 Windows 11 ARM 설치하기</span></strong>
+										</p>
+										<p><span class="outlink"><a class="url"
+													href="https://www.clien.net/service/board/lecture/18102257"
+													target="_blank">https://www.clien.net/service/board/lecture/18102257</a><span
+													class="name">CLIEN</span></span></p>
+										<p><br></p>
+										<p><strong><span style="font-size: 24px;">1. VMware에 설치된 가상 Windows - MacOS간
+													파일공유</span></strong></p>
+										<p>공식적으로 VMware Fusion 13에서는 지원하지 않는 기능입니다. 하지만 출처에 명시된 비공식 가이드에 의하면 VMware에서
+											다음과 같은 방법으로 맥-가상윈도우간 파일 전송을 할 수 있습니다.&nbsp;</p>
+										<p>1) MacOS - Windows 파일 공유(SMB 공유): 홈 네트워크 등 신뢰할 수 있는 네트워크에만 사용하는 것을 권장. 공용
+											네트워크에 연결될 경우 보안 위험이 생길수 있음.</p>
+										<p>2) MacOS - 가상윈도우간 원격 데스크톱 프로그램 이용</p>
+										<p>3) Onedrive, Dropbox 등 클라우드 프로그램 설치</p>
+										<p>4) WinSCP와 같은 네트워크 파일 전송 유틸리티 프로그램 사용</p>
+										<p><br></p>
+										<p>본문에서는 1)의 방법을 설명하고자 합니다.</p>
+										<p><br></p>
+										<p>- 예시로 MacOS에서는 '윈도우 공유' 폴더를, Windows에서는 '윈도우맥'이라는 폴더를 생성했습니다.</p>
+										<p><img class="fr-fic fr-dii"
+												src="https://edgio.clien.net/F01/14175451/1d485d872367b7.png?scale=width%5B740%5D,options%5Blimit%5D"
+												data-role="attach-image" data-gif="false" data-file-sn="14175451"
+												data-img-width="973" data-img-height="511" alt="??????????.png"> </p>
+										<p><br></p>
+										<p>- 터미널을 실행후 명령어 ' ifconfig '를 입력합니다.(윈도우에서 ipconfig와 비슷한 명령어) 하단에 표시된 스샷과 같이
+											bridge에 표기된 IPv4 주소를 메모합니다.&nbsp;</p>
+										<p><img class="fr-fic fr-dii"
+												src="https://edgio.clien.net/F01/14175469/1d485fb793505b.png?scale=width%5B740%5D,options%5Blimit%5D"
+												data-role="attach-image" data-gif="false" data-file-sn="14175469"
+												data-img-width="1394" data-img-height="994"
+												alt="?????????? 2023-05-29 ???? 3.44.57.png"> <br></p>
+										<p><br></p>
+										<p>- VMware Fusion에서 생성된 가상이미지 선택후 Virtual Machine - Settings을 클릭합니다.&nbsp;</p>
+										<p><img class="fr-fic fr-dii"
+												src="https://edgio.clien.net/F01/14175468/356322a9bc3ce.png?scale=width%5B740%5D,options%5Blimit%5D"
+												data-role="attach-image" data-gif="false" data-file-sn="14175468"
+												data-img-width="1090" data-img-height="469"
+												alt="?????????? 2023-05-29 ????? 11.22.53.png"> </p>
+										<p><br></p>
+										<p>- 설정창이 나오면 'Network Adapter'을 클릭합니다. 여기서 확인해야 할 항목이 'Share with my Mac'과
+											'Private to my Mac'항목인데 간단히 설명하면 다음과 같습니다. (우측 영문 설명을 참고하셔도 됩니다.)</p>
+										<p>* Share with my Mac: Mac의 네트워크 회선을 공유하여 인터넷 연결과 내부 네트워크 공유가 가능합니다. 인터넷(외부
+											네트워크망)이 끊기면 네트워크 공유가 불가능하며 공용 인터넷망에서 네트워크 공유시 보안 문제가 생길 수 있습니다.</p>
+										<p>* Private to my Mac: 통신상태와 관계없이 Mac-가상윈도우간 네트워크 파일 공유를 할 수 있습니다. 단, 가상머신에서
+											인터넷(외부 네트워크망) 이용이 불가능합니다.</p>
+										<p><br></p>
+										<p>본문에서는 Private to my Mac에 체크한 것으로 진행합니다. Share with my Mac으로 체크해도 하단의 IPv4 주소만
+											다르고 방법은 거의 같습니다.</p>
+										<p><img class="fr-fic fr-dii"
+												src="https://edgio.clien.net/F01/14175457/1d485e381d91a7.png?scale=width%5B740%5D,options%5Blimit%5D"
+												data-role="attach-image" data-gif="false" data-file-sn="14175457"
+												data-img-width="1504" data-img-height="988"
+												alt="?????????? 2023-05-28 ???? 2.48.18.png"> <br></p>
+										<p><br></p>
+										<p>- 먼저 Mac 계정에 접근할 수 있는 계정을 만듭니다. 설정 - 사용자 및 그룹 - 계정 추가 - 공유만 가능으로 선택후 계정을
+											만듭니다. 저는 vmware라는 계정을 미리 만들었습니다.</p>
+										<p><img class="fr-fic fr-dii"
+												src="https://edgio.clien.net/F01/14175450/356300294e6a3.png?scale=width%5B740%5D,options%5Blimit%5D"
+												data-role="attach-image" data-gif="false" data-file-sn="14175450"
+												data-img-width="1461" data-img-height="1349" alt="???????????.png"> <br>
+										</p>
+										<p><br></p>
+										<p>- 설정 - 일반 - 공유 - 파일 공유 항목을 ON한 후 우측의 i를 눌러 상세 설정을 합니다.</p>
+										<p><img class="fr-fic fr-dii"
+												src="https://edgio.clien.net/F01/14175455/1d485e0637186b.png?scale=width%5B740%5D,options%5Blimit%5D"
+												data-role="attach-image" data-gif="false" data-file-sn="14175455"
+												data-img-width="1654" data-img-height="1452"
+												alt="?????????? 2023-05-28 ???? 2.40.29.png"> <br></p>
+										<p><br></p>
+										<p>- '윈도우 공유' 폴더를 추가한 후 vmware 계정의 권한을 설정해줍니다. 설정을 완료하면 상단의 옵션...을 클릭합니다.</p>
+										<p><img class="fr-fic fr-dii"
+												src="https://edgio.clien.net/F01/14175456/35630bbeca615.png?scale=width%5B740%5D,options%5Blimit%5D"
+												data-role="attach-image" data-gif="false" data-file-sn="14175456"
+												data-img-width="953" data-img-height="773"
+												alt="?????????? 2023-05-28 ???? 2.41.32.png"> <br></p>
+										<p><br></p>
+										<p>- Windows 공유를 위해 SMB 공유를 활성화하기 위해 체크하고 하단에 윈도우에서 접근 가능하도록 위에 설정한 계정도 체크를 합니다.
+										</p>
+										<p><img class="fr-fic fr-dii"
+												src="https://edgio.clien.net/F01/14175474/35632dd1b4329.png?scale=width%5B740%5D,options%5Blimit%5D"
+												data-role="attach-image" data-gif="false" data-file-sn="14175474"
+												data-img-width="937" data-img-height="956" alt="Untitled.png"> <br></p>
+										<p><br></p>
+										<p>- 이번엔 가상윈도우에서 아래와 같이 네트워크 고급 공유 설정(설정 - 네트워크 및 인터넷 - 고급 네트워크 설정 - 고급 공유 설정)으로
+											들어간 후, 하단처럼 네트워크 공유 설정을 합니다.</p>
+										<p><img class="fr-fic fr-dii"
+												src="https://edgio.clien.net/F01/14175458/35630f50df4c2.png?scale=width%5B740%5D,options%5Blimit%5D"
+												data-role="attach-image" data-gif="false" data-file-sn="14175458"
+												data-img-width="2272" data-img-height="1836"
+												alt="?????????? 2023-05-28 ???? 6.21.21.png"> <br></p>
+										<p><img class="fr-fic fr-dii"
+												src="https://edgio.clien.net/F01/14175459/1d485e8e906990.png?scale=width%5B740%5D,options%5Blimit%5D"
+												data-role="attach-image" data-gif="false" data-file-sn="14175459"
+												data-img-width="1353" data-img-height="1415"
+												alt="?????????? 2023-05-28 ???? 6.21.40.png"> <br></p>
+										<p><br></p>
+										<p>- 참고로 위의 VMware 네트워크 설정을 'Share with my Mac'로 세팅하고 있다면 네트워크 속성을 '개인 네트워크'로
+											맞춰놓는 것을 권장합니다.</p>
+										<p><img class="fr-fic fr-dii"
+												src="https://edgio.clien.net/F01/14175467/1d485f80cfd7ea.png?scale=width%5B740%5D,options%5Blimit%5D"
+												data-role="attach-image" data-gif="false" data-file-sn="14175467"
+												data-img-width="2008" data-img-height="600"
+												alt="?????????? 2023-05-29 ????? 10.00.06.png"> <br></p>
+										<p><br></p>
+										<p>- 가상머신 윈도우에 들어가서 명렁 프롬포트(윈도우+R → CMD)를 실행합니다. ipconfig 명령어를 입력해 가상머신의 IPv4
+											주소를 확인한 후 위에서 확인한 Mac IPv4주소의 ping 테스트를 진행하여 패킷이 정상적으로 전송되는지 확인합니다. 마찬가지로
+											Mac 터미널에서 가상머신의 IPv4주소 ping 테스트를 진행(본문에서는 가상머신의 IPv4 주소가 172.16.132.130이므로 맥
+											터미널에서 'ping 172.16.132.130' 입력)하여 정상적으로 전송되는지 확인합니다. 두 곳에서 ping이 정상적으로 전송되면
+											사전작업을 마치게 됩니다.</p>
+										<p><img class="fr-fic fr-dii"
+												src="https://edgio.clien.net/F01/14175462/3563199c1a419.png?scale=width%5B740%5D,options%5Blimit%5D"
+												data-role="attach-image" data-gif="false" data-file-sn="14175462"
+												data-img-width="1966" data-img-height="1036"
+												alt="?????????? 2023-05-28 ???? 6.25.12.png"> <br></p>
+										<p><br></p>
+										<p>- 이제 가상 윈도우에서 Mac OS에 설정된 공유폴더에 접근하는 방법을 설명하겠습니다. 탐색기 주소창에서 Mac의 IPv4 주소를
+											입력합니다. (본문에서는 \\172.16.132.1) '네트워크 자격 증명 입력'창이 나오면 Mac OS에서 만들었던 공유 계정으로
+											로그인합니다.</p>
+										<p><img class="fr-fic fr-dii"
+												src="https://edgio.clien.net/F01/14175452/35630386b0c6b.png?scale=width%5B740%5D,options%5Blimit%5D"
+												data-role="attach-image" data-gif="false" data-file-sn="14175452"
+												data-img-width="1560" data-img-height="1107" alt="???????.png"> </p>
+										<p><br></p>
+										<p>※ [참고] 바탕화면에서 바로가기 생성 탭을 누르고 위의 Mac IPv4 주소를 입력하면 손쉽게 접근 가능합니다.</p>
+										<p><img class="fr-dib fr-fil"
+												src="https://edgio.clien.net/F01/14175850/36114e39832af.png?scale=width%5B740%5D,options%5Blimit%5D"
+												data-role="attach-image" data-gif="false" data-file-sn="14175850"
+												data-img-width="1189" data-img-height="1274" alt="ddadsf.png"> </p>
+										<p><br></p>
+										<p>- 로그인에 성공하면 설정했던 공유폴더에 접근을 할 수 있습니다. (아래처럼 폴더가 한글이 포함되어 있으면 자소분리로 표시될 수가 있는데
+											사용상에 지장은 없습니다)</p>
+										<p><img class="fr-fic fr-dii"
+												src="https://edgio.clien.net/F01/14175463/1d485f1a624e26.png?scale=width%5B740%5D,options%5Blimit%5D"
+												data-role="attach-image" data-gif="false" data-file-sn="14175463"
+												data-img-width="1596" data-img-height="557"
+												alt="?????????? 2023-05-28 ???? 6.26.32.png"> <br></p>
+										<p><br></p>
+										<p>- 이번에는 가상 윈도우에서 생성한 '윈도우맥' 폴더를 Mac OS에서 접근하는 방법입니다. 설정 - 계정 - 다른 사용자 - 기타 사용자
+											탭에서 계정 추가를 누릅니다.</p>
+										<p><img class="fr-fic fr-dii"
+												src="https://edgio.clien.net/F01/14175460/3563149f3f458.png?scale=width%5B740%5D,options%5Blimit%5D"
+												data-role="attach-image" data-gif="false" data-file-sn="14175460"
+												data-img-width="2272" data-img-height="1836"
+												alt="?????????? 2023-05-28 ???? 6.21.58.png"> </p>
+										<p><br></p>
+										<p>- 오프라인 상태에서는 바로 로컬 계정을 만들 수 있지만 인터넷이 연결되어 있으면 기본적으로 하단처럼 마이크로소프트 계정을 요구합니다.
+											하단에 있는 방법처럼 진행해 로컬 계정을 만듭니다.</p>
+										<p><img class="fr-dib fr-fil"
+												src="https://edgio.clien.net/F01/14175449/1d485d4505586e.png?scale=width%5B740%5D,options%5Blimit%5D"
+												data-role="attach-image" data-gif="false" data-file-sn="14175449"
+												data-img-width="1291" data-img-height="2617" alt="Windows.png"> </p>
+										<p><br></p>
+										<p>- 하단처럼 로컬계정을 만듭니다. 저는 mactest라는 계정을 생성하였습니다.</p>
+										<p><img class="fr-fic fr-dii"
+												src="https://edgio.clien.net/F01/14175461/1d485eeb29835c.png?scale=width%5B740%5D,options%5Blimit%5D"
+												data-role="attach-image" data-gif="false" data-file-sn="14175461"
+												data-img-width="1302" data-img-height="1261"
+												alt="?????????? 2023-05-28 ???? 6.23.41.png"> <br></p>
+										<p><br></p>
+										<p>- 공유 폴더로 지정할 '윈도우맥'을 우클릭한 후 속성을 클릭합니다.</p>
+										<p><img class="fr-fic fr-dii"
+												src="https://edgio.clien.net/F01/14175464/35631c91cfa81.png?scale=width%5B740%5D,options%5Blimit%5D"
+												data-role="attach-image" data-gif="false" data-file-sn="14175464"
+												data-img-width="545" data-img-height="650"
+												alt="?????????? 2023-05-28 ???? 6.27.57.png"> </p>
+										<p><br></p>
+										<p>- 공유 탭 - '고급 공유' 클릭후 '선택한 폴더 공유'를 체크합니다. '동시 사용자 수를~'는 적절히 조절한 후 확인을 누릅니다. 아직
+											창을 닫지 마세요.</p>
+										<p><img class="fr-fic fr-dii"
+												src="https://edgio.clien.net/F01/14175465/1d485f4e7c77f2.png?scale=width%5B740%5D,options%5Blimit%5D"
+												data-role="attach-image" data-gif="false" data-file-sn="14175465"
+												data-img-width="860" data-img-height="1112"
+												alt="?????????? 2023-05-28 ???? 6.28.05.png"> <br></p>
+										<p><br></p>
+										<p>- 위의 '네트워크 파일 및 폴더 공유' 란에서 '공유'를 클릭한 후 아래처럼 'mactest' 계정을 추가합니다. 그리고 고급 공유에서
+											주석-권한에 공유할 사용자를 추가한 후 쓰기권한을 설정합니다. 이것으로 윈도우에서 공유 폴더 세팅을 마쳤습니다.</p>
+										<p><img class="fr-fic fr-dii"
+												src="https://edgio.clien.net/F01/14175466/3563200dbbca7.png?scale=width%5B740%5D,options%5Blimit%5D"
+												data-role="attach-image" data-gif="false" data-file-sn="14175466"
+												data-img-width="1244" data-img-height="927"
+												alt="?????????? 2023-05-28 ???? 6.28.31.png"> <br></p>
+										<p><br></p>
+										<p>- Mac OS에서 복귀한 후 Finder 상태에서 하단처럼 '이동 - 서버에 연결'을 클릭한 후 서버 주소를 가상 윈도우 IPv4주소를
+											하단과 같이 입력합니다.(본문에서는 smb://172.16.132.130) 로그인후 '윈도우맥' 항목을 클릭후 확인을 누르면 공유폴더에
+											접근할 수 있습니다.&nbsp;</p>
+										<p><img class="fr-fic fr-dii"
+												src="https://edgio.clien.net/F01/14175453/1d485dc0cd3d4a.png?scale=width%5B740%5D,options%5Blimit%5D"
+												data-role="attach-image" data-gif="false" data-file-sn="14175453"
+												data-img-width="1436" data-img-height="1731" alt="??? ??????????.png">
+											<br>
+										</p>
+										<p><br></p>
+										<p>- [참고] 간혹 윈도우에서 맥 공유폴더로 접근할 때 권한 설정이 안됐다고 경고창이 뜰 때가 있는데, 하단의 방법처럼 맥의 공유 폴더
+											'우클릭-정보 가져오기' 항목에 접근합니다. 공유 및 사용 권한에서 '하위 항목에 적용'을 눌러야 풀립니다.</p>
+										<p><img class="fr-dib fr-fil"
+												src="https://edgio.clien.net/F01/14175454/356307e780c7f.png?scale=width%5B740%5D,options%5Blimit%5D"
+												data-role="attach-image" data-gif="false" data-file-sn="14175454"
+												data-img-width="1318" data-img-height="872" alt="??????????????.png">
+										</p>
+										<p><br></p>
+										<p>※ [참고] 간혹 윈도우에서 Mac OS IPv4 주소를 입력해도 접근이 안되는 문제가 있을 수 있는데, Mac OS 설정 - 일반 -
+											공유에서 '일반 공유' 끄고 재부팅 한 뒤에(재부팅하기 전 '다시 로그인하면 윈도우 다시 열기' 체크 해제) 다시 관련 설정을 ON하면
+											해결됩니다.</p>
+										<p><br></p>
+										<p><strong><span style="font-size: 24px;">2. MacOS - 가상 Windows 11 ARM간 복사/붙여놓기
+													및 드래그&amp;드롭</span></strong></p>
+										<p>공식적으로 VMware Fusion 13에서는 지원하지 않는 기능입니다. 출처에 소개된 비공식 가이드에 의하면 Microsoft
+											Remote Desktop for the Mac(해당 앱은 윈11 엔터, 프로 버전만 원격 가능)와 같은 원격 데스크톱 프로그램을
+											이용하면 된다고 설명하고 있습니다.</p>
+										<p><br></p>
+										<p><strong><span style="font-size: 24px;">3. 가상 Windows 11 ARM에서 USB 드라이버 인식
+													방법</span></strong></p>
+										<p>* 별도의 설정을 안하고 기본적으로 VMware에서 외장장치를 어디로 연결할건지 묻습니다.</p>
+										<p>* 직접 컨트롤하고 싶다면 다음과 같은 방법을 이용하면 됩니다.</p>
+										<p>- 일단 NTFS 포맷은 Mac OS 상에서 '읽기'는 가능합니다. '쓰기'가 문제인데, 가장 쉬운 방법은 외장 드라이버를 exFAT로
+											포맷하는 방법이긴 합니다. 일단 여기에서는 가상 윈도우로 읽는 방법을 소개하겠습니다.</p>
+										<p><img class="fr-fic fr-dii"
+												src="https://edgio.clien.net/F01/14175470/356326ace200e.png?scale=width%5B740%5D,options%5Blimit%5D"
+												data-role="attach-image" data-gif="false" data-file-sn="14175470"
+												data-img-width="1311" data-img-height="747"
+												alt="?????????? 2023-05-29 ???? 8.11.52.png"> <br></p>
+										<p><br></p>
+										<p>- VMware 설정에서 USB &amp; Bluetooth 항목을 클릭합니다.</p>
+										<p><img class="fr-fic fr-dii"
+												src="https://edgio.clien.net/F01/14175472/35632a80dcdcd.png?scale=width%5B740%5D,options%5Blimit%5D"
+												data-role="attach-image" data-gif="false" data-file-sn="14175472"
+												data-img-width="1276" data-img-height="760"
+												alt="?????????? 2023-05-29 ???? 8.17.41.png"> <br></p>
+										<p><br></p>
+										<p>- 외장 장치들이 연결된 것을 확인할 수 있는데 좌측에 관련 드라이버를 체크하고 잠시 기다리면...</p>
+										<p><img class="fr-fic fr-dii"
+												src="https://edgio.clien.net/F01/14175473/1d48602f6be362.png?scale=width%5B740%5D,options%5Blimit%5D"
+												data-role="attach-image" data-gif="false" data-file-sn="14175473"
+												data-img-width="1272" data-img-height="663"
+												alt="?????????? 2023-05-29 ???? 8.18.05.png"> <br></p>
+										<p><br></p>
+										<p>- 가상 윈도우에서 NTFS 포맷 드라이버를 읽는 것은 물론 쓰기 작업도 가능합니다.</p>
+										<p><img class="fr-fic fr-dii"
+												src="https://edgio.clien.net/F01/14175471/1d485ff762f0b5.png?scale=width%5B740%5D,options%5Blimit%5D"
+												data-role="attach-image" data-gif="false" data-file-sn="14175471"
+												data-img-width="1432" data-img-height="513"
+												alt="?????????? 2023-05-29 ???? 8.14.17.png"> <br></p>
+										<p><br></p>
+										<p><strong><span style="font-size: 24px;">4. 가상 Windows 11 ARM에서 윈도우스토어 실행
+													오류</span></strong></p>
+										<p>출처 사이트에 제공하고 있는 비공식 가이드에 의하면 윈도우 스토어가 충돌로 인해 실행이 안될 수 있다고 합니다. 해결 방법은 관리자
+											권한으로 'CMD'나 'Powershell' 을 실행시킨 후, 아래의 명령어를 입력하여 윈도우스토어 재설치 작업을 완료하면 됩니다.
+											(시간이 다소 소요될 수 있음)</p>
+										<p><strong><span style="background-color: rgb(204, 204, 204);">wsreset.exe
+													-i</span></strong></p>
+										<p><br></p>
+										<p><strong><span style="font-size: 24px;">5. 가상 Windows 11 ARM에서 아이클라우드 설치 및 실행
+													오류</span></strong></p>
+										<p>Visual C++ Redistributable package ARM64버전 설치후 아이클라우드 재설치하면 됩니다.</p>
+										<p><span class="outlink"><a class="url"
+													href="https://download.visualstudio.microsoft.com/download/pr/eaab1f82-787d-4fd7-8c73-f782341a0c63/37342E0ABDAEAE0297F64A889F842AC9453139639FB0178C0754A7D2F330043A/VC_redist.arm64.exe"
+													target="_blank">https://download.visualstudio.microsoft.com/download/pr/eaab1f82-787d-4fd7-8c73-f782341a0c63/37342E0ABDAEAE0297F64A889F842AC9453139639FB0178C0754A7D2F330043A/VC_redist.arm64.exe</a></span>
+										</p>
+									</body>
+
+									</html>
+
+								</div>
+							</article>
+							<div class="post_ccls">
+								<span class=""></span>
+							</div>
+						</div>
+
+						<div class="attached_source">
+							<span class="attached_subject"><strong>출처 : </strong></span><span class='outlink'><a
+									class='url'
+									href='https://communities.vmware.com/t5/VMware-Fusion-Documents/The-Unofficial-Fusion-13-for-Apple-Silicon-Companion-Guide/ta-p/2939907'
+									target='_blank'>https://communities.vmware.com/t5/VMware-Fusion-Documents/The-Unofficial-Fusion-13-for-Apple-Silicon-Companion-Guide/ta-p/2939907</a></span>
+						</div>
+
+
+
+						<div class="post_writer">
+
+							<div class="view_center_idlfksyenf">
+								<div id='div-pc-view-center' class="ad_banner"></div>
+							</div>
+
+							<div class="writer_board">
+								<div class="writer_menu">
+									<span><strong>레츠카페</strong> 님의</span>
+									<a href="javascript:;" class="menu line" onclick="app.articleWriterList();"
+										id="tab_writer_list_article">게시글</a>
+									<a href="javascript:;" class="menu" onclick="app.commentWriterList();"
+										id="tab_writer_list_comment">댓글</a>
+
+
+								</div>
+								<div class="writer_list" id="writerList_div"></div>
+							</div>
+						</div>
+
+
+						<div class="post_button" id="comment-head">
+							<button class="button_report" onclick="app.articleSingo('cmrak19485');"><span
+									class="fa fa-ban"></span> 신고</button>
+							<button class="button_scrap" onclick="app.articleScrap();"><span
+									class="fa fa-bookmark"></span> 스크랩</button>
+							<div class="post_share">
+								<button class="button_share" data-toggle="dropdown"><span
+										class="fa fa-share-square-o"></span> 공유</button>
+								<ul class="dropdown-menu share">
+									<li><a href="javascript:;" class="btn" onclick="alert('주소가 복사되었습니다.');"
+											data-clipboard-text="https://www.clien.net/service/board/lecture/18105821"><span
+												class="fa fa-link"></span>주소복사</a></li>
+									<li><a href="http://www.facebook.com/sharer/sharer.php?u=https://www.clien.net/service/board/lecture/18105821"
+											class="facebook" target="_blank"><span
+												class="fa fa-facebook"></span>Facebook</a></li>
+									<li><a href="https://twitter.com/intent/tweet?text=Mac%20Arm%20CPU%EC%97%90%EC%84%9C%20WMware%20-%20Win11%20ARM(%EA%B0%80%EC%83%81)%20%ED%99%9C%EC%9A%A9%EB%B0%A9%EB%B2%95(%ED%8C%8C%EC%9D%BC%EA%B3%B5%EC%9C%A0,%20%EC%99%B8%EB%B6%80%EC%9E%A5%EC%B9%98%20%EC%97%B0%EA%B2%B0%20%EB%93%B1)&amp;url=https://www.clien.net/service/board/lecture/18105821"
+											class="twitter" target="_blank"><span
+												class="fa fa-twitter"></span>Twitter</a></li>
+								</ul>
+							</div>
+							<button class="button_symph disable" onclick="like.addArticleSympathy();">
+								<span class="fa fa-heart"></span><span class="text"></span>
+							</button>
+							<a class="symph_count"><strong>12</strong>명</a>
+
+						</div>
+					</div>
+
+					<div class="post_comment">
+						<div class="comment_head" id="comment-point">
+							<a href="#comment_write_point"><i class="fa fa-commenting"></i> 댓글 •
+								[<strong>15</strong>]</a>
+							<div class="comment_tip_area ">
+								<a href="javascript:;" class="comment_tip memo-sync">메모동기화</a>
+								<div class="comment_tip"><i class="fa fa-file-text-o"></i> 을 누르면 회원메모를 할 수 있습니다.</div>
+							</div>
+						</div>
+
+						<div class="comment ad_banner" data-role="comment">
+
+
+
+
+
+
+
+
+
+							<div class="comment_row by-author " data-role="comment-row" data-author-id="cmrak19485"
+								data-comment-sn="142582522">
+								<span class="comment_point" id="142582522"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+					<span title=" 레츠카페">레츠카페</span>
+										</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142582522" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142582522" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142582522" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142582522" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142582522" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('cmrak19485', this, '142582522');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142582522');">#142582522</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">175.♡.209.219</span></div>
+										<div class="comment_time popover" dhata-role="comment-time">23-05-30
+											<span class="timestamp">2023-05-30 01:09:11 / 수정일: 2023-05-30
+												08:56:46</span>
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142582522">
+											<button class="comment_re"
+												onclick="app.commentReEditorOpen('142582522', 'cmrak19485');">대댓글</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142582522');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('cmrak19485', '142582522');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142582522" style="display:none;"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142582522">0</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142582522">
+									<div class="comment_view" data-comment-view="142582522">
+										틀린 정보나 잘못된 정보가 있을 수 있으니 태클 환영입니다
+										<input type="hidden" value="틀린 정보나 잘못된 정보가 있을 수 있으니 태클 환영입니다"
+											data-comment-modify="142582522">
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="comment_row  " data-role="comment-row" data-author-id="baesup"
+								data-comment-sn="142584413">
+								<span class="comment_point" id="142584413"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+					<span title=" LinkeneitoR">LinkeneitoR</span>
+										</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142584413" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142584413" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142584413" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142584413" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142584413" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('baesup', this, '142584413');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142584413');">#142584413</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">210.♡.105.1</span></div>
+										<div class="comment_time popover" dhata-role="comment-time">23-05-30
+											<span class="timestamp">2023-05-30 09:16:02
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142584413">
+											<button class="comment_re"
+												onclick="app.commentReEditorOpen('142584413', 'baesup');">대댓글</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142584413');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('baesup', '142584413');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142584413"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142584413">1</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142584413">
+									<div class="comment_view" data-comment-view="142584413">
+										파일 공유 전용 계정을 따로 생성해야만 하는건 아닙니다<br>그냥 기존에 쓰시던 계정의 ID/비번을 그대로 넣고 공유하셔도 됩니다
+										<input type="hidden" value="파일 공유 전용 계정을 따로 생성해야만 하는건 아닙니다
+그냥 기존에 쓰시던 계정의 ID/비번을 그대로 넣고 공유하셔도 됩니다" data-comment-modify="142584413">
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="comment_row  " data-role="comment-row" data-author-id="Cline"
+								data-comment-sn="142586027">
+								<span class="comment_point" id="142586027"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+					<span title=" Cline">Cline</span>
+										</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142586027" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142586027" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142586027" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142586027" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142586027" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('Cline', this, '142586027');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142586027');">#142586027</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">223.♡.56.67</span></div>
+										<div class="comment_time popover" dhata-role="comment-time">23-05-30
+											<span class="timestamp">2023-05-30 10:44:59
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142586027">
+											<button class="comment_re"
+												onclick="app.commentReEditorOpen('142586027', 'Cline');">대댓글</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142586027');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('Cline', '142586027');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142586027" style="display:none;"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142586027">0</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142586027">
+									<div class="comment_view" data-comment-view="142586027">
+										이걸 사용하면 윈도우 컴퓨터 없애도 괜찮을까요? ㅎㅎ
+										<input type="hidden" value="이걸 사용하면 윈도우 컴퓨터 없애도 괜찮을까요? ㅎㅎ"
+											data-comment-modify="142586027">
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="comment_row  re" data-role="comment-row" data-author-id="drawhan"
+								data-comment-sn="142587548">
+								<span class="comment_point" id="142587548"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+				<img src=" https://edgio.clien.net/F94/1086697/305f2e4166d74e9d994.gif" alt="drawhan" title="drawhan">
+											</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142587548" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142587548" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142587548" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142587548" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142587548" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('drawhan', this, '142587548');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142587548');">#142587548</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">110.♡.89.164</span></div>
+										<div class="comment_time popover" dhata-role="comment-time">23-05-30
+											<span class="timestamp">2023-05-30 12:09:14 / 수정일: 2023-05-30
+												12:09:55</span>
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142587548">
+											<button class="comment_re"
+												onclick="app.commentReMentionOpen('142587548', '142586027','drawhan');">언급</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142587548');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('drawhan', '142587548');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142587548"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142587548">2</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142587548">
+									<div class="comment_view" data-comment-view="142587548">
+										<strong data-nick-id='Cline' data-role='highlite'>@Cline</strong>님 윈도우 용도가
+										중요할텐데... 인터넷뱅킹..뭐 이건 답이 없습니다. 윈도우 뱅킹들이 대부분 인텔코어에서 돌기 때문에... 암 윈도우는 지원 앱이 소수라...
+										기존 사용하시던 앱이 돌면 다행이지만 대부분 동작 시킬려다 암~ 걸리실거예요... 그냥 저렴한 윈도우 노트북 하나 구매하시는게 정신건강에 도움이
+										될겁니다....응???
+										<input type="hidden"
+											value="｢@Cline＊Cline＊님｣ 윈도우 용도가 중요할텐데... 인터넷뱅킹..뭐 이건 답이 없습니다. 윈도우 뱅킹들이 대부분 인텔코어에서 돌기 때문에... 암 윈도우는 지원 앱이 소수라... 기존 사용하시던 앱이 돌면 다행이지만 대부분 동작 시킬려다 암~ 걸리실거예요... 그냥 저렴한 윈도우 노트북 하나 구매하시는게 정신건강에 도움이 될겁니다....응???"
+											data-comment-modify="142587548">
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="comment_row  re" data-role="comment-row" data-author-id="Cline"
+								data-comment-sn="142587588">
+								<span class="comment_point" id="142587588"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+					<span title=" Cline">Cline</span>
+										</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142587588" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142587588" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142587588" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142587588" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142587588" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('Cline', this, '142587588');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142587588');">#142587588</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">223.♡.55.39</span></div>
+										<div class="comment_time popover" dhata-role="comment-time">23-05-30
+											<span class="timestamp">2023-05-30 12:12:16
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142587588">
+											<button class="comment_re"
+												onclick="app.commentReMentionOpen('142587588', '142586027','Cline');">언급</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142587588');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('Cline', '142587588');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142587588" style="display:none;"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142587588">0</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142587588">
+									<div class="comment_view" data-comment-view="142587588">
+										<strong>@<img data-role='highlite' data-nick-id='drawhan'
+												src='https://edgio.clien.net/F94/1086697/305f2e4166d74e9d994.gif'
+												alt='drawhan'></strong>님 그렇군요 ㅎㅎ 도움 감사합니다!
+										<input type="hidden" value="｢@drawhan＊drawhan＊님｣ 그렇군요 ㅎㅎ 도움 감사합니다!"
+											data-comment-modify="142587588">
+									</div>
+								</div>
+
+							</div>
+
+
+
+							<div class="comment_row blocked re">
+								<span>삭제 되었습니다.</span>
+							</div>
+
+
+
+
+							<div class="comment_row  re" data-role="comment-row" data-author-id="antiline"
+								data-comment-sn="142587885">
+								<span class="comment_point" id="142587885"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+					<span title=" _-_">_-_</span>
+										</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142587885" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142587885" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142587885" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142587885" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142587885" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('antiline', this, '142587885');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142587885');">#142587885</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">119.♡.233.56</span></div>
+										<div class="comment_time popover" dhata-role="comment-time">23-05-30
+											<span class="timestamp">2023-05-30 12:29:25
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142587885">
+											<button class="comment_re"
+												onclick="app.commentReMentionOpen('142587885', '142586027','antiline');">언급</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142587885');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('antiline', '142587885');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142587885" style="display:none;"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142587885">0</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142587885">
+									<div class="comment_view" data-comment-view="142587885">
+										<strong>@<img data-role='highlite' data-nick-id='drawhan'
+												src='https://edgio.clien.net/F94/1086697/305f2e4166d74e9d994.gif'
+												alt='drawhan'></strong>님 <br>Arm 에서 돌리는거라 암 걸릴 수 있는거군요!<br>암암 그러고 말고요
+										<input type="hidden" value="｢@drawhan＊drawhan＊님｣ 
+Arm 에서 돌리는거라 암 걸릴 수 있는거군요!
+암암 그러고 말고요" data-comment-modify="142587885">
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="comment_row  re" data-role="comment-row" data-author-id="drawhan"
+								data-comment-sn="142587973">
+								<span class="comment_point" id="142587973"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+				<img src=" https://edgio.clien.net/F94/1086697/305f2e4166d74e9d994.gif" alt="drawhan" title="drawhan">
+											</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142587973" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142587973" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142587973" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142587973" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142587973" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('drawhan', this, '142587973');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142587973');">#142587973</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">110.♡.89.164</span></div>
+										<div class="comment_time popover" dhata-role="comment-time">23-05-30
+											<span class="timestamp">2023-05-30 12:34:19
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142587973">
+											<button class="comment_re"
+												onclick="app.commentReMentionOpen('142587973', '142586027','drawhan');">언급</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142587973');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('drawhan', '142587973');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142587973" style="display:none;"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142587973">0</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142587973">
+									<div class="comment_view" data-comment-view="142587973">
+										<strong data-nick-id='antiline' data-role='highlite'>@_-_</strong>님 ㅋㅋㅋ
+										<input type="hidden" value="｢@_-_＊antiline＊님｣ ㅋㅋㅋ"
+											data-comment-modify="142587973">
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="comment_row  re" data-role="comment-row" data-author-id="autogragh"
+								data-comment-sn="142592268">
+								<span class="comment_point" id="142592268"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+					<span title=" 메모리님">메모리님</span>
+										</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142592268" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142592268" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142592268" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142592268" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142592268" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('autogragh', this, '142592268');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142592268');">#142592268</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">223.♡.179.56</span></div>
+										<div class="comment_time popover" dhata-role="comment-time">23-05-30
+											<span class="timestamp">2023-05-30 16:32:04 / 수정일: 2023-05-30
+												16:32:27</span>
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142592268">
+											<button class="comment_re"
+												onclick="app.commentReMentionOpen('142592268', '142586027','autogragh');">언급</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142592268');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('autogragh', '142592268');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142592268" style="display:none;"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142592268">0</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142592268">
+									<div class="comment_view" data-comment-view="142592268">
+										<strong>@<img data-role='highlite' data-nick-id='drawhan'
+												src='https://edgio.clien.net/F94/1086697/305f2e4166d74e9d994.gif'
+												alt='drawhan'></strong>님 <br>윈11 깔린 퀄컴 갤북S에서 이런저런 보안 앱 설치하고 <br>은행 뱅킹
+										접속해봤는데 무난하게 돌아가긴 하더군요<br>뭐, 은바은 일수도 있는데 윈 11 arm 에서 x64 호환성<br>문제가 많이 해결되었다더니 그
+										덕을 보는게 아닌가<br>싶기도 합니다
+										<input type="hidden" value="｢@drawhan＊drawhan＊님｣ 
+윈11 깔린 퀄컴 갤북S에서 이런저런 보안 앱 설치하고 
+은행 뱅킹 접속해봤는데 무난하게 돌아가긴 하더군요
+뭐, 은바은 일수도 있는데 윈 11 arm 에서 x64 호환성
+문제가 많이 해결되었다더니 그 덕을 보는게 아닌가
+싶기도 합니다" data-comment-modify="142592268">
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="comment_row  re" data-role="comment-row" data-author-id="drawhan"
+								data-comment-sn="142592304">
+								<span class="comment_point" id="142592304"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+				<img src=" https://edgio.clien.net/F94/1086697/305f2e4166d74e9d994.gif" alt="drawhan" title="drawhan">
+											</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142592304" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142592304" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142592304" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142592304" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142592304" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('drawhan', this, '142592304');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142592304');">#142592304</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">110.♡.89.164</span></div>
+										<div class="comment_time popover" dhata-role="comment-time">23-05-30
+											<span class="timestamp">2023-05-30 16:33:56
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142592304">
+											<button class="comment_re"
+												onclick="app.commentReMentionOpen('142592304', '142586027','drawhan');">언급</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142592304');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('drawhan', '142592304');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142592304" style="display:none;"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142592304">0</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142592304">
+									<div class="comment_view" data-comment-view="142592304">
+										<strong data-nick-id='autogragh' data-role='highlite'>@메모리님</strong>님 넵 그럼
+										다행이지요...
+										<input type="hidden" value="｢@메모리님＊autogragh＊님｣ 넵 그럼 다행이지요..."
+											data-comment-modify="142592304">
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="comment_row  re" data-role="comment-row" data-author-id="baesup"
+								data-comment-sn="142598415">
+								<span class="comment_point" id="142598415"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+					<span title=" LinkeneitoR">LinkeneitoR</span>
+										</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142598415" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142598415" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142598415" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142598415" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142598415" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('baesup', this, '142598415');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142598415');">#142598415</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">122.♡.86.66</span></div>
+										<div class="comment_time popover" dhata-role="comment-time">23-05-31
+											<span class="timestamp">2023-05-31 00:30:04
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142598415">
+											<button class="comment_re"
+												onclick="app.commentReMentionOpen('142598415', '142586027','baesup');">언급</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142598415');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('baesup', '142598415');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142598415" style="display:none;"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142598415">0</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142598415">
+									<div class="comment_view" data-comment-view="142598415">
+										<strong>@<img data-role='highlite' data-nick-id='drawhan'
+												src='https://edgio.clien.net/F94/1086697/305f2e4166d74e9d994.gif'
+												alt='drawhan'></strong>님 윈 10시절 X86 32비트만 호환될때부터 써왔는데 은행에서 문제된적
+										없습니다<br>지금은 X86 64비트도 호환되구요<br><span class='outlink'><a class='url'
+												href='https://www.samsung.com/sec/support/newsalert/2857/'
+												target='_blank'>https://www.samsung.com/sec/support/newsalert/2857/</a></span><br>최소한
+										은행 보안프로그램은 ARM용으로 나왔거나 혹은 에뮬레이션 단계에서 호환성을 테스트 한 버전이 제공됩니다
+										<input type="hidden" value="｢@drawhan＊drawhan＊님｣ 윈 10시절 X86 32비트만 호환될때부터 써왔는데 은행에서 문제된적 없습니다
+지금은 X86 64비트도 호환되구요
+https://www.samsung.com/sec/support/newsalert/2857/
+최소한 은행 보안프로그램은 ARM용으로 나왔거나 혹은 에뮬레이션 단계에서 호환성을 테스트 한 버전이 제공됩니다" data-comment-modify="142598415">
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="comment_row  re" data-role="comment-row" data-author-id="drawhan"
+								data-comment-sn="142598536">
+								<span class="comment_point" id="142598536"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+				<img src=" https://edgio.clien.net/F94/1086697/305f2e4166d74e9d994.gif" alt="drawhan" title="drawhan">
+											</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142598536" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142598536" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142598536" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142598536" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142598536" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('drawhan', this, '142598536');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142598536');">#142598536</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">110.♡.89.164</span></div>
+										<div class="comment_time popover" dhata-role="comment-time">23-05-31
+											<span class="timestamp">2023-05-31 00:54:06
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142598536">
+											<button class="comment_re"
+												onclick="app.commentReMentionOpen('142598536', '142586027','drawhan');">언급</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142598536');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('drawhan', '142598536');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142598536" style="display:none;"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142598536">0</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142598536">
+									<div class="comment_view" data-comment-view="142598536">
+										<strong data-nick-id='baesup' data-role='highlite'>@LinkeneitoR</strong>님 다행이네요
+										제 기억이 좀 오래 되었나 봅니다 ㅜㅜ
+										<input type="hidden" value="｢@LinkeneitoR＊baesup＊님｣ 다행이네요 제 기억이 좀 오래 되었나 봅니다 ㅜㅜ"
+											data-comment-modify="142598536">
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="comment_row  re" data-role="comment-row" data-author-id="go2jesus"
+								data-comment-sn="142640022">
+								<span class="comment_point" id="142640022"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+					<span title=" 키큰사람">키큰사람</span>
+										</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142640022" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142640022" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142640022" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142640022" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142640022" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('go2jesus', this, '142640022');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142640022');">#142640022</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">61.♡.185.135</span></div>
+										<div class="comment_time popover" dhata-role="comment-time">23-06-02
+											<span class="timestamp">2023-06-02 12:42:32
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142640022">
+											<button class="comment_re"
+												onclick="app.commentReMentionOpen('142640022', '142586027','go2jesus');">언급</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142640022');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('go2jesus', '142640022');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142640022"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142640022">1</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142640022">
+									<div class="comment_view" data-comment-view="142640022">
+										<strong data-nick-id='Cline' data-role='highlite'>@Cline</strong>님 맥 쓰는 중인데 요즘은
+										관공서나 인터넷뱅킹때문에 문제된 적이 거의 없습니다.<br>윈도가 필요할때가 가끔 있긴 한데 그땐 단종된 옛날 자수재봉틀 편집프로그램
+										쓸때나... 필요해서 윈도놋북 꺼내듭니다 ㅠ
+										<input type="hidden" value="｢@Cline＊Cline＊님｣ 맥 쓰는 중인데 요즘은 관공서나 인터넷뱅킹때문에 문제된 적이 거의 없습니다.
+윈도가 필요할때가 가끔 있긴 한데 그땐 단종된 옛날 자수재봉틀 편집프로그램 쓸때나... 필요해서 윈도놋북 꺼내듭니다 ㅠ" data-comment-modify="142640022">
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="comment_row  re" data-role="comment-row" data-author-id="Cline"
+								data-comment-sn="142641269">
+								<span class="comment_point" id="142641269"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+					<span title=" Cline">Cline</span>
+										</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142641269" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142641269" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142641269" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142641269" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142641269" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('Cline', this, '142641269');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142641269');">#142641269</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">223.♡.55.108</span></div>
+										<div class="comment_time popover" dhata-role="comment-time">23-06-02
+											<span class="timestamp">2023-06-02 13:51:49
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142641269">
+											<button class="comment_re"
+												onclick="app.commentReMentionOpen('142641269', '142586027','Cline');">언급</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142641269');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('Cline', '142641269');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142641269" style="display:none;"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142641269">0</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142641269">
+									<div class="comment_view" data-comment-view="142641269">
+										<strong data-nick-id='go2jesus' data-role='highlite'>@키큰사람</strong>님 관공서는 거의
+										괜찮은가 보군요. 저는 블랙박스 프로그램이 걸리네요. ㅎㅎ 댓글 감사합니다!
+										<input type="hidden"
+											value="｢@키큰사람＊go2jesus＊님｣ 관공서는 거의 괜찮은가 보군요. 저는 블랙박스 프로그램이 걸리네요. ㅎㅎ 댓글 감사합니다!"
+											data-comment-modify="142641269">
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="comment_row  " data-role="comment-row" data-author-id="chm76"
+								data-comment-sn="142586707">
+								<span class="comment_point" id="142586707"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+				<img src=" https://edgio.clien.net/F94/13262437/e282742a0a7906.gif" alt="로건" title="로건">
+											</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142586707" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142586707" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142586707" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142586707" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142586707" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('chm76', this, '142586707');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142586707');">#142586707</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">211.♡.52.176</span></div>
+										<div class="comment_time popover" dhata-role="comment-time">23-05-30
+											<span class="timestamp">2023-05-30 11:20:50
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142586707">
+											<button class="comment_re"
+												onclick="app.commentReEditorOpen('142586707', 'chm76');">대댓글</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142586707');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('chm76', '142586707');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142586707" style="display:none;"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142586707">0</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142586707">
+									<div class="comment_view" data-comment-view="142586707">
+										해봐야겠네요. 정보 고맙습니다!!!
+										<input type="hidden" value="해봐야겠네요. 정보 고맙습니다!!!"
+											data-comment-modify="142586707">
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="comment_row  " data-role="comment-row" data-author-id="nain5514"
+								data-comment-sn="142594360">
+								<span class="comment_point" id="142594360"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+					<span title=" 어린왕자전군">어린왕자전군</span>
+										</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142594360" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142594360" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142594360" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142594360" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142594360" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('nain5514', this, '142594360');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142594360');">#142594360</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">118.♡.105.213</span></div>
+										<div class="comment_time popover" dhata-role="comment-time">23-05-30
+											<span class="timestamp">2023-05-30 18:31:04
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142594360">
+											<button class="comment_re"
+												onclick="app.commentReEditorOpen('142594360', 'nain5514');">대댓글</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142594360');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('nain5514', '142594360');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142594360" style="display:none;"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142594360">0</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142594360">
+									<div class="comment_view" data-comment-view="142594360">
+										윈도우 ARM에서 구글드라이브 설치가 안되어서 항상 좀 불편하게 옮겼었는데 덕분에 편하게 잘 이용할 수 있겠어요. 감사합니다.
+										<input type="hidden"
+											value="윈도우 ARM에서 구글드라이브 설치가 안되어서 항상 좀 불편하게 옮겼었는데 덕분에 편하게 잘 이용할 수 있겠어요. 감사합니다."
+											data-comment-modify="142594360">
+									</div>
+								</div>
+
+							</div>
+						</div>
+
+						<div class="comment_msg" data-role="comment-loading" style="display:none;">
+							<i class="fa fa-spinner fa-spin"></i>
+						</div>
+
+						<div class="comment_msg" data-role="comment-empty-result" style="display:none;">
+							<i class="fa fa-commenting loading"></i> 새로운 댓글이 없습니다.
+						</div>
+
+						<div class="comment_nav" data-role="comment-more" style="display:none;">
+							<button type="button" class="comment_more" onclick="app.getCommentList('next');">
+								<strong>다음 댓글 확인</strong>
+								<em>
+									<span data-role="comment-current-count"></span> / <span
+										data-role="comment-total-count">15</span>
+								</em>
+							</button>
+						</div>
+
+						<div class="comment_nav" data-role="comment-newest" style="display:none;">
+							<button type="button" class="comment_more" onclick="app.getCommentList('all');">
+								<strong>새로운 댓글 확인하기</strong>
+								<em>단축키 'R'</em>
+							</button>
+						</div>
+
+						<div class="comment_nav" data-role="comment-link" style="display:none;">
+							<button type="button" class="comment_more" onclick="app.getCommentList('all');">
+								<strong>다음 댓글 확인</strong>
+								<em>
+									<span data-role="comment-current-count"></span> / <span
+										data-role="comment-total-count">15</span>
+								</em>
+							</button>
+						</div>
+
+						<div id="comment_write_div" class="add_comment_focus">
+							<div class="comment_write_point" id="comment_write_point"></div>
+							<div class="add-comment open" onclick="location.href = '/service/auth/login';"
+								id="commentToogleBtn">
+								<button type="button" class="comment-open" value="">댓글은 로그인이 필요한 서비스 입니다.</button>
+							</div>
+
+							<div class="add-comment open active" id="oriCommentArea" style="display:none;">
+								<div class="loading-overlay" id="loading"><i
+										class="fa fa-spinner fa-spin fa-fw margin-bottom"></i></div>
+
+								<div class="commentEdit">
+									<textarea id="editCommentTextarea" class="autosize " rows="3"></textarea>
+								</div>
+
+								<button type="button" class="comment-submit" onclick="app.commentWrite();"
+									id="rewrite_height">댓글쓰기</button>
+
+								<div class="upload_comment">
+									<section>
+										<div id="dropzone_comment">
+											<form class="dropzone needsclick" id="comment-img-upload">
+												<div class="dz-message needsclick">
+													<span class="message_text"></span>
+												</div>
+											</form>
+										</div>
+									</section>
+
+									<div id="preview-comment-template" style="display: none;">
+										<div class="dz-preview dz-file-preview">
+											<div class="dz-image" data-role="img-prev">
+												<img data-dz-thumbnail="">
+											</div>
+											<div class="dz-infomation">
+												<div class="dz-details">
+													<div class="dz-filename">
+														<span data-dz-name=""></span>
+														<span data-dz-remove=""><i
+																class="fa fa-times-circle"></i></span>
+													</div>
+												</div>
+												<div class="dz-size"><span data-dz-size=""></span></div>
+												<div class="dz-progress"><span class="dz-upload"
+														data-dz-uploadprogress=""></span></div>
+												<div class="dz-error-message"><span data-dz-errormessage=""></span>
+												</div>
+												<div class="dz-error-mark"><i class="fa fa-ban"></i></div>
+											</div>
+										</div>
+									</div>
+
+									<div class="upload_tip_add">
+										이미지 최대 업로드 용량 <strong>15 MB</strong> / 업로드 가능 확장자
+										<strong>jpg,gif,png,jpeg</strong><br>지나치게 큰 이미지의 크기는 조정될 수 있습니다.
+									</div>
+								</div>
+
+							</div>
+						</div>
+						<div class="fr-overlay"></div>
+					</div>
+
+					<div class="view_button_area">
+						<a href="javascript:;" onclick="paging.getBoard('direct', '0');" class="button_list">
+							<span class="fa fa-list button_icon"></span><span class="button_name">목록으로</span>
+						</a>
+
+						<div class="button_post">
+							<a href="https://www.clien.net/service/board/regist?boardCd=lecture"
+								class="action_icon fix blue">
+								<span class="fa fa-pencil button_icon"></span>
+								<span class="tooltiptext">글쓰기</span>
+							</a>
+						</div>
+					</div>
+
+					<div class="viewListTop" id="viewListTop"></div>
+
+					<div id="naverAd"></div>
+					<div class="viewListArea">
+						<div class="view_list" id="listDiv"></div>
+					</div>
+
+
+				</div>
+			</div>
+			<div class="nav_action">
+				<div class="action_box">
+
+					<div class="action_write" data-role="dropdown-write-article">
+						<a href="https://www.clien.net/service/board/regist?boardCd=lecture"
+							class="action_icon fix blue tooltip">
+							<span class="fa fa-pencil button_icon"></span>
+							<span class="tooltiptext">글쓰기</span>
+						</a>
+
+					</div>
+
+
+					<a href="javascript:;" onclick="paging.getBoard('goList');" class="action_icon fix tooltip list">
+						<i class="fa fa-list"></i>
+						<span class="tooltiptext">목록으로</span>
+					</a>
+
+					<em class="hr"></em>
+					<a href="#comment-head" class="action_icon fix tooltip">
+						<i class="fa fa-commenting"></i>
+						<span class="tooltiptext">댓글보기</span>
+					</a>
+
+					<a href="javascript:;" class="action_icon tooltip prev" onclick="list.neiborArticle('prev')">
+						<i class="fa fa-long-arrow-left"></i>
+						<span class="tooltiptext">이전글</span>
+					</a>
+
+					<a href="javascript:;" class="action_icon tooltip next" onclick="list.neiborArticle('next')">
+						<i class="fa fa-long-arrow-right"></i>
+						<span class="tooltiptext">다음글</span>
+					</a>
+
+
+					<a href="#down" class="action_icon none" title="맨아래로 이동">
+						<i class="fa fa-caret-down"></i>
+					</a>
+
+					<div class="backtop" id="back-top">
+						<a href="#top" class="action_icon none" title="맨위로 이동">
+							<i class="fa fa-caret-up"></i>
+						</a>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div class="aside">
+
+			<div class="account_section">
+				<form id="loginForm">
+					<div class="account_swiper" id="otp">
+						<div class="side_account">
+							<div>
+								<input type="hidden" name="_csrf" value="066e4515-17c7-4450-aa61-6e8d1b3da195" />
+								<input type="text" autocapitalize="off" placeholder="아이디" name="userId" value=""
+									class="input_id" spellcheck="false">
+								<input type="password" placeholder="비밀번호" name="userPassword" value="" class="input_pw"
+									spellcheck="false">
+								<input type="hidden" id="deviceId" name="deviceId" value="" />
+								<div class="account_submit">
+									<label class="check_auto"><input type="checkbox" name="remember-me"><span
+											class="checkbox"></span>자동로그인</label>
+									<button type="button" onclick="auth.login()" name="로그인하기"
+										class="button_submit">로그인</button>
+								</div>
+								<div class="account_signup">
+									<a href="../../auth/findAccountCert.html" class="button_find">아이디·비번 찾기</a>
+									<em></em>
+									<a href="../../auth/join.html" class="button_signup">회원가입</a>
+								</div>
+							</div>
+						</div>
+
+						<div class="side_account">
+							<div class="account_subject">OTP 앱 인증코드</div>
+							<input type="text" placeholder="코드입력" id="totpcode" name="totpcode" value=""
+								class="input_code">
+							<div class="account_submit">
+								<label class="check_auto"><input type="checkbox" name="devicePass"><span
+										class="checkbox"></span>신뢰하는 기기</label>
+								<button type="button" onclick="auth.otpLoginConfirm();" name="인증하기"
+									class="button_submit" style="width: 100%">인증하기</button>
+							</div>
+							<div class="account_signup">
+								<a href="../faq/17526373.html#lost" class="button_find" style="width: 100%;"><span
+										class="fa fa-question-circle"></span> 인증코드를 받지 못하는 경우</a>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+
+
+
+
+		</div>
+	</div>
+
+
+
+	<script>
+		var today = new Date();
+		document.getElementById("nowYear").innerHTML = today.getFullYear();
+
+		function deleteViewCookie() {
+			var expire = new Date();
+			expire.setDate(expire.getDate() - 1);
+			cookies = "P2M=; domain=.clien.net; path=/; expires=" + expire.toGMTString() + ";";
+			document.cookie = cookies;
+
+			var url = document.location.href;
+			url = url.replace("www", "m");
+			location.href = url;
+		}
+	</script>
+
+	<script src="../../js/lib/jquery-1.11.1.min.js"></script>
+	<script src="../../js/lib/jquery-ui.min.js"></script>
+	<script src="../../js/lib/isMobile.min.js"></script>
+	<script src="../../js/lib/cl.dropmenu.js"></script>
+	<script src="../../js/lib/jquery.extend.js"></script>
+	<script src="../../js/lib/jquery.cookie.js"></script>
+
+	<script>
+		var IS_DEBUG = false;
+		var BASE_URL = "/service";
+		var API_HOST = "/service/api";
+		var CDN_URL = "https://edgio.clien.net";
+		var COOKIE_DOMAIN = "clien.net";
+
+		var IS_LOGIN = false;
+		var sessionUserId = '';
+
+
+		var IsMobile = false;
+
+
+		var PAGE_SETTING_THEME = "";
+		var PAGE_SETTING_FONT_SIZE = "";
+		var PAGE_SETTING_KIND_OF_FONT = "";
+		var PAGE_SETTING_SHORT_CUT = "";
+		var PAGE_SETTING_LIST_SIZE = "";
+
+		PAGE_SETTING_THEME = "white";
+		PAGE_SETTING_FONT_SIZE = "normal";
+		PAGE_SETTING_KIND_OF_FONT = "basic";
+		PAGE_SETTING_SHORT_CUT = "on";
+		PAGE_SETTING_LIST_SIZE = "normal";
+
+		var HONGBO_IMG_PARAMETER = "?scale=width[320],options[limit]";
+		var COMMENT_IMG_PARAMETER = "?scale=width[480],options[limit]";
+		var IMG_PARAMETER = "?scale=width[740],options[limit]";
+
+		var keyData = new Object();
+		keyData[""] = "/service/group/board_all";
+		keyData["c"] = "/service/group/community";
+		keyData["f"] = "/service/board/park";
+		keyData["i"] = "/service/board/image";
+		keyData["q"] = "/service/board/kin";
+		keyData["d"] = "/service/group/allinfo";
+		keyData["n"] = "/service/board/news";
+		keyData["t"] = "/service/board/useful";
+		keyData["p"] = "/service/board/pds";
+		keyData["e"] = "/service/group/allreview";
+		keyData["l"] = "/service/board/lecture";
+		keyData["u"] = "/service/board/use";
+		keyData[""] = "/service/board/chehum";
+		keyData["w"] = "/service/group/allsell";
+		keyData["j"] = "/service/board/jirum";
+		keyData["s"] = "/service/board/sold";
+		keyData["b"] = "/service/board/hongbo";
+		keyData[""] = "/service/group/insure";
+		keyData["h"] = "/service/";
+		keyData[""] = "/service/group/cm_all";
+		keyData[""] = "/service/somoim";
+		keyData[""] = "/service/board/cm_main";
+		keyData[""] = "/service/board/cm_cat";
+		keyData[""] = "/service/board/cm_dog";
+		keyData[""] = "/service/board/cm_fish";
+		keyData[""] = "/service/board/cm_app";
+		keyData[""] = "/service/board/cm_note";
+		keyData[""] = "/service/board/cm_redeem";
+		keyData[""] = "/service/board/cm_stock";
+		keyData[""] = "/service/board/cm_vcoin";
+		keyData[""] = "/service/board/cm_venture";
+		keyData[""] = "/service/board/cm_lang";
+		keyData[""] = "/service/board/cm_wine";
+		keyData[""] = "/service/board/cm_cook";
+		keyData[""] = "/service/board/cm_food";
+		keyData[""] = "/service/board/cm_simsik";
+		keyData[""] = "/service/board/cm_iphonien";
+		keyData[""] = "/service/board/cm_mac";
+		keyData[""] = "/service/board/cm_bike";
+		keyData[""] = "/service/board/cm_nas";
+		keyData[""] = "/service/board/cm_andro";
+		keyData[""] = "/service/board/cm_keyboard";
+		keyData[""] = "/service/board/cm_airplane";
+		keyData[""] = "/service/board/cm_formula1";
+		keyData[""] = "/service/board/cm_pctuning";
+		keyData[""] = "/service/board/cm_iot";
+		keyData[""] = "/service/board/cm_applewatch";
+		keyData[""] = "/service/board/cm_mbike";
+		keyData[""] = "/service/board/cm_watch";
+		keyData[""] = "/service/board/cm_rasp";
+		keyData[""] = "/service/board/cm_slate";
+		keyData[""] = "/service/board/cm_ebook";
+		keyData[""] = "/service/board/cm_blockchain";
+		keyData[""] = "/service/board/cm_thinkpad";
+		keyData[""] = "/service/board/cm_bb";
+		keyData[""] = "/service/board/cm_tpad";
+		keyData[""] = "/service/board/cm_drone";
+		keyData[""] = "/service/board/cm_nokien";
+		keyData[""] = "/service/board/cm_ebicycle";
+		keyData[""] = "/service/board/cm_tiwatch";
+		keyData[""] = "/service/board/cm_webos";
+		keyData[""] = "/service/board/cm_wp";
+		keyData[""] = "/service/board/cm_aigurim";
+		keyData[""] = "/service/board/cm_ai";
+		keyData[""] = "/service/board/cm_console";
+		keyData[""] = "/service/board/cm_werule";
+		keyData[""] = "/service/board/cm_dia";
+		keyData[""] = "/service/board/cm_steam";
+		keyData[""] = "/service/board/cm_poe";
+		keyData[""] = "/service/board/cm_kordle";
+		keyData[""] = "/service/board/cm_lol";
+		keyData[""] = "/service/board/cm_heroes";
+		keyData[""] = "/service/board/cm_gemwar";
+		keyData[""] = "/service/board/cm_board";
+		keyData[""] = "/service/board/";
+		keyData[""] = "/service/board/cm_dongsup";
+		keyData[""] = "/service/board/cm_civilize";
+		keyData[""] = "/service/board/cm_cookierun";
+		keyData[""] = "/service/board/cm_eve";
+		keyData[""] = "/service/board/cm_fm";
+		keyData[""] = "/service/board/cm_gta";
+		keyData[""] = "/service/board/cm_gun";
+		keyData[""] = "/service/board/cm_hearth";
+		keyData[""] = "/service/board/cm_mabi";
+		keyData[""] = "/service/board/cm_mine";
+		keyData[""] = "/service/board/cm_mtg";
+		keyData[""] = "/service/board/cm_rhythm";
+		keyData[""] = "/service/board/cm_sim";
+		keyData[""] = "/service/board/cm_star";
+		keyData[""] = "/service/board/cm_wow";
+		keyData[""] = "/service/board/cm_keyboard";
+		keyData[""] = "/service/board/cm_rowing";
+		keyData[""] = "/service/board/cm_lego";
+		keyData[""] = "/service/board/cm_ku";
+		keyData[""] = "/service/board/cm_dduk";
+		keyData[""] = "/service/board/cm_wine";
+		keyData[""] = "/service/board/cm_onair";
+		keyData[""] = "/service/board/cm_book";
+		keyData[""] = "/service/board/cm_photo";
+		keyData[""] = "/service/board/cm_3dmaking";
+		keyData[""] = "/service/board/cm_ebook";
+		keyData[""] = "/service/board/cm_midra";
+		keyData[""] = "/service/board/cm_surfing";
+		keyData[""] = "/service/board/cm_military";
+		keyData[""] = "/service/board/cm_classic";
+		keyData[""] = "/service/board/cm_drone";
+		keyData[""] = "/service/board/cm_fisher";
+		keyData[""] = "/service/board/cm_movie";
+		keyData[""] = "/service/board/cm_baby";
+		keyData[""] = "/service/board/cm_glasses";
+		keyData[""] = "/service/board/cm_edc";
+		keyData[""] = "/service/board/cm_danger";
+		keyData[""] = "/service/board/cm_adhd";
+		keyData[""] = "/service/board/cm_fashion";
+		keyData[""] = "/service/board/cm_japanlive";
+		keyData[""] = "/service/board/cm_oversea";
+		keyData[""] = "/service/board/cm_daegu";
+		keyData[""] = "/service/board/cm_instar";
+		keyData[""] = "/service/board/cm_solo";
+		keyData[""] = "/service/board/cm_70";
+		keyData[""] = "/service/board/cm_fisher";
+		keyData[""] = "/service/board/cm_twit";
+		keyData[""] = "/service/board/cm_bts";
+		keyData[""] = "/service/board/cm_girl";
+		keyData[""] = "/service/board/cm_music";
+		keyData[""] = "/service/board/cm_classic";
+		keyData[""] = "/service/board/cm_kara";
+		keyData[""] = "/service/board/cm_bts";
+		keyData[""] = "/service/board/cm_girlgroup";
+		keyData[""] = "/service/board/cm_girl";
+		keyData[""] = "/service/board/cm_kara";
+		keyData[""] = "/service/board/cm_bike";
+		keyData[""] = "/service/board/cm_golf";
+		keyData[""] = "/service/board/cm_rowing";
+		keyData[""] = "/service/board/cm_soccer";
+		keyData[""] = "/service/board/cm_baseball";
+		keyData[""] = "/service/board/cm_gym";
+		keyData[""] = "/service/board/cm_swim";
+		keyData[""] = "/service/board/cm_billiards";
+		keyData[""] = "/service/board/cm_surfing";
+		keyData[""] = "/service/board/cm_snow";
+		keyData[""] = "/service/board/cm_badmin";
+		keyData[""] = "/service/board/cm_basket";
+		keyData[""] = "/service/board/cm_mount";
+		keyData[""] = "/service/board/cm_sea";
+		keyData[""] = "/service/board/cm_tennis";
+		keyData[""] = "/service/board/cm_camp";
+		keyData[""] = "/service/board/cm_tour";
+
+
+		$.ajaxSetup({
+			beforeSend: function (xhr, settings) {
+				if (settings.type == 'POST' || settings.type == 'PUT' || settings.type == 'DELETE') {
+					if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+						xhr.setRequestHeader("X-CSRF-TOKEN", "066e4515-17c7-4450-aa61-6e8d1b3da195");
+					}
+				}
+			}
+		});
+
+		setTimeout(function () {
+			var height = $('#div_content').outerHeight();
+			$("#sideBarHeight").css("height", height);
+		}, 2000);
+
+	</script>
+
+	<script src="../../js/common/clien.storage%EF%B9%960503v1.js"></script>
+	<script src="../../js/common/clien.alarm%EF%B9%960503v1.js"></script>
+	<script src="../../js/common/clien.auth%EF%B9%960503v1.js"></script>
+	<script src="../../js/common/clien.paging%EF%B9%960503v1.js"></script>
+	<script src="../../js/common/clien.util%EF%B9%960503v1.js"></script>
+	<script src="../../js/common/clien.popup%EF%B9%960503v1.js"></script>
+	<script src="../../js/common/clien.setting%EF%B9%960503v1.js"></script>
+	<script src="../../js/common/clien.search%EF%B9%960503v1.js"></script>
+
+	<script src="../../js/app/clien.agent%EF%B9%960503v1.js"></script>
+	<script src="../../js/app/clien.ui%EF%B9%960503v1.js"></script>
+
+	<script>
+		function detectBlockers() {
+			var ad = document.createElement('div');
+			ad.innerHTML = '&nbsp;';
+			ad.className = 'adsbox';
+			ad.style.position = 'absolute';
+			ad.style.fontSize = '0';
+			ad.style.height = '10px';
+			ad.style.width = '10px';
+			ad.style.zIndex = '-1000';
+			ad.style.top = '-1000px';
+			document.body.appendChild(ad);
+
+			setTimeout(function () {
+				if (ad.offsetHeight === 0) {
+					trackBlockerUsage();
+					console.log("adBolckUse");
+				}
+				document.body.removeChild(ad);
+			}, 100);
+		}
+
+		function trackBlockerUsage() {
+			if (typeof gtag !== 'undefined') {
+				gtag('event', 'adblocker_detected', {
+					'event_category': 'adblocker',
+					'event_label': 'Ad Blocker Usage'
+				});
+			}
+		}
+
+		window.onload = detectBlockers;
+	</script>
+
+
+
+	<div class="modal_gif">
+		<div class="modal_gif_content">
+			<div class="modal_title">
+				<strong><i class="fa fa-download"></i> GIF 파일 다운로드</strong>
+				<button type="button" class="modal_close" onclick="app.gifDownClose();" aria-label="close">
+					<div class="modal_button_close"></div>
+				</button>
+			</div>
+			<div class="modal_key_display">
+				<span id="gif_modal_1">0</span>
+				<span id="gif_modal_2">0</span>
+				<span id="gif_modal_3">0</span>
+				<span id="gif_modal_4">0</span>
+			</div>
+			<div class="modal_help_msg">GIF 파일을 다운로드 받으려면<br>화면에 표시된 4자리 번호를 입력해주세요.</div>
+			<div class="modal_input">
+				<input id="gif_check" type="text" class="key_input" placeholder="번호를 입력하세요.">
+			</div>
+			<div class="modal_footer">
+				<button type="button" class="modal_button_confirm" onclick="app.gofDownCheck();">확인</button>
+				<button type="button" class="modal_button_cancel" onclick="app.gifDownClose();">취소</button>
+			</div>
+		</div>
+		<div class="modal_bg" onclick="app.gifDownClose();"></div>
+
+		<input type="hidden" id="gif_modal_file_sn" value="">
+		<input type="hidden" id="gif_modal_key" value="">
+		<input type="hidden" id="gif_modal_width" value="">
+		<input type="hidden" id="gif_modal_height" value="">
+	</div>
+
+	<div class="modal_clipboard" id="clipboard_modal">
+		<div class="modal_clipboard_content">
+			<div class="modal_title">
+				<strong>댓글 주소복사</strong>
+				<button type="button" class="modal_close" onclick="clipboardModalClose();" aria-label="close">
+					<div class="modal_button_close"></div>
+				</button>
+			</div>
+			<div class="modal_input">
+				<input id="commentClipboard_value" type="text" class="key_input" placeholder="URL" value="">
+				<button type="button" class="modal_button_confirm btn" data-clipboard-target="#commentClipboard_value"
+					title="주소복사"><i class="fa fa-clipboard"></i></button>
+			</div>
+		</div>
+	</div>
+
+
+	<script>
+		function clipboardModalClose() {
+			$('#clipboard_modal').removeClass('open');
+		}
+	</script>
+	<input type="hidden" value="cmrak19485" id="writer">
+	<input type="hidden" value="" id="loginUserId">
+	<input type="hidden" value="lecture" id="boardCd">
+	<input type="hidden" value="18105821" id="boardSn">
+	<input type="hidden" value="1000034" id="category">
+	<input type="hidden" value="15" id="commentCount">
+	<input type="hidden" value="0">
+	<input type="hidden" value="15" id="nowCommentCount">
+	<input type="hidden" value="ST03" id="webTag">
+	<input type="hidden" value="https://www.clien.net/service/board/lecture/18105821" id="shareUrl">
+
+	<input type="hidden" value="write" id="comment_mode">
+	<input type="hidden" value="" id="comment_commentSn">
+	<input type="hidden" value="NO" id="comment_link_isvaild">
+
+	<input type="hidden" value="100" id="configCommentPageSize">
+	<input type="hidden" value="20000" id="configMaxContentLength">
+	<input type="hidden" value="3" id="configMinContentLength">
+	<input type="hidden" value="luxmall,레플리카, 레플,럭셔리몰, !important, fixed" id="configStopWord"> <input type="hidden"
+		value="T31" id="od">
+	<input type="hidden" value="0" id="po">
+	<input type="hidden" value="0" id="voCategory">
+	<input type="hidden" value="" id="sk">
+	<input type="hidden" value="" id="sv">
+	<input type="hidden" value="" id="groupCd"> <input type="hidden" value="0" id="pt">
+	<input type="hidden" value="팁과강좌" id="boardName">
+	<input type="hidden" value="Mac Arm CPU에서 WMware - Win11 ARM(가상) 활용방법(파일공유, 외부장치 연결 등)" id="subject">
+	<input type="hidden"
+		value="※ 해당 내용은 아래 주소를 참고하여 작성하였습니다. 자세한 내용은 아래 주소에 첨부된 PDF 가이드(영문)을 참고해주세요. https://communities.vmware.com/t5/VMware-Fusion-Documents/The-Unofficial-Fusion-13-for-Apple-Silicon-Companion-Guide/ta-p/2939907 0. 실리콘 ARM CPU(M1, M2, ...)가 탑재된 MacOS에서 WMware Fusion 13을 이용한 Windows 11 ARM 설치하기 https://www.clien.net/service/board/lecture/18102257CLIEN 1. VMware에 설치된 가상 Windows - MacOS간 파일공유 공식적으로 VMware Fusion 13에서는 지원하지 않는 기능입니다. 하지만 출처에 명시된 비공식 가이드에 의하면 VMware에서 다음과 같은 방법으로 맥-가상윈도우간 파일 전송을 할 수 있습니다. 1) MacOS - Windows 파일 공유(SMB 공유): 홈 네트워크 등 신뢰할 수 있는 네트워크에만 사용하는 것을 권장. 공용 네트워크에 연결될 경우 보안 위험이 생길수 있음. 2) MacOS - 가상윈도우간 원격 데스크톱 프로그램 이용 3) Onedrive, Dropbox 등 클라우드 프로그램 설치 4) WinSCP와 같은 네트워크 파일 전송 유틸리티 프로그램 사용 본문에서는 1)의 방법을 설명하고자 합니다. - 예시로 MacOS에서는 '윈도우 공유' 폴더를, Windows에서는 '윈도우맥'이라는 폴더를 생성했습니다. - 터미널을 실행후 명령어 ' ifconfig '를 입력합니다.(윈도우에서 ipconfig와 비슷한 명령어) 하단에 표시된 스샷과 같이 bridge에 표기된 IPv4 주소를 메모합니다. - VMware Fusion에서 생성된 가상이미지 선택후 Virtual Machine - Settings을 클릭합니다. - 설정창이 나오면 'Network Adapter'을 클릭합니다. 여기서 확인해야 할 항목이 'Share with my Mac'과 'Private to my Mac'항목인데 간단히 설명하면 다음과 같습니다. (우측 영문 설명을 참고하셔도 됩니다.) * Share with my Mac: Mac의 네트워크 회선을 공유하여 인터넷 연결과 내부 네트워크 공유가 가능합니다. 인터넷(외부 네트워크망)이 끊기면 네트워크 공유가 불가능하며 공용 인터넷망에서 네트워크 공유시 보안 문제가 생길 수 있습니다. * Private to my Mac: 통신상태와 관계없이 Mac-가상윈도우간 네트워크 파일 공유를 할 수 있습니다. 단, 가상머신에서 인터넷(외부 네트워크망) 이용이 불가능합니다. 본문에서는 Private to my Mac에 체크한 것으로 진행합니다. Share with my Mac으로 체크해도 하단의 IPv4 주소만 다르고 방법은 거의 같습니다. - 먼저 Mac 계정에 접근할 수 있는 계정을 만듭니다. 설정 - 사용자 및 그룹 - 계정 추가 - 공유만 가능으로 선택후 계정을 만듭니다. 저는 vmware라는 계정을 미리 만들었습니다. - 설정 - 일반 - 공유 - 파일 공유 항목을 ON한 후 우측의 i를 눌러 상세 설정을 합니다. - '윈도우 공유' 폴더를 추가한 후 vmware 계정의 권한을 설정해줍니다. 설정을 완료하면 상단의 옵션...을 클릭합니다. - Windows 공유를 위해 SMB 공유를 활성화하기 위해 체크하고 하단에 윈도우에서 접근 가능하도록 위에 설정한 계정도 체크를 합니다. - 이번엔 가상윈도우에서 아래와 같이 네트워크 고급 공유 설정(설정 - 네트워크 및 인터넷 - 고급 네트워크 설정 - 고급 공유 설정)으로 들어간 후, 하단처럼 네트워크 공유 설정을 합니다. - 참고로 위의 VMware 네트워크 설정을 'Share with my Mac'로 세팅하고 있다면 네트워크 속성을 '개인 네트워크'로 맞춰놓는 것을 권장합니다. - 가상머신 윈도우에 들어가서 명렁 프롬포트(윈도우+R → CMD)를 실행합니다. ipconfig 명령어를 입력해 가상머신의 IPv4 주소를 확인한 후 위에서 확인한 Mac IPv4주소의 ping 테스트를 진행하여 패킷이 정상적으로 전송되는지 확인합니다. 마찬가지로 Mac 터미널에서 가상머신의 IPv4주소 ping 테스트를 진행(본문에서는 가상머신의 IPv4 주소가 172.16.132.130이므로 맥 터미널에서 'ping 172.16.132.130' 입력)하여 정상적으로 전송되는지 확인합니다. 두 곳에서 ping이 정상적으로 전송되면 사전작업을 마치게 됩니다. - 이제 가상 윈도우에서 Mac OS에 설정된 공유폴더에 접근하는 방법을 설명하겠습니다. 탐색기 주소창에서 Mac의 IPv4 주소를 입력합니다. (본문에서는 \\172.16.132.1) '네트워크 자격 증명 입력'창이 나오면 Mac OS에서 만들었던 공유 계정으로 로그인합니다. ※ [참고] 바탕화면에서 바로가기 생성 탭을 누르고 위의 Mac IPv4 주소를 입력하면 손쉽게 접근 가능합니다. - 로그인에 성공하면 설정했던 공유폴더에 접근을 할 수 있습니다. (아래처럼 폴더가 한글이 포함되어 있으면 자소분리로 표시될 수가 있는데 사용상에 지장은 없습니다) - 이번에는 가상 윈도우에서 생성한 '윈도우맥' 폴더를 Mac OS에서 접근하는 방법입니다. 설정 - 계정 - 다른 사용자 - 기타 사용자 탭에서 계정 추가를 누릅니다. - 오프라인 상태에서는 바로 로컬 계정을 만들 수 있지만 인터넷이 연결되어 있으면 기본적으로 하단처럼 마이크로소프트 계정을 요구합니다. 하단에 있는 방법처럼 진행해 로컬 계정을 만듭니다. - 하단처럼 로컬계정을 만듭니다. 저는 mactest라는 계정을 생성하였습니다. - 공유 폴더로 지정할 '윈도우맥'을 우클릭한 후 속성을 클릭합니다. - 공유 탭 - '고급 공유' 클릭후 '선택한 폴더 공유'를 체크합니다. '동시 사용자 수를~'는 적절히 조절한 후 확인을 누릅니다. 아직 창을 닫지 마세요. - 위의 '네트워크 파일 및 폴더 공유' 란에서 '공유'를 클릭한 후 아래처럼 'mactest' 계정을 추가합니다. 그리고 고급 공유에서 주석-권한에 공유할 사용자를 추가한 후 쓰기권한을 설정합니다. 이것으로 윈도우에서 공유 폴더 세팅을 마쳤습니다. - Mac OS에서 복귀한 후 Finder 상태에서 하단처럼 '이동 - 서버에 연결'을 클릭한 후 서버 주소를 가상 윈도우 IPv4주소를 하단과 같이 입력합니다.(본문에서는 smb://172.16.132.130) 로그인후 '윈도우맥' 항목을 클릭후 확인을 누르면 공유폴더에 접근할 수 있습니다. - [참고] 간혹 윈도우에서 맥 공유폴더로 접근할 때 권한 설정이 안됐다고 경고창이 뜰 때가 있는데, 하단의 방법처럼 맥의 공유 폴더 '우클릭-정보 가져오기' 항목에 접근합니다. 공유 및 사용 권한에서 '하위 항목에 적용'을 눌러야 풀립니다. ※ [참고] 간혹 윈도우에서 Mac OS IPv4 주소를 입력해도 접근이 안되는 문제가 있을 수 있는데, Mac OS 설정 - 일반 - 공유에서 '일반 공유' 끄고 재부팅 한 뒤에(재부팅하기 전 '다시 로그인하면 윈도우 다시 열기' 체크 해제) 다시 관련 설정을 ON하면 해결됩니다. 2. MacOS - 가상 Windows 11 ARM간 복사/붙여놓기 및 드래그&amp;드롭 공식적으로 VMware Fusion 13에서는 지원하지 않는 기능입니다. 출처에 소개된 비공식 가이드에 의하면 Microsoft Remote Desktop for the Mac(해당 앱은 윈11 엔터, 프로 버전만 원격 가능)와 같은 원격 데스크톱 프로그램을 이용하면 된다고 설명하고 있습니다. 3. 가상 Windows 11 ARM에서 USB 드라이버 인식 방법 * 별도의 설정을 안하고 기본적으로 VMware에서 외장장치를 어디로 연결할건지 묻습니다. * 직접 컨트롤하고 싶다면 다음과 같은 방법을 이용하면 됩니다. - 일단 NTFS 포맷은 Mac OS 상에서 '읽기'는 가능합니다. '쓰기'가 문제인데, 가장 쉬운 방법은 외장 드라이버를 exFAT로 포맷하는 방법이긴 합니다. 일단 여기에서는 가상 윈도우로 읽는 방법을 소개하겠습니다. - VMware 설정에서 USB &amp; Bluetooth 항목을 클릭합니다. - 외장 장치들이 연결된 것을 확인할 수 있는데 좌측에 관련 드라이버를 체크하고 잠시 기다리면... - 가상 윈도우에서 NTFS 포맷 드라이버를 읽는 것은 물론 쓰기 작업도 가능합니다. 4. 가상 Windows 11 ARM에서 윈도우스토어 실행 오류 출처 사이트에 제공하고 있는 비공식 가이드에 의하면 윈도우 스토어가 충돌로 인해 실행이 안될 수 있다고 합니다. 해결 방법은 관리자 권한으로 'CMD'나 'Powershell' 을 실행시킨 후, 아래의 명령어를 입력하여 윈도우스토어 재설치 작업을 완료하면 됩니다. (시간이 다소 소요될 수 있음) wsreset.exe -i 5. 가상 Windows 11 ARM에서 아이클라우드 설치 및 실행 오류 Visual C++ Redistributable package ARM64버전 설치후 아이클라우드 재설치하면 됩니다. https://download.visualstudio.microsoft.com/download/pr/eaab1f82-787d-4fd7-8c73-f782341a0c63/37342E0ABDAEAE0297F64A889F842AC9453139639FB0178C0754A7D2F330043A/VC_redist.arm64.exe"
+		id="content">
+	<input type="hidden" value="M01" id="mainTag">
+
+	<input type="hidden" value="boardView" id="pageName">
+	<input type="hidden" value="" id="bizType"> <input type="hidden" value="" id="preListType">
+	<input type="hidden" value="0" id="moreCount">
+
+	<input type="hidden" value="false" id="combine">
+	<input type="hidden" value="" id="combine_q">
+	<input type="hidden" value="0" id="combine_p">
+	<input type="hidden" value="recency" id="combine_sort">
+	<input type="hidden" value="lecture" id="combine_boardCd">
+	<input type="hidden" value="false" id="combine_isBoard">
+
+	<script src="https://www.clien.net/service/js/lib/tribute/tribute.min.js"></script>
+	<script src="../../js/lib/mark.min.js"></script>
+	<script src="https://www.clien.net/service/js/lib/clipboard.min.js"></script>
+
+	<script src="../../js/app/clien.hongbo%EF%B9%960503v1.js"></script>
+	<script src="../../js/common/clien.observe%EF%B9%960503v1.js"></script>
+	<script src="https://www.clien.net/service/js/common/clien.list.js?0503v1"></script>
+	<script src="../../js/common/clien.recommend%EF%B9%960503v1.js"></script>
+	<script src="https://www.clien.net/service/js/common/clien.myView.js?0503v1"></script>
+	<script src="https://www.clien.net/service/js/app/pageJs/view.js?0503v1"></script>
+	<script src="https://www.clien.net/service/js/common/clien.like.js?0503v1"></script>
+	<script src="https://www.clien.net/service/js/lib/dropzone/dropzone.min.js?20220308_1"></script>
+
+	<script>
+		function CommentImgUpload() {
+
+			var _this = this;
+
+			Dropzone.autoDiscover = false;
+
+			var dropzone_comment = new Dropzone('#comment-img-upload', {
+				previewTemplate: document.querySelector('#preview-comment-template').innerHTML,
+				url: API_HOST + '/file/uploads',
+				method: 'POST',
+				params: {
+					'fileType': 'F03'
+				},
+				parallelUploads: 1,
+				thumbnailHeight: null,
+				thumbnailWidth: 150,
+				maxFiles: 1, // 업로드 파일수
+				filesizeBase: 1024, // 파일 용량 표시 기준
+				maxFilesize: 15, // 파일 업로드 최대 용량 Mb단위
+				parallelUploads: 1, // 동시 파일업로드 수
+				acceptedFiles: '.jpg,.gif,.png,.jpeg,',
+				addRemoveLinks: false,
+				uploadMultiple: false,
+				autoProcessQueue: true,
+				dictRemoveFileConfirmation: '이미지를 삭제하시겠습니까?',
+				headers: {
+					'X-CSRF-Token': "066e4515-17c7-4450-aa61-6e8d1b3da195"
+				},
+				processing: function () {
+					$('.fr-overlay').addClass('active');
+					document.getElementById("loading").style.display = "block";
+				},
+				thumbnail: function (file, dataUrl, check) {
+
+					if (file.fileExt == 'mp4' || file.fileExt == 'org') {
+						file.previewElement.remove();
+					};
+
+					if (file.previewElement) {
+
+						file.previewElement.classList.remove("dz-file-preview");
+						var images = file.previewElement.querySelectorAll("[data-dz-thumbnail]");
+
+						for (var i = 0; i < images.length; i++) {
+							var thumbnailElement = images[i];
+							thumbnailElement.alt = file.name;
+							thumbnailElement.src = dataUrl;
+						}
+
+						if (check) {
+							var mp4IsVaild = false;
+							var mp4Sn = 0;
+							if (file.fileExt == 'gif') {
+								app.env.images.forEach(function (info, index) {
+									if (file.fileKey == info.fileKey && info.fileExt == 'mp4') {
+										mp4IsVaild = true;
+										mp4Sn = info.fileSn;
+									};
+								});
+							};
+
+							if (mp4IsVaild) {
+								file.previewElement.querySelector('.dz-filename').dataset.fileSn = mp4Sn;
+							} else {
+								file.previewElement.querySelector('.dz-filename').dataset.fileSn = file.fileSn;
+							}
+						}
+
+						setTimeout(function () {
+							file.previewElement.classList.add("dz-image-preview");
+						}, 1);
+					}
+				},
+				success: function (file, response) {
+					if (response.length == 1) {
+						app.env.images.push(response[0]);
+
+						file.previewElement.querySelector('.dz-image').dataset.url = response[0].url;
+						file.previewElement.querySelector('img').src = "https://edgio.clien.net" + response[0].url + IMG_PARAMETER;
+
+						file.previewElement.querySelector('.dz-filename').dataset.fileSn = response[0].fileSn;
+
+					} else if (response.length > 1) {
+						var fileSn = "";
+						var posterUrl = "";
+						var fileKey = "";
+						var url = "";
+
+						response.forEach(function (info, index) {
+							app.env.images.push(response[index]);
+
+							if ('gif' == info.fileExt) {
+								file.previewElement.querySelector('.dz-image').dataset.url = info.url;
+								posterUrl = info.url;
+								file.previewElement.querySelector('img').src = "https://edgio.clien.net" + info.url + IMG_PARAMETER;
+							} else if ('mp4' == info.fileExt) {
+								file.previewElement.querySelector('.dz-filename').dataset.fileSn = info.fileSn;
+								fileSn = info.fileSn;
+								fileKey = info.fileKey;
+								url = info.url;
+							};
+						});
+
+					}
+				},
+				error: function (file, response, e) {
+					var errorMessage = "";
+
+					file.previewElement.classList.add("clien-upload-error");
+
+					if (e == undefined) {
+						if (response.indexOf("You can not upload any more files") >= 0) {
+							errorMessage = '최대 업로드 개수를 초과. 다시 업로드 하려면 삭제하세요.';
+						};
+						if (response.indexOf("File is too big") >= 0) {
+							errorMessage = '최대 업로드 용량 초과';
+						};
+						if (response.indexOf("You can't upload files of this type") >= 0) {
+							errorMessage = '허용되지 않는 확장자 파일';
+						};
+					} else {
+						errorMessage = e.responseText;
+						if (errorMessage == undefined || errorMessage == null || errorMessage == '') {
+							errorMessage = '이미지 업로드 실패';
+						}
+						if (e.status != 400) {
+							errorMessage = '이미지 업로드 실패';
+						}
+					}
+
+					if (file.previewElement) {
+						file.previewElement.classList.add("dz-error");
+						for (let node of file.previewElement.querySelectorAll("[data-dz-errormessage]")) {
+							node.textContent = errorMessage;
+						}
+					}
+				},
+				queuecomplete: function (data) {
+					$('.fr-overlay').removeClass('active');
+					document.getElementById("loading").style.display = "none";
+				},
+				removedfile: function (file) {
+					var fileSn = file.previewElement.querySelector('.dz-filename').getAttribute('data-file-sn');
+					var thumbSn = '';
+					var oriSn = '';
+					var fileKey = '';
+					var fileExt = '';
+
+					if (fileSn == null) {
+						file.previewTemplate.remove();
+						return;
+					};
+
+					app.env.images.forEach(function (info, index) {
+						if (fileSn == info.fileSn) {
+							fileKey = info.fileKey;
+							fileExt = info.fileExt;
+						};
+					});
+
+					if (fileExt == 'mp4') {
+						app.env.images.forEach(function (info, index) {
+							if (fileKey == info.fileKey && info.fileExt == 'gif') {
+								thumbSn = info.fileSn;
+							} else if (fileKey == info.fileKey && info.fileExt == 'org') {
+								oriSn = info.fileSn;
+							}
+						});
+					};
+
+					var data = {
+						fileType: 'F01',
+						fileSn: fileSn,
+						thumbSn: thumbSn,
+						oriSn: oriSn,
+						k: fileKey
+					};
+
+					var url = API_HOST + '/file/delete';
+					$.ajax({
+						url: url,
+						type: 'POST',
+						data: data,
+						success: function (result) {
+							// 수정일 경우, 내가 할당한 데이터 수동으로 삭제하기 위해 만듬.
+							dropzone_comment.files = [];
+							app.env.images = [];
+
+							file.previewTemplate.remove();
+						},
+						error: function (result) {
+							var res = JSON.parse(result.responseText);
+							alert(res.message);
+						}
+					});
+
+				}
+			});
+
+			_this.modifyCommentImgSet = function () {
+				app.env.images.forEach(function (info, index) {
+
+					if (info.fileExt != 'mp4') {
+						info.name = info.originName;
+						info.size = info.fileSize;
+
+						dropzone_comment.emit("addedfile", info);
+						dropzone_comment.emit("thumbnail", info, CDN_URL + info.url + IMG_PARAMETER, true);
+						dropzone_comment.emit("complete", info);
+
+						var imgCnt = {
+							'accepted': true,
+							'fileSn': info.fileSn,
+							'fileKey': info.fileKey,
+							'fileExt': info.fileExt,
+							'originName': info.originName
+						};
+						dropzone_comment.files.push(imgCnt);
+					}
+				});
+			};
+
+			_this.initializationImgPrev = function () {
+				$('.dz-preview').remove();
+				dropzone_comment.files = [];
+			};
+
+		};
+
+		var commentImgUpload = new CommentImgUpload();
+	</script>
+
+	<script type="text/javascript"
+		src="https://ssl.pstatic.net/adimg3.search/adpost/js/adpost_show_ads_v2.min.js"></script>
+	<script src="https://www.clien.net/service/js/common/clien.naver.js?0503v1"></script>
+
+	<script type="text/javascript">
+
+
+		var title = "Mac Arm CPU에서 WMware - Win11 ARM(가상) 활용방법(파일공유, 외부장치 연결 등)";
+		title = util.cutByte(title, 99);
+
+		var content = "※ 해당 내용은 아래 주소를 참고하여 작성하였습니다. 자세한 내용은 아래 주소에 첨부된 PDF 가이드(영문)을 참고해주세요. https://communities.vmware.com/t5/VMware-Fusion-Documents/The-Unofficial-Fusion-13-for-Apple-Silicon-Companion-Guide/ta-p/2939907 0. 실리콘 ARM CPU(M1, M2, ...)가 탑재된 MacOS에서 WMware Fusion 13을 이용한 Windows 11 ARM 설치하기 https://www.clien.net/service/board/lecture/18102257CLIEN 1. VMware에 설치된 가상 Windows - MacOS간 파일공유 공식적으로 VMware Fusion 13에서는 지원하지 않는 기능입니다. 하지만 출처에 명시된 비공식 가이드에 의하면 VMware에서 다음과 같은 방법으로 맥-가상윈도우간 파일 전송을 할 수 있습니다. 1) MacOS - Windows 파일 공유(SMB 공유): 홈 네트워크 등 신뢰할 수 있는 네트워크에만 사용하는 것을 권장. 공용 네트워크에 연결될 경우 보안 위험이 생길수 있음. 2) MacOS - 가상윈도우간 원격 데스크톱 프로그램 이용 3) Onedrive, Dropbox 등 클라우드 프로그램 설치 4) WinSCP와 같은 네트워크 파일 전송 유틸리티 프로그램 사용 본문에서는 1)의 방법을 설명하고자 합니다. - 예시로 MacOS에서는 \'윈도우 공유\' 폴더를, Windows에서는 \'윈도우맥\'이라는 폴더를 생성했습니다. - 터미널을 실행후 명령어 \' ifconfig \'를 입력합니다.(윈도우에서 ipconfig와 비슷한 명령어) 하단에 표시된 스샷과 같이 bridge에 표기된 IP\bv4 주소를 메모합니다. - VMware Fusion에서 생성된\x1C 가상이미지 선택후 Virtual Machine - Settings을 클릭합니다. - 설정창이 나오면 \'Network Adapter\'을 클릭합니다. 여기서 확인해야 할 항목이 \'Share with my Mac\'과 \'Private to my Mac\'항목인데 간단히 설명하면 다음과 같습니다. (우측 영문 설명을 참고하셔도 됩니다.) * Share with my Mac: Mac의 네트워크 회선을 공유하여 인터넷 연결과 내부 네트워크 공유가 가능합니다. 인터넷(외부 네트워크망)이 끊기면 네트워크 공유가 불가능하며 공용 인터넷망에서 네트워크 공유시 보안 문제가 생길 수 있습니다. * Private to my Mac: 통신상태와 관계없이 Mac-가상윈도우간 네트워크 파일 공유를 할 수 있습니다. 단, 가상머신에서 인터넷(외부 네트워크망) 이용이 불가능합니다. 본문에서는 Private to my Mac에 체크한 것으로 진행합니다. Share with my Mac으로 체크해도 하단의 IPv4 주소만 다르고 방법은 거의 같습니다. - 먼저 Mac 계정에 접근할 수 있는 계정을 만듭니다. 설정 - 사용자 및 그룹 - 계정 추가 - 공유만 가능으로 선택후 계정을 만듭니다. 저는 vmware라는 계정을 미리 만들었습니다. - 설정 - 일반 - 공유 - 파일 공유 항목을 ON한 후 우측의 i를 눌러 상세 설정을 합니다. - \'윈도우 공유\' 폴더를 추가한 후 vmware 계정의 권한을 설정해줍니다. 설정을 완료하면 상단의 옵션...을 클릭합니다. - Windows 공유를 위해 SMB 공유를 활성화하기 위해 체크하고 하단에 윈도우에서 접근 가능하도록 위에 설정한 계정도 체크를 합니다. - 이번엔 가상윈도우에서 아래와 같이 네트워크 고급 공유 설정(설정 - 네트워크 및 인터넷 - 고급 네트워크 설정 - 고급 공유 설정)으로 들어간 후, 하단처럼 네트워크 공유 설정을 합니다. - 참고로 위의 VMware 네트워크 설정을 \'Share with my Mac\'로 세팅하고 있다면 네트워크 속성을 \'개인 네트워크\'로 맞춰놓는 것을 권장합니다. - 가상머신 윈도우에 들어가서 명렁 프롬포트(윈도우+R → CMD)를 실행합니다. ipconfig 명령어를 입력해 가상머신의 IPv4 주소를 확인한 후 위에서 확인한 Mac IPv4주소의 ping 테스트를 진행하여 패킷이 정상적으로 전송되는지 확인합니다. 마찬가지로 Mac 터미널에서 가상머신의 IPv4주소 ping 테스트를 진행(본문에서는 가상머신의 IPv4 주소가 172.16.132.130이므로 맥 터미널에서 \'ping 172.16.132.130\' 입력)하여 정상적으로 전송되는지 확인합니다. 두 곳에서 ping이 정상적으로 전송되면 사전작업을 마치게 됩니다. - 이제 가상 윈도우에서 Mac OS에 설정된 공유폴더에 접근하는 방법을 설명하겠습니다. 탐색기 주소창에서 Mac의 IPv4 주소를 입력합니다. (본문에서는 \\\\172.16.132.1) \'네트워크 자격 증명 입력\'창이 나오면 Mac OS에서 만들었던 공유 계정으로 로그인합니다. ※ [참고] 바탕화면에서 바로가기 생성 탭을 누르고 위의 Mac IPv4 주소를 입력하면 손쉽게 접근 가능합니다. - 로그인에 성공하면 설정했던 공유폴더에 접근을 할 수 있습니다. (아래처럼 폴더가 한글이 포함되어 있으면 자소분리로 표시될 수가 있는데 사용상에 지장은 없습니다) - 이번에는 가상 윈도우에서 생성한 \'윈도우맥\' 폴더를 Mac OS에서 접근하는 방법입니다. 설정 - 계정 - 다른 사용자 - 기타 사용자 탭에서 계정 추가를 누릅니다. - 오프라인 상태에서는 바로 로컬 계정을 만들 수 있지만 인터넷이 연결되어 있으면 기본적으로 하단처럼 마이크로소프트 계정을 요구합니다. 하단에 있는 방법처럼 진행해 로컬 계정을 만듭니다. - 하단처럼 로컬계정을 만듭니다. 저는 mactest라는 계정을 생성하였습니다. - 공유 폴더로 지정할 \'윈도우맥\'을 우클릭한 후 속성을 클릭합니다. - 공유 탭 - \'고급 공유\' 클릭후 \'선택한 폴더 공유\'를 체크합니다. \'동시 사용자 수를~\'는 적절히 조절한 후 확인을 누릅니다. 아직 창을 닫지 마세요. - 위의 \'네트워크 파일 및 폴더 공유\' 란에서 \'공유\'를 클릭한 후 아래처럼 \'mactest\' 계정을 추가합니다. 그리고 고급 공유에서 주석-권한에 공유할 사용자를 추가한 후 쓰기권한을 설정합니다. 이것으로 윈도우에서 공유 폴더 세팅을 마쳤습니다. - Mac OS에서 복귀한 후 Finder 상태에서 하단처럼 \'이동 - 서버에 연결\'을 클릭한 후 서버 주소를 가상 윈도우 IPv4주소를 하단과 같이 입력합니다.(본문에서는 smb://172.16.132.130) 로\x1D그인후 \'윈도우맥\' 항목을 클릭후 확인을 누르면 공유폴더에 접근할 수 있습니다. - [참고] 간혹 윈도우에서 맥 공유폴더로 접근할 때 권한 설정이 안됐다고 경고창이 뜰 때가 있는데, 하단의 방법처럼 맥의 공유 폴더 \'우클릭-정보 가져오기\' 항목에 접근합니다. 공유 및 사용 권한에서 \'하위 항목에 적용\'을 눌러야 풀립니다. ※ [참고] 간혹 윈도우에서 Mac OS IPv4 주소를 입력해도 접근이 안되는 문제가 있을 수 있는데, Mac OS 설정 - 일반 - 공유에서 \'일반 공유\' 끄고 재부팅 한 뒤에(재부팅하기 전 \'다시 로그인하면 윈도우 다시 열기\' 체크 해제) 다시 관련 설정을 ON하면 해결됩니다. 2. MacOS - 가상 Windows 11 ARM간 복사/붙여놓기 및 드래그&amp;드롭 공식적으로 VMware Fusion 13에서는 지원하지 않는 기능입니다. 출처에 소개된 비공식 가이드에 의하면 Microsoft Remote Desktop for the Mac(해당 앱은 윈11 엔터, 프로 버전만 원격 가능)와 같은 원격 데스크톱 프로그램을 이용하면 된다고 설명하고 있습니다. 3. 가상 Windows 11 ARM에서 \bUSB 드라이버 인식 방법 * 별도의 설정을 안하고 기본적으로 VMware에서 외장장치를 어디로 연결할건지 묻습니다. * 직접 컨트롤하고 싶다면 다음과 같은 방법을 이용하면 됩니다. - 일단 NTFS 포맷은 Mac OS 상에서 \'읽기\'는 가능합니다. \'쓰기\'가 문제인데, 가장 쉬운 방법은 외장 드라이버를 exFAT로 포맷하는 방법이긴 합니다. 일단 여기에서는 가상 윈도우로 읽는 방법을 소개하겠습니다. - VMware 설정에서 USB &amp; Bluetooth 항목을 클릭합니다. - 외장 장치들이 연결된 것을 확인할 수 있는데 좌측에 관련 드라이버를 체크하고 잠시 기다리면... - 가상 윈도우에서 NTFS 포맷 드라이버를 읽는 것은 물론 쓰기 작업도 가능합니다. 4. 가상 Windows 11 ARM에서 윈도우스토어 실행 오류 출처 사이트에 제공하고 있는 비공식 가이드에 의하면 윈도우 스토어가 충돌로 인해 실행이 안될 수 있다고 합니다. 해결 방법은 관리자 권한으로 \'CMD\'나 \'Powershell\' 을 실행시킨 후, 아래의 명령어를 입력하여 윈도우스토어 재설치 작업을 완료하면 됩니다. (시간이 다소 소요될 수 있음) wsreset.exe -i 5. 가상 Windows 11 ARM에서 아이클라우드 설치 및 실행 오류 Visual C++ Redistributable package ARM64버전 설치후 아이클라우드 재설치하면 됩니다. https://download.visualstudio.microsoft.com/download/pr/eaab1f82-787d-4fd7-8c73-f782341a0c63/37342E0ABDAEAE0297F64A889F842AC9453139639FB0178C0754A7D2F330043A/VC_redist.arm64.exe";
+		content = util.cutByte(content, 999);
+
+		NAVER_ADPOST_V2({
+			channel: "clien.ch1"
+			, pageSize: 4
+			, url: document.location.href
+
+			, title: title
+			, content: content
+			, keywordGroup: "크롤링테스트_공통"
+
+			, test: false
+			, mock: false
+			, callback: "pc_naver_ads_view"
+		});
+
+	</script>
+
+	<script>
+		$("textarea.autosize").on('focus keydown keyup', function () {
+			$(this).height(1).height($(this).prop('scrollHeight') - 13);
+		});
+	</script>
+
+	<script>
+		var KAAN_CLIENT_ID = '125ftq6p04OPT0uUgs.www.clien.net';
+		(function (d) {
+			var se = d.createElement('script'); se.type = 'text/javascript'; se.async = true;
+			se.src = location.protocol + '//search1.daumcdn.net/kaan/kaan.js';
+			var s = d.getElementsByTagName('head')[0]; s.appendChild(se);
+		})(document);
+	</script>
+
+	<script>
+		function loadCountScript() {
+
+			var msCountDay = new Date();
+			var script = document.createElement('script');
+
+			var cntParameters = "&type=pc&boardCd=lecture&bot=N";
+			cntParameters += "&login=N&auth=N";
+
+			script.src = "/service/js/common/clien.count.js?" + msCountDay.getTime() + cntParameters;
+			document.getElementsByTagName('head')[0].appendChild(script);
+		};
+
+		loadCountScript(); 
+	</script>
+
+	<script>window._epn = { campaign: 5338113437 };</script>
+	<script src="https://epnt.ebay.com/static/epn-smart-tools.js"></script>
+
+</body>
+
+</html>

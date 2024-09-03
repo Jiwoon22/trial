@@ -1,0 +1,4151 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+
+<head>
+	<title>윤석열의 (얼려진) 모든 것 : 크롤링테스트</title>
+	<link rel="amphtml" href="">
+
+	<meta name="description"
+		content="모공에 현창용님이 소개해주신 사이트입니다. https://yoontime.kr/ 윤씨의 발언, 시사만화, 남은 임기 등등을 전부 모아놓은 사이트입니다." />
+	<meta property="url" content="https://www.clien.net/service/board/useful/18040620" />
+	<meta property="og:url" content="https://www.clien.net/service/board/useful/18040620" />
+	<meta property="fb:app_id" content="306479129424503" />
+	<meta property="og:title" content="윤석열의 (얼려진) 모든 것 : 크롤링테스트" />
+	<meta property="og:description"
+		content="모공에 현창용님이 소개해주신 사이트입니다. https://yoontime.kr/ 윤씨의 발언, 시사만화, 남은 임기 등등을 전부 모아놓은 사이트입니다." />
+
+	<link rel="stylesheet" href="https://www.clien.net/service/js/lib/tribute/tribute.css">
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="referrer" content="unsafe-url">
+	<meta name="viewport" content="width=1280" />
+	<meta name="author" content="크롤링테스트" />
+	<meta name="apple-mobile-web-app-title" content="크롤링테스트">
+
+	<link rel="canonical" href="https://www.clien.net/service/board/useful/18040620">
+
+	<link rel="stylesheet" href="../../css/font-awesome.min%EF%B9%960510v1.css">
+	<link rel="stylesheet" href="../../css/fontello%EF%B9%960510v1.css">
+
+	<link rel="stylesheet" href="../../css/clien%EF%B9%960515v1.css">
+	<link rel="stylesheet" href="../../css/clien.scheme%EF%B9%960515v1.css">
+
+	<link rel="stylesheet" href="../../css/font-Noto%EF%B9%960510v1.css">
+
+
+
+	<link rel="stylesheet" href="../../css/jquery-ui.css">
+
+	<link rel="shortcut icon" href="../../image/favicon.ico">
+
+	<link rel=apple-touch-icon href="../../image/icon180x180.png" />
+
+
+
+
+
+
+	<script async='async' src='https://www.googletagservices.com/tag/js/gpt.js'></script>
+
+	<script>
+		googletag.cmd.push(function () {
+			googletag.defineSlot('/44950606/cs4-pc-view-center', [300, 250], 'div-pc-view-center').addService(googletag.pubads());
+			googletag.defineSlot('/44950606/cs4-pc-side', [160, 600], 'div-pc-side').addService(googletag.pubads());
+			googletag.pubads().enableSingleRequest();
+			googletag.pubads().setTargeting('board', ["useful"]);
+			googletag.enableServices();
+		});
+	</script>
+
+</head>
+
+<body>
+
+
+	<div class="back-to-top" id="top"></div>
+	<nav class="header_wrap">
+		<div class="nav_header" data-role="account-open">
+			<h1 class="header_logo" style="color:white">TESTWEB</h1>
+			<a href="#div_content" class="skip_to">본문 바로가기</a>
+			<a href="#menuTop" class="skip_to">메뉴 바로가기</a>
+			<a href="javascript:;" class="skip_to text-large">폰트크기변경</a>
+			<a href="javascript:;" class="skip_to button-dark">색상반전보기</a>
+			<div class="header_menu">
+				<a href="https://www.clien.net/service/group/clien_all" class="all_view" title="톺아보기 바로가기">톺아보기</a>
+				<a href="" class="all_symph" title="톺아보기의 공감글">공감글</a>
+				<a href="../../recommend.html" class="all_recommend" title="추천글 바로가기">추천글</a>
+			</div>
+
+			<div class="search ad_banner" data-role="total-search">
+				<input type="search" name="search" class="search_input" data-role="total-input-keyword" title="통합검색"
+					placeholder="검색어를 입력하세요." />
+				<button type="button" class="search_button" data-role="total-submit" title="검색하기"><span
+						class="fa fa-search"></span></button>
+			</div>
+
+		</div>
+	</nav>
+
+	<Script>
+
+		var setEventDay = [{ month: 3, day: 1, class: 'kr', url: '/service/image/kflag.png', size: 26 }
+			, { month: 4, day: 16, class: 'ribbon', url: '/service/image/ribbon.png', size: 21 }
+			, { month: 6, day: 6, class: 'kr', url: '/service/image/kflag.png', size: 26 }
+			, { month: 8, day: 15, class: 'kr', url: '/service/image/kflag.png', size: 26 }, { month: 10, day: 3, class: 'kr', url: '/service/image/kflag.png', size: 26 }
+			, { month: 10, day: 9, class: 'han', url: '/service/image/han_clien_m.png', size: 108 }
+			, { month: 10, day: 29, class: 'ribbon', url: '/service/image/ribbon_b.png', size: 21 }];
+
+		var eventNowDay = new Date();
+		var eventNowMonth = eventNowDay.getMonth() + 1;
+		var eventNowDay = eventNowDay.getDate();
+		var eventIsVaild = false;
+		var eventLogoHtml = '';
+
+		setEventDay.forEach(function (value) {
+
+			if (eventNowMonth == value.month && eventNowDay == value.day) {
+				if (value.class == 'han') {
+					eventLogoHtml = '<a href="/service" class="image_logo han" title="크롤링테스트홈 바로가기"><img src="' + value.url + '" width="' + value.size + 'px"></a>';
+				} else {
+					eventLogoHtml = '<span class="image_logo ' + value.class + '"><img src="' + value.url + '" width="' + value.size + 'px"></span>';
+				}
+				eventIsVaild = true;
+			};
+		});
+
+
+		if (eventIsVaild) {
+			console.log(eventLogoHtml);
+			document.getElementById("eventImgLogo").innerHTML = eventLogoHtml;
+		};
+
+	</script>
+	<div class="nav_container">
+		<div class="snb" id="menuTop">
+			<div class="side_nav" id="menu-scroll">
+
+				<div class="navmenu">
+
+
+					<a class="menu-group all" href="">
+
+						<span class="fa fa-angle-right"></span>
+						<span class="menu_over">커뮤니티</span>
+
+
+						<a class="menu-group" href="">
+
+							<span class="icon-board">C</span>
+							<span class="menu_over">모두의광장</span>
+
+
+							<a class="menu-list" href="../park.html">
+
+								<span class="icon-board">F</span>
+								<span class="menu_over">모두의공원</span>
+
+
+								<a class="menu-list" href="../image.html">
+
+									<span class="icon-board">I</span>
+									<span class="menu_over">사진게시판</span>
+
+
+									<a class="menu-list" href="../kin.html">
+
+										<span class="icon-board">Q</span>
+										<span class="menu_over">아무거나질문</span>
+
+
+										<a class="menu-group" href="">
+
+											<span class="icon-board">D</span>
+											<span class="menu_over">정보와자료</span>
+
+
+											<a class="menu-list" href="../news.html">
+
+												<span class="icon-board">N</span>
+												<span class="menu_over">새로운소식</span>
+
+
+												<a class="menu-list" href="../useful.html">
+
+													<span class="icon-board">T</span>
+													<span class="menu_over">유용한사이트</span>
+
+
+													<a class="menu-list" href="../pds.html">
+
+														<span class="icon-board">P</span>
+														<span class="menu_over">자료실</span>
+
+
+														<a class="menu-group" href="">
+
+															<span class="icon-board">E</span>
+															<span class="menu_over">강좌/사용기</span>
+
+
+															<a class="menu-list" href="../lecture.html">
+
+																<span class="icon-board">L</span>
+																<span class="menu_over">팁과강좌</span>
+
+
+																<a class="menu-list" href="../use.html">
+
+																	<span class="icon-board">U</span>
+																	<span class="menu_over">사용기</span>
+
+
+																	<a class="menu-list" href="../chehum.html">
+
+																		<span class="icon-board">·</span>
+																		<span class="menu_over">체험단사용기</span>
+
+
+																		<a class="menu-group"
+																			href="https://www.clien.net/service/group/allsell">
+
+																			<span class="icon-board">W</span>
+																			<span class="menu_over">사고팔고</span>
+
+
+																			<a class="menu-list" href="../jirum.html">
+
+																				<span class="icon-board">J</span>
+																				<span class="menu_over">알뜰구매</span>
+
+
+																				<a class="menu-list"
+																					href="../sold.html">
+
+																					<span class="icon-board">S</span>
+																					<span
+																						class="menu_over">회원중고장터</span>
+
+
+																					<a class="menu-list"
+																						href="../hongbo.html">
+
+																						<span
+																							class="icon-board">B</span>
+																						<span
+																							class="menu_over">직접홍보</span>
+
+
+																						<a class="menu-insurance"
+																							href="">
+
+																							<span
+																								class="icon-board">·</span>
+																							<span
+																								class="menu_over">보험상담실</span>
+
+
+																							<a class="menu-promo invisible"
+																								href="../../index.html">
+
+																								<span
+																									class="icon-board">H</span>
+																								<span
+																									class="menu_over">크롤링테스트홈</span>
+				</div>
+				<button type="button" class="button_more_nav" id="nav-more"><span class="fa fa-angle-down"></span><span
+						class="fa fa-angle-up"></span></button>
+				<div class="menu_somoim">
+
+
+
+
+
+
+
+				</div>
+
+			</div>
+
+		</div>
+		<div class="nav_body">
+			<div class="nav_content">
+				<div class="bullhorn info" style="display: none;" id="noticeBullhom">
+					<div class="bullhorn_msg">
+						<span class="bullhorn_label">공지</span><span class="bullhorn_txt">잠시후(19일 0시) 서버 점검이 진행될
+							예정입니다.</span>
+						<a href="../annonce/18086663.html" class="bullhorn_link">더보기</a>
+						<button type="button" class="bullhorn_button" onclick="setNoticeCookie();">
+							<div class="button_close"></div>
+						</button>
+					</div>
+				</div>
+
+				<div class="content_view" id="div_content">
+					<div class="board_head">
+						<div class="board_name">
+
+							<span class="board_icon">t</span>
+							<h2><a href="../useful.html">유용한사이트</a></h2>
+						</div>
+					</div>
+
+					<div class="post_title symph_row">
+						<h3 class="post_subject" data-role="cut-string">
+							<span>윤석열의 (얼려진) 모든 것</span>
+							<a class="post_reply" href="#comment-head" title="댓글 26개">
+								<span>26</span><span class="fa fa-angle-down"></span>
+							</a>
+						</h3>
+						<a href="#comment-head" class="post_symph view_symph" title="공감 125명">
+							<span>125</span>
+						</a>
+					</div>
+
+					<div class="post_info" data-role="post-info">
+						<div class="post_contact">
+							<span class="contact_name">
+
+
+								<span class="nickname"">
+			 
+					<span title=" 시커먼사각">시커먼사각</span>
+							</span>
+
+							</span>
+						</div>
+						<div class="view_info">
+							<span class="view_count">
+								<span class="fa fa-eye"></span> <strong>79,193</strong>
+							</span>
+							<span class="text-large">
+								<span class="fa fa-text-height"></span>
+							</span>
+							<span class="button-dark">
+								<span class="fa fa-adjust"></span>
+							</span>
+						</div>
+					</div>
+
+					<div class="post_view">
+						<div class="post_author">
+							<span>
+								<span class="fa fa-clock-o"></span> 2023-04-22 22:02:31
+
+								<span class="lastdate">수정일 : 2023-04-22 22:03:00</span>
+							</span>
+							<span><span class="fa fa-map-marker"></span> 61.♡.118.174</span>
+						</div>
+
+
+
+						<div class="post_content">
+
+							<article>
+								<div class="post_article">
+
+									<html>
+
+									<head></head>
+
+									<body>
+										<p>모공에 현창용님이 소개해주신 사이트입니다.</p>
+										<p><br></p>
+										<p><span class="outlink"><a class="url" href="https://yoontime.kr/"
+													target="_blank">https://yoontime.kr/</a></span></p>
+										<p><br></p>
+										<p>윤씨의 발언, 시사만화, 남은 임기 등등을 전부 모아놓은 사이트입니다.</p>
+										<p><br></p>
+									</body>
+
+									</html>
+
+								</div>
+							</article>
+							<div class="post_ccls">
+								<span class=""></span>
+							</div>
+						</div>
+
+						<div class="attached_source">
+							<span class="attached_subject"><strong>출처 : </strong></span><span class='outlink'><a
+									class='url' href='https://www.clien.net/service/board/park/18040149'
+									target='_blank'>https://www.clien.net/service/board/park/18040149</a><span
+									class='name'>CLIEN</span></span>
+						</div>
+
+
+
+						<div class="post_writer">
+
+							<div class="view_center_idlfksyenf">
+								<div id='div-pc-view-center' class="ad_banner"></div>
+							</div>
+
+							<div class="writer_board">
+								<div class="writer_menu">
+									<span><strong>시커먼사각</strong> 님의</span>
+									<a href="javascript:;" class="menu line" onclick="app.articleWriterList();"
+										id="tab_writer_list_article">게시글</a>
+									<a href="javascript:;" class="menu" onclick="app.commentWriterList();"
+										id="tab_writer_list_comment">댓글</a>
+
+
+								</div>
+								<div class="writer_list" id="writerList_div"></div>
+							</div>
+						</div>
+
+						<div class="signature">
+							<div class="signature_title">SIGNATURE</div>
+							<div class="signature-content">
+								<pre>"Eine andere Welt ist möglich."
+You may say I'm a dreamer, but I'm not the only one.</pre>
+							</div>
+							<div class="button-expand">
+								<span class="expand-text">서명 더 보기 <span class="fa fa-caret-down"></span></span>
+								<span class="contract-text">서명 가리기 <span class="fa fa-caret-up"></span></span>
+							</div>
+						</div>
+
+						<div class="post_button" id="comment-head">
+							<button class="button_report" onclick="app.articleSingo('ieukori');"><span
+									class="fa fa-ban"></span> 신고</button>
+							<button class="button_scrap" onclick="app.articleScrap();"><span
+									class="fa fa-bookmark"></span> 스크랩</button>
+							<div class="post_share">
+								<button class="button_share" data-toggle="dropdown"><span
+										class="fa fa-share-square-o"></span> 공유</button>
+								<ul class="dropdown-menu share">
+									<li><a href="javascript:;" class="btn" onclick="alert('주소가 복사되었습니다.');"
+											data-clipboard-text="https://www.clien.net/service/board/useful/18040620"><span
+												class="fa fa-link"></span>주소복사</a></li>
+									<li><a href="http://www.facebook.com/sharer/sharer.php?u=https://www.clien.net/service/board/useful/18040620"
+											class="facebook" target="_blank"><span
+												class="fa fa-facebook"></span>Facebook</a></li>
+									<li><a href="https://twitter.com/intent/tweet?text=%EC%9C%A4%EC%84%9D%EC%97%B4%EC%9D%98%20(%EC%96%BC%EB%A0%A4%EC%A7%84)%20%EB%AA%A8%EB%93%A0%20%EA%B2%83&amp;url=https://www.clien.net/service/board/useful/18040620"
+											class="twitter" target="_blank"><span
+												class="fa fa-twitter"></span>Twitter</a></li>
+								</ul>
+							</div>
+							<button class="button_symph disable" onclick="like.addArticleSympathy();">
+								<span class="fa fa-heart"></span><span class="text"></span>
+							</button>
+							<a class="symph_count"><strong>125</strong>명</a>
+
+						</div>
+					</div>
+
+					<div class="post_comment">
+						<div class="comment_head" id="comment-point">
+							<a href="#comment_write_point"><i class="fa fa-commenting"></i> 댓글 •
+								[<strong>26</strong>]</a>
+							<div class="comment_tip_area ">
+								<a href="javascript:;" class="comment_tip memo-sync">메모동기화</a>
+								<div class="comment_tip"><i class="fa fa-file-text-o"></i> 을 누르면 회원메모를 할 수 있습니다.</div>
+							</div>
+						</div>
+
+						<div class="comment ad_banner" data-role="comment">
+
+
+
+
+
+
+
+
+
+							<div class="comment_row  " data-role="comment-row" data-author-id="ronny9x9"
+								data-comment-sn="142021387">
+								<span class="comment_point" id="142021387"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+					<span title=" plaintext">plaintext</span>
+										</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142021387" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142021387" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142021387" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142021387" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142021387" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('ronny9x9', this, '142021387');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142021387');">#142021387</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">121.♡.236.88</span></div>
+										<div class="comment_time popover" dhata-role="comment-time">23-04-22
+											<span class="timestamp">2023-04-22 22:05:59
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142021387">
+											<button class="comment_re"
+												onclick="app.commentReEditorOpen('142021387', 'ronny9x9');">대댓글</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142021387');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('ronny9x9', '142021387');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142021387"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142021387">2</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142021387">
+									<div class="comment_view" data-comment-view="142021387">
+										대충 유재석이 굳이 알아야 하냐는 짤로 대신합니다
+										<input type="hidden" value="대충 유재석이 굳이 알아야 하냐는 짤로 대신합니다"
+											data-comment-modify="142021387">
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="comment_row  " data-role="comment-row" data-author-id="qazwsxedc113"
+								data-comment-sn="142022749">
+								<span class="comment_point" id="142022749"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+					<span title=" 팯미">팯미</span>
+										</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142022749" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142022749" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142022749" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142022749" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142022749" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('qazwsxedc113', this, '142022749');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142022749');">#142022749</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">222.♡.21.243</span></div>
+										<div class="comment_time popover" dhata-role="comment-time">23-04-23
+											<span class="timestamp">2023-04-23 00:16:21
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142022749">
+											<button class="comment_re"
+												onclick="app.commentReEditorOpen('142022749', 'qazwsxedc113');">대댓글</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142022749');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('qazwsxedc113', '142022749');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142022749"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142022749">3</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142022749">
+									<div class="comment_view" data-comment-view="142022749">
+										와 .. 아직도 4년이나 남았다니.. 5년 같은 1년이었네요
+										<input type="hidden" value="와 .. 아직도 4년이나 남았다니.. 5년 같은 1년이었네요"
+											data-comment-modify="142022749">
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="comment_row  " data-role="comment-row" data-author-id="samsung"
+								data-comment-sn="142023035">
+								<span class="comment_point" id="142023035"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+				<img src=" https://edgio.clien.net/F94/10373825/9d1d8f75900086.gif" alt="신뢰의아이콘" title="신뢰의아이콘">
+											</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142023035" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142023035" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142023035" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142023035" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142023035" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('samsung', this, '142023035');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142023035');">#142023035</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">121.♡.36.93</span></div>
+										<div class="comment_time popover" dhata-role="comment-time">23-04-23
+											<span class="timestamp">2023-04-23 00:53:58
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142023035">
+											<button class="comment_re"
+												onclick="app.commentReEditorOpen('142023035', 'samsung');">대댓글</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142023035');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('samsung', '142023035');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142023035"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142023035">2</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142023035">
+									<div class="comment_view" data-comment-view="142023035">
+										즐찾합니다ㄷㄷ
+										<input type="hidden" value="즐찾합니다ㄷㄷ" data-comment-modify="142023035">
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="comment_row  " data-role="comment-row" data-author-id="nightz"
+								data-comment-sn="142023997">
+								<span class="comment_point" id="142023997"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+					<span title=" dㅎ.ㅎb">dㅎ.ㅎb</span>
+										</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142023997" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142023997" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142023997" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142023997" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142023997" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('nightz', this, '142023997');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142023997');">#142023997</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">125.♡.53.10</span></div>
+										<div class="comment_time popover" dhata-role="comment-time">23-04-23
+											<span class="timestamp">2023-04-23 07:04:35
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142023997">
+											<button class="comment_re"
+												onclick="app.commentReEditorOpen('142023997', 'nightz');">대댓글</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142023997');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('nightz', '142023997');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142023997"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142023997">4</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142023997">
+									<div class="comment_view" data-comment-view="142023997">
+										놀라운건 아직 1년도 안 되었다는 겁니다..
+										<input type="hidden" value="놀라운건 아직 1년도 안 되었다는 겁니다.."
+											data-comment-modify="142023997">
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="comment_row  " data-role="comment-row" data-author-id="urbanus"
+								data-comment-sn="142023999">
+								<span class="comment_point" id="142023999"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+					<span title=" 강호춘추">강호춘추</span>
+										</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142023999" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142023999" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142023999" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142023999" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142023999" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('urbanus', this, '142023999');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142023999');">#142023999</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">106.♡.195.253</span></div>
+										<div class="comment_time popover" dhata-role="comment-time">23-04-23
+											<span class="timestamp">2023-04-23 07:04:47
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142023999">
+											<button class="comment_re"
+												onclick="app.commentReEditorOpen('142023999', 'urbanus');">대댓글</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142023999');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('urbanus', '142023999');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142023999"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142023999">2</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142023999">
+									<div class="comment_view" data-comment-view="142023999">
+										사이트 좋은데요? 매일 ㅂㅅ짓하는거 기억하기도 어려운데 시간순르호 아주 잘 정리가 되어있네요! 사이트 흥해라!
+										<input type="hidden"
+											value="사이트 좋은데요? 매일 ㅂㅅ짓하는거 기억하기도 어려운데 시간순르호 아주 잘 정리가 되어있네요! 사이트 흥해라!"
+											data-comment-modify="142023999">
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="comment_row  " data-role="comment-row" data-author-id="footmade"
+								data-comment-sn="142024042">
+								<span class="comment_point" id="142024042"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+					<span title=" 어몽어스">어몽어스</span>
+										</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142024042" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142024042" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142024042" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142024042" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142024042" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('footmade', this, '142024042');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142024042');">#142024042</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">58.♡.88.185</span></div>
+										<div class="comment_time popover" dhata-role="comment-time">23-04-23
+											<span class="timestamp">2023-04-23 07:17:59
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142024042">
+											<button class="comment_re"
+												onclick="app.commentReEditorOpen('142024042', 'footmade');">대댓글</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142024042');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('footmade', '142024042');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142024042" style="display:none;"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142024042">0</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142024042">
+									<div class="comment_view" data-comment-view="142024042">
+										알려주셔서 고맙습니다.
+										<input type="hidden" value="알려주셔서 고맙습니다." data-comment-modify="142024042">
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="comment_row  " data-role="comment-row" data-author-id="mhj5737"
+								data-comment-sn="142024071">
+								<span class="comment_point" id="142024071"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+					<span title=" 사당역가는길">사당역가는길</span>
+										</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142024071" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142024071" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142024071" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142024071" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142024071" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('mhj5737', this, '142024071');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142024071');">#142024071</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">39.♡.158.5</span></div>
+										<div class="comment_time popover" dhata-role="comment-time">23-04-23
+											<span class="timestamp">2023-04-23 07:25:55
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142024071">
+											<button class="comment_re"
+												onclick="app.commentReEditorOpen('142024071', 'mhj5737');">대댓글</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142024071');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('mhj5737', '142024071');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142024071" style="display:none;"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142024071">0</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142024071">
+									<div class="comment_view" data-comment-view="142024071">
+										너무 마음에 드네요 ㅎㅎㅎㅎ
+										<input type="hidden" value="너무 마음에 드네요 ㅎㅎㅎㅎ" data-comment-modify="142024071">
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="comment_row  " data-role="comment-row" data-author-id="esarangdc"
+								data-comment-sn="142024206">
+								<span class="comment_point" id="142024206"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+					<span title=" [세렌디피티]">[세렌디피티]</span>
+										</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142024206" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142024206" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142024206" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142024206" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142024206" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('esarangdc', this, '142024206');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142024206');">#142024206</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">221.♡.33.138</span></div>
+										<div class="comment_time popover" dhata-role="comment-time">23-04-23
+											<span class="timestamp">2023-04-23 07:57:24
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142024206">
+											<button class="comment_re"
+												onclick="app.commentReEditorOpen('142024206', 'esarangdc');">대댓글</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142024206');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('esarangdc', '142024206');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142024206" style="display:none;"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142024206">0</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142024206">
+									<div class="comment_view" data-comment-view="142024206">
+										즐찾 완!
+										<input type="hidden" value="즐찾 완!" data-comment-modify="142024206">
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="comment_row  " data-role="comment-row" data-author-id="youth76"
+								data-comment-sn="142024213">
+								<span class="comment_point" id="142024213"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+				<img src=" https://edgio.clien.net/F94/11610143/5d3565b6a75965.gif" alt="움니아" title="움니아">
+											</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142024213" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142024213" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142024213" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142024213" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142024213" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('youth76', this, '142024213');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142024213');">#142024213</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">58.♡.153.179</span></div>
+										<div class="comment_time popover" dhata-role="comment-time">23-04-23
+											<span class="timestamp">2023-04-23 07:58:14
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142024213">
+											<button class="comment_re"
+												onclick="app.commentReEditorOpen('142024213', 'youth76');">대댓글</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142024213');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('youth76', '142024213');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142024213" style="display:none;"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142024213">0</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142024213">
+									<div class="comment_view" data-comment-view="142024213">
+										감사합니다. 다행입니다.
+										<input type="hidden" value="감사합니다. 다행입니다." data-comment-modify="142024213">
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="comment_row  " data-role="comment-row" data-author-id="haul"
+								data-comment-sn="142025034">
+								<span class="comment_point" id="142025034"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+					<span title=" 해질무렵">해질무렵</span>
+										</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142025034" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142025034" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142025034" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142025034" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142025034" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('haul', this, '142025034');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142025034');">#142025034</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">125.♡.114.38</span></div>
+										<div class="comment_time popover" dhata-role="comment-time">23-04-23
+											<span class="timestamp">2023-04-23 09:38:26
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142025034">
+											<button class="comment_re"
+												onclick="app.commentReEditorOpen('142025034', 'haul');">대댓글</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142025034');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('haul', '142025034');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142025034" style="display:none;"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142025034">0</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142025034">
+									<div class="comment_view" data-comment-view="142025034">
+										4년 17일..<br>스트레스 받아 <br>다신 위 사이트 안 들어갈거 같아요.
+										<input type="hidden" value="4년 17일..
+스트레스 받아 
+다신 위 사이트 안 들어갈거 같아요." data-comment-modify="142025034">
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="comment_row  " data-role="comment-row" data-author-id="sshnanum"
+								data-comment-sn="142026095">
+								<span class="comment_point" id="142026095"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+					<span title=" UriNuri">UriNuri</span>
+										</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142026095" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142026095" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142026095" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142026095" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142026095" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('sshnanum', this, '142026095');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142026095');">#142026095</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">220.♡.181.66</span></div>
+										<div class="comment_time popover" dhata-role="comment-time">23-04-23
+											<span class="timestamp">2023-04-23 11:12:17
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142026095">
+											<button class="comment_re"
+												onclick="app.commentReEditorOpen('142026095', 'sshnanum');">대댓글</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142026095');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('sshnanum', '142026095');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142026095" style="display:none;"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142026095">0</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142026095">
+									<div class="comment_view" data-comment-view="142026095">
+										탄핵 증거들이군요. 물러난 후 누더기 공식자료보다 더 가치가 있겠구요
+										<input type="hidden" value="탄핵 증거들이군요. 물러난 후 누더기 공식자료보다 더 가치가 있겠구요"
+											data-comment-modify="142026095">
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="comment_row  " data-role="comment-row" data-author-id="ncnd"
+								data-comment-sn="142026304">
+								<span class="comment_point" id="142026304"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+					<span title=" phasol">phasol</span>
+										</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142026304" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142026304" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142026304" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142026304" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142026304" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('ncnd', this, '142026304');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142026304');">#142026304</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">218.♡.108.85</span></div>
+										<div class="comment_time popover" dhata-role="comment-time">23-04-23
+											<span class="timestamp">2023-04-23 11:29:37
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142026304">
+											<button class="comment_re"
+												onclick="app.commentReEditorOpen('142026304', 'ncnd');">대댓글</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142026304');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('ncnd', '142026304');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142026304" style="display:none;"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142026304">0</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142026304">
+									<div class="comment_view" data-comment-view="142026304">
+										윤씨는 질러 놓은게 너무나 많이 차고 넘쳐서, 필요하다고 생각 했는데… <br><br>훌륭하신 분 이십니다. 고맙습니다.
+										<input type="hidden" value="윤씨는 질러 놓은게 너무나 많이 차고 넘쳐서, 필요하다고 생각 했는데… 
+
+훌륭하신 분 이십니다. 고맙습니다." data-comment-modify="142026304">
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="comment_row  " data-role="comment-row" data-author-id="jun9"
+								data-comment-sn="142026606">
+								<span class="comment_point" id="142026606"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+					<span title=" 주니아">주니아</span>
+										</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142026606" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142026606" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142026606" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142026606" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142026606" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('jun9', this, '142026606');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142026606');">#142026606</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">1.♡.69.141</span></div>
+										<div class="comment_time popover" dhata-role="comment-time">23-04-23
+											<span class="timestamp">2023-04-23 11:53:01
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142026606">
+											<button class="comment_re"
+												onclick="app.commentReEditorOpen('142026606', 'jun9');">대댓글</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142026606');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('jun9', '142026606');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142026606" style="display:none;"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142026606">0</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142026606">
+									<div class="comment_view" data-comment-view="142026606">
+										윤석렬 개국공신 8 9 10위가 문재인 이재명 조국이네요. 뭔가 좀...
+										<input type="hidden" value="윤석렬 개국공신 8 9 10위가 문재인 이재명 조국이네요. 뭔가 좀..."
+											data-comment-modify="142026606">
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="comment_row  re" data-role="comment-row" data-author-id="ep6tri"
+								data-comment-sn="142036212">
+								<span class="comment_point" id="142036212"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+					<span title=" 케이준감자튀김">케이준감자튀김</span>
+										</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142036212" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142036212" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142036212" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142036212" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142036212" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('ep6tri', this, '142036212');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142036212');">#142036212</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">218.♡.108.80</span></div>
+										<div class="comment_time popover" dhata-role="comment-time">23-04-24
+											<span class="timestamp">2023-04-24 03:12:57
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142036212">
+											<button class="comment_re"
+												onclick="app.commentReMentionOpen('142036212', '142026606','ep6tri');">언급</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142036212');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('ep6tri', '142036212');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142036212"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142036212">2</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142036212">
+									<div class="comment_view" data-comment-view="142036212">
+										<strong data-nick-id='jun9' data-role='highlite'>@주니아</strong>님 저도 어? 했는데, 사이트
+										만드신 분의 이야기가 올려져 있군요.<br><br><span class='outlink'><a class='url'
+												href='https://yoontime.kr/?p=6#menu_bar'
+												target='_blank'>https://yoontime.kr/?p=6#menu_bar</a></span><br><br>2023-04-23
+										'개국공신' 논란에 대한 입장<br>최근 몇몇 온라인 커뮤니티에 '윤석열 퇴임시계 - 윤타임' 사이트가 소개되며 방문자가 급격히 늘었습니다.
+										일부 방문자께서 "윤석열 타도 사이트인 줄 알았는데, 개국공신에 '문재인', '이재명', '조국'이 포함되어 있다는 것이 혼란스럽다"고 의견을
+										주셨습니다. .... 중략
+										<input type="hidden"
+											value="｢@주니아＊jun9＊님｣ 저도 어? 했는데, 사이트 만드신 분의 이야기가 올려져  있군요.
+
+https://yoontime.kr/?p=6#menu_bar
+
+2023-04-23  '개국공신' 논란에 대한 입장
+최근 몇몇 온라인 커뮤니티에 '윤석열 퇴임시계 - 윤타임' 사이트가 소개되며 방문자가 급격히 늘었습니다. 일부 방문자께서 &quot;윤석열 타도 사이트인 줄 알았는데, 개국공신에 '문재인', '이재명', '조국'이 포함되어 있다는 것이 혼란스럽다&quot;고 의견을 주셨습니다. .... 중략"
+											data-comment-modify="142036212">
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="comment_row  " data-role="comment-row" data-author-id="uni1978"
+								data-comment-sn="142028515">
+								<span class="comment_point" id="142028515"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+					<span title=" 별명은최대20byte">별명은최대20byte</span>
+										</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142028515" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142028515" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142028515" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142028515" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142028515" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('uni1978', this, '142028515');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142028515');">#142028515</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">211.♡.80.104</span></div>
+										<div class="comment_time popover" dhata-role="comment-time">23-04-23
+											<span class="timestamp">2023-04-23 14:38:44
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142028515">
+											<button class="comment_re"
+												onclick="app.commentReEditorOpen('142028515', 'uni1978');">대댓글</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142028515');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('uni1978', '142028515');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142028515" style="display:none;"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142028515">0</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142028515">
+									<div class="comment_view" data-comment-view="142028515">
+										고맙습니다.
+										<input type="hidden" value="고맙습니다." data-comment-modify="142028515">
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="comment_row  " data-role="comment-row" data-author-id="index98"
+								data-comment-sn="142028931">
+								<span class="comment_point" id="142028931"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+					<span title=" 꼬따라슈">꼬따라슈</span>
+										</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142028931" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142028931" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142028931" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142028931" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142028931" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('index98', this, '142028931');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142028931');">#142028931</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">122.♡.194.2</span></div>
+										<div class="comment_time popover" dhata-role="comment-time">23-04-23
+											<span class="timestamp">2023-04-23 15:12:15
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142028931">
+											<button class="comment_re"
+												onclick="app.commentReEditorOpen('142028931', 'index98');">대댓글</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142028931');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('index98', '142028931');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142028931" style="display:none;"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142028931">0</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142028931">
+									<div class="comment_view" data-comment-view="142028931">
+										따로 링크 저장하거나 짤 다운받아서 2찍들 팩트 투척할 때 사용했는데, 한 곳에 모아두니 마치 팩트 투척 무기창고 를 발견한 기분입니다. 일단
+										즐겨찾기 추가!
+										<input type="hidden"
+											value="따로 링크 저장하거나 짤 다운받아서 2찍들 팩트 투척할 때 사용했는데, 한 곳에 모아두니 마치 팩트 투척 무기창고 를 발견한 기분입니다. 일단 즐겨찾기 추가!"
+											data-comment-modify="142028931">
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="comment_row  " data-role="comment-row" data-author-id="bigaprio"
+								data-comment-sn="142047069">
+								<span class="comment_point" id="142047069"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+					<span title=" biga">biga</span>
+										</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142047069" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142047069" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142047069" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142047069" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142047069" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('bigaprio', this, '142047069');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142047069');">#142047069</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">114.♡.60.64</span></div>
+										<div class="comment_time popover" dhata-role="comment-time">23-04-24
+											<span class="timestamp">2023-04-24 17:00:47
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142047069">
+											<button class="comment_re"
+												onclick="app.commentReEditorOpen('142047069', 'bigaprio');">대댓글</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142047069');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('bigaprio', '142047069');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142047069"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142047069">1</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142047069">
+									<div class="comment_view" data-comment-view="142047069">
+										저쪽은 기억되는 것을 싫어합니다.<br>그래서 더욱 더 기억해야 합니다.<br>잊혀지지 않도록 부탁합니다.
+										<input type="hidden" value="저쪽은 기억되는 것을 싫어합니다.
+그래서 더욱 더 기억해야 합니다.
+잊혀지지 않도록 부탁합니다." data-comment-modify="142047069">
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="comment_row  " data-role="comment-row" data-author-id="xluna"
+								data-comment-sn="142129715">
+								<span class="comment_point" id="142129715"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+					<span title=" 하하호호@@@">하하호호@@@</span>
+										</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142129715" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142129715" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142129715" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142129715" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142129715" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('xluna', this, '142129715');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142129715');">#142129715</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">220.♡.193.180</span></div>
+										<div class="comment_time popover" dhata-role="comment-time">23-04-29
+											<span class="timestamp">2023-04-29 13:28:22
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142129715">
+											<button class="comment_re"
+												onclick="app.commentReEditorOpen('142129715', 'xluna');">대댓글</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142129715');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('xluna', '142129715');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142129715" style="display:none;"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142129715">0</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142129715">
+									<div class="comment_view" data-comment-view="142129715">
+										빨간당이라고 온통 빨간색이네요.
+										<input type="hidden" value="빨간당이라고 온통 빨간색이네요." data-comment-modify="142129715">
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="comment_row  " data-role="comment-row" data-author-id="kiper4395"
+								data-comment-sn="142131722">
+								<span class="comment_point" id="142131722"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+					<span title=" ginie4302">ginie4302</span>
+										</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142131722" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142131722" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142131722" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142131722" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142131722" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('kiper4395', this, '142131722');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142131722');">#142131722</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">223.♡.27.236</span></div>
+										<div class="comment_time popover" dhata-role="comment-time">23-04-29
+											<span class="timestamp">2023-04-29 16:19:27
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142131722">
+											<button class="comment_re"
+												onclick="app.commentReEditorOpen('142131722', 'kiper4395');">대댓글</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142131722');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('kiper4395', '142131722');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142131722" style="display:none;"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142131722">0</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142131722">
+									<div class="comment_view" data-comment-view="142131722">
+										만드는 건 쉬어도 부수는 건 쉽죠 일년도 안되 민주주의가 망가지고 외국에게 호구가 되는 건 순식간입니다<br>막을 힘이 분명 국민에게 있어야
+										하는데...
+										<input type="hidden" value="만드는 건 쉬어도 부수는 건 쉽죠 일년도 안되 민주주의가 망가지고 외국에게 호구가 되는 건 순식간입니다
+막을 힘이 분명 국민에게 있어야 하는데..." data-comment-modify="142131722">
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="comment_row  " data-role="comment-row" data-author-id="akadoll"
+								data-comment-sn="142174670">
+								<span class="comment_point" id="142174670"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+					<span title=" 아카돌">아카돌</span>
+										</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142174670" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142174670" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142174670" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142174670" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142174670" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('akadoll', this, '142174670');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142174670');">#142174670</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">210.♡.41.89</span></div>
+										<div class="comment_time popover" dhata-role="comment-time">23-05-02
+											<span class="timestamp">2023-05-02 17:20:17
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142174670">
+											<button class="comment_re"
+												onclick="app.commentReEditorOpen('142174670', 'akadoll');">대댓글</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142174670');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('akadoll', '142174670');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142174670" style="display:none;"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142174670">0</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142174670">
+									<div class="comment_view" data-comment-view="142174670">
+										윤석열 대 윤석열 게시판 대박이네요. ㅎㅎㅎ
+										<input type="hidden" value="윤석열 대 윤석열 게시판 대박이네요. ㅎㅎㅎ"
+											data-comment-modify="142174670">
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="comment_row  " data-role="comment-row" data-author-id="donudory"
+								data-comment-sn="142204998">
+								<span class="comment_point" id="142204998"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+					<span title=" cNirvana">cNirvana</span>
+										</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142204998" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142204998" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142204998" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142204998" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142204998" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('donudory', this, '142204998');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142204998');">#142204998</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">211.♡.188.10</span></div>
+										<div class="comment_time popover" dhata-role="comment-time">23-05-04
+											<span class="timestamp">2023-05-04 12:23:17
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142204998">
+											<button class="comment_re"
+												onclick="app.commentReEditorOpen('142204998', 'donudory');">대댓글</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142204998');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('donudory', '142204998');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142204998" style="display:none;"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142204998">0</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142204998">
+									<div class="comment_view" data-comment-view="142204998">
+										이런 사이트가 있었군요. 감사감사
+										<input type="hidden" value="이런 사이트가 있었군요. 감사감사" data-comment-modify="142204998">
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="comment_row  " data-role="comment-row" data-author-id="jlove7"
+								data-comment-sn="142243026">
+								<span class="comment_point" id="142243026"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+					<span title=" 원두콩">원두콩</span>
+										</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142243026" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142243026" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142243026" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142243026" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142243026" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('jlove7', this, '142243026');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142243026');">#142243026</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">211.♡.14.7</span></div>
+										<div class="comment_time popover" dhata-role="comment-time">23-05-07
+											<span class="timestamp">2023-05-07 00:27:21
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142243026">
+											<button class="comment_re"
+												onclick="app.commentReEditorOpen('142243026', 'jlove7');">대댓글</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142243026');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('jlove7', '142243026');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142243026" style="display:none;"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142243026">0</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142243026">
+									<div class="comment_view" data-comment-view="142243026">
+										설마 임기 다채우고<br> '굥만대장경' 나오고 나라 망할 것 아닌지 모르겠습니다.
+										<input type="hidden" value="설마 임기 다채우고
+  '굥만대장경' 나오고 나라 망할 것  아닌지 모르겠습니다." data-comment-modify="142243026">
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="comment_row  " data-role="comment-row" data-author-id="cyrano1"
+								data-comment-sn="142275626">
+								<span class="comment_point" id="142275626"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+					<span title=" cyrano1">cyrano1</span>
+										</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142275626" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142275626" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142275626" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142275626" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142275626" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('cyrano1', this, '142275626');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142275626');">#142275626</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">119.♡.85.198</span></div>
+										<div class="comment_time popover" dhata-role="comment-time">23-05-09
+											<span class="timestamp">2023-05-09 09:56:03
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142275626">
+											<button class="comment_re"
+												onclick="app.commentReEditorOpen('142275626', 'cyrano1');">대댓글</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142275626');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('cyrano1', '142275626');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142275626" style="display:none;"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142275626">0</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142275626">
+									<div class="comment_view" data-comment-view="142275626">
+										아.. 아직도 4년이나 남았네요. ㅠㅠ
+										<input type="hidden" value="아.. 아직도 4년이나 남았네요. ㅠㅠ"
+											data-comment-modify="142275626">
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="comment_row  " data-role="comment-row" data-author-id="vectoracle"
+								data-comment-sn="142432326">
+								<span class="comment_point" id="142432326"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+					<span title=" rew.">rew.</span>
+										</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142432326" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142432326" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142432326" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142432326" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142432326" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('vectoracle', this, '142432326');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142432326');">#142432326</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">49.♡.157.250</span></div>
+										<div class="comment_time popover" dhata-role="comment-time">23-05-19
+											<span class="timestamp">2023-05-19 11:25:14 / 수정일: 2023-05-19
+												11:25:52</span>
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142432326">
+											<button class="comment_re"
+												onclick="app.commentReEditorOpen('142432326', 'vectoracle');">대댓글</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142432326');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('vectoracle', '142432326');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142432326" style="display:none;"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142432326">0</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142432326">
+									<div class="comment_view" data-comment-view="142432326">
+										사실 뭐 길게 늘어놓을 필요도 없이 'K-탈레반 수장' 하나로 모든 게 요약 가능한 물건이라...<br>애초에 대통령이라 볼 수도 없는 게,
+										마누라 주가조작 관련해서 허위사실공표로 표 도적질 쳐벌려서 대통령석 강도질한 내란수괴 아니겠습니까.
+										<input type="hidden" value="사실 뭐 길게 늘어놓을 필요도 없이 'K-탈레반 수장' 하나로 모든 게 요약 가능한 물건이라...
+애초에 대통령이라 볼 수도 없는 게, 마누라 주가조작 관련해서 허위사실공표로 표 도적질 쳐벌려서 대통령석 강도질한 내란수괴 아니겠습니까." data-comment-modify="142432326">
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="comment_row  " data-role="comment-row" data-author-id="rapado"
+								data-comment-sn="142498840">
+								<span class="comment_point" id="142498840"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+					<span title=" 아이오랴이">아이오랴이</span>
+										</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142498840" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142498840" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142498840" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142498840" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142498840" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('rapado', this, '142498840');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142498840');">#142498840</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">49.♡.73.251</span></div>
+										<div class="comment_time popover" dhata-role="comment-time">23-05-24
+											<span class="timestamp">2023-05-24 08:41:29
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142498840">
+											<button class="comment_re"
+												onclick="app.commentReEditorOpen('142498840', 'rapado');">대댓글</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142498840');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('rapado', '142498840');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142498840" style="display:none;"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142498840">0</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142498840">
+									<div class="comment_view" data-comment-view="142498840">
+										정말 한숨만 나옵니다.
+										<input type="hidden" value="정말 한숨만 나옵니다." data-comment-modify="142498840">
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="comment_row  " data-role="comment-row" data-author-id="iamtheking"
+								data-comment-sn="142769225">
+								<span class="comment_point" id="142769225"></span>
+								<div class="comment_info">
+									<div class="post_contact" data-role="comment-post-contact">
+										<span class="contact_name">
+
+
+											<span class="nickname"">
+			 
+					<span title=" 큰엉아">큰엉아</span>
+										</span>
+
+										</span>
+										<span class="contact_note">
+											<div class="dropdown-menu post_memo">
+												<div class="memo_box">
+													<input type="text" data-role="comment-memo-note" class="memo_input"
+														placeholder="회원 메모를 입력하세요.">
+													<form class="color_layer open">
+														<label>
+															<input type="radio" name="chk_color142769225" value="1"
+																checked="checked">
+															<span class="radiobox button_color mColor01"><span
+																	class="text">1</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142769225" value="2">
+															<span class="radiobox button_color mColor02"><span
+																	class="text">2</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142769225" value="3">
+															<span class="radiobox button_color mColor03"><span
+																	class="text">3</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142769225" value="4">
+															<span class="radiobox button_color mColor04"><span
+																	class="text">4</span></span>
+														</label>
+														<label>
+															<input type="radio" name="chk_color142769225" value="5">
+															<span class="radiobox button_color mColor05"><span
+																	class="text">5</span></span>
+														</label>
+													</form>
+													<a href="javascript:;" class="button_set"><i
+															class="fa fa-cog"></i></a>
+													<span class="fa fa-times button_close"></span>
+													<button class="button_input" type="button"
+														onclick="app.commentMemo('iamtheking', this, '142769225');">입력</button>
+												</div>
+											</div>
+										</span>
+										<span class="content_memo" style="display:none"
+											data-role="comment-memo-content"></span>
+									</div>
+									<div class="comment_button">
+										<div class="comment_link popover">
+											<div class="link_title">LINK</div>
+											<span class="sn_num"
+												onclick="app.makeCommentLink('142769225');">#142769225</span>
+										</div>
+										<div class="comment_ip popover" data-role="comment-ip">IP <span
+												class="ip_address">1.♡.242.15</span></div>
+										<div class="comment_time popover" dhata-role="comment-time">23-06-10
+											<span class="timestamp">2023-06-10 22:59:28
+										</div>
+
+										<div class="comment_menu" data-role="ipt-comment-button-142769225">
+											<button class="comment_re"
+												onclick="app.commentReEditorOpen('142769225', 'iamtheking');">대댓글</button>
+
+
+											<em>·</em>
+											<button class="comment_heart" data-role="comment-like-count"
+												onclick="like.articleLike('142769225');">공감</button>
+											<button class="comment_report" data-role="comment-singo"
+												onclick="app.articleSingo('iamtheking', '142769225');">신고</button>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="comment_content_symph">
+									<button class="comment_symph" id="styleLikeButton_142769225" style="display:none;"
+										data-role="comment-like-count">
+										<i class="fa fa-heart"></i>
+										<strong id="setLikeCount_142769225">0</strong>
+									</button>
+								</div>
+
+
+								<div class="comment_content" data-role="comment-content-142769225">
+									<div class="comment_view" data-comment-view="142769225">
+										한숨도 나오고...이젠 놀랍지도 않네요.<br>우리나라 좋아했는데...속상합니다...
+										<input type="hidden" value="한숨도 나오고...이젠 놀랍지도 않네요.
+우리나라 좋아했는데...속상합니다..." data-comment-modify="142769225">
+									</div>
+								</div>
+
+							</div>
+						</div>
+
+						<div class="comment_msg" data-role="comment-loading" style="display:none;">
+							<i class="fa fa-spinner fa-spin"></i>
+						</div>
+
+						<div class="comment_msg" data-role="comment-empty-result" style="display:none;">
+							<i class="fa fa-commenting loading"></i> 새로운 댓글이 없습니다.
+						</div>
+
+						<div class="comment_nav" data-role="comment-more" style="display:none;">
+							<button type="button" class="comment_more" onclick="app.getCommentList('next');">
+								<strong>다음 댓글 확인</strong>
+								<em>
+									<span data-role="comment-current-count"></span> / <span
+										data-role="comment-total-count">26</span>
+								</em>
+							</button>
+						</div>
+
+						<div class="comment_nav" data-role="comment-newest" style="display:none;">
+							<button type="button" class="comment_more" onclick="app.getCommentList('all');">
+								<strong>새로운 댓글 확인하기</strong>
+								<em>단축키 'R'</em>
+							</button>
+						</div>
+
+						<div class="comment_nav" data-role="comment-link" style="display:none;">
+							<button type="button" class="comment_more" onclick="app.getCommentList('all');">
+								<strong>다음 댓글 확인</strong>
+								<em>
+									<span data-role="comment-current-count"></span> / <span
+										data-role="comment-total-count">26</span>
+								</em>
+							</button>
+						</div>
+
+						<div id="comment_write_div" class="add_comment_focus">
+							<div class="comment_write_point" id="comment_write_point"></div>
+							<div class="add-comment open" onclick="location.href = '/service/auth/login';"
+								id="commentToogleBtn">
+								<button type="button" class="comment-open" value="">댓글은 로그인이 필요한 서비스 입니다.</button>
+							</div>
+
+							<div class="add-comment open active" id="oriCommentArea" style="display:none;">
+								<div class="loading-overlay" id="loading"><i
+										class="fa fa-spinner fa-spin fa-fw margin-bottom"></i></div>
+
+								<div class="commentEdit">
+									<textarea id="editCommentTextarea" class="autosize " rows="3"></textarea>
+								</div>
+
+								<button type="button" class="comment-submit" onclick="app.commentWrite();"
+									id="rewrite_height">댓글쓰기</button>
+
+								<div class="upload_comment">
+									<section>
+										<div id="dropzone_comment">
+											<form class="dropzone needsclick" id="comment-img-upload">
+												<div class="dz-message needsclick">
+													<span class="message_text"></span>
+												</div>
+											</form>
+										</div>
+									</section>
+
+									<div id="preview-comment-template" style="display: none;">
+										<div class="dz-preview dz-file-preview">
+											<div class="dz-image" data-role="img-prev">
+												<img data-dz-thumbnail="">
+											</div>
+											<div class="dz-infomation">
+												<div class="dz-details">
+													<div class="dz-filename">
+														<span data-dz-name=""></span>
+														<span data-dz-remove=""><i
+																class="fa fa-times-circle"></i></span>
+													</div>
+												</div>
+												<div class="dz-size"><span data-dz-size=""></span></div>
+												<div class="dz-progress"><span class="dz-upload"
+														data-dz-uploadprogress=""></span></div>
+												<div class="dz-error-message"><span data-dz-errormessage=""></span>
+												</div>
+												<div class="dz-error-mark"><i class="fa fa-ban"></i></div>
+											</div>
+										</div>
+									</div>
+
+									<div class="upload_tip_add">
+										이미지 최대 업로드 용량 <strong>15 MB</strong> / 업로드 가능 확장자
+										<strong>jpg,gif,png,jpeg</strong><br>지나치게 큰 이미지의 크기는 조정될 수 있습니다.
+									</div>
+								</div>
+
+							</div>
+						</div>
+						<div class="fr-overlay"></div>
+					</div>
+
+					<div class="view_button_area">
+						<a href="javascript:;" onclick="paging.getBoard('direct', '0');" class="button_list">
+							<span class="fa fa-list button_icon"></span><span class="button_name">목록으로</span>
+						</a>
+
+						<div class="button_post">
+							<a href="https://www.clien.net/service/board/regist?boardCd=useful"
+								class="action_icon fix blue">
+								<span class="fa fa-pencil button_icon"></span>
+								<span class="tooltiptext">글쓰기</span>
+							</a>
+						</div>
+					</div>
+
+					<div class="viewListTop" id="viewListTop"></div>
+
+					<div id="naverAd"></div>
+					<div class="viewListArea">
+						<div class="view_list" id="listDiv"></div>
+					</div>
+
+
+				</div>
+			</div>
+			<div class="nav_action">
+				<div class="action_box">
+
+					<div class="action_write" data-role="dropdown-write-article">
+						<a href="https://www.clien.net/service/board/regist?boardCd=useful"
+							class="action_icon fix blue tooltip">
+							<span class="fa fa-pencil button_icon"></span>
+							<span class="tooltiptext">글쓰기</span>
+						</a>
+
+					</div>
+
+
+					<a href="javascript:;" onclick="paging.getBoard('goList');" class="action_icon fix tooltip list">
+						<i class="fa fa-list"></i>
+						<span class="tooltiptext">목록으로</span>
+					</a>
+
+					<em class="hr"></em>
+					<a href="#comment-head" class="action_icon fix tooltip">
+						<i class="fa fa-commenting"></i>
+						<span class="tooltiptext">댓글보기</span>
+					</a>
+
+					<a href="javascript:;" class="action_icon tooltip prev" onclick="list.neiborArticle('prev')">
+						<i class="fa fa-long-arrow-left"></i>
+						<span class="tooltiptext">이전글</span>
+					</a>
+
+					<a href="javascript:;" class="action_icon tooltip next" onclick="list.neiborArticle('next')">
+						<i class="fa fa-long-arrow-right"></i>
+						<span class="tooltiptext">다음글</span>
+					</a>
+
+
+					<a href="#down" class="action_icon none" title="맨아래로 이동">
+						<i class="fa fa-caret-down"></i>
+					</a>
+
+					<div class="backtop" id="back-top">
+						<a href="#top" class="action_icon none" title="맨위로 이동">
+							<i class="fa fa-caret-up"></i>
+						</a>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div class="aside">
+
+			<div class="account_section">
+				<form id="loginForm">
+					<div class="account_swiper" id="otp">
+						<div class="side_account">
+							<div>
+								<input type="hidden" name="_csrf" value="066e4515-17c7-4450-aa61-6e8d1b3da195" />
+								<input type="text" autocapitalize="off" placeholder="아이디" name="userId" value=""
+									class="input_id" spellcheck="false">
+								<input type="password" placeholder="비밀번호" name="userPassword" value="" class="input_pw"
+									spellcheck="false">
+								<input type="hidden" id="deviceId" name="deviceId" value="" />
+								<div class="account_submit">
+									<label class="check_auto"><input type="checkbox" name="remember-me"><span
+											class="checkbox"></span>자동로그인</label>
+									<button type="button" onclick="auth.login()" name="로그인하기"
+										class="button_submit">로그인</button>
+								</div>
+								<div class="account_signup">
+									<a href="../../auth/findAccountCert.html" class="button_find">아이디·비번 찾기</a>
+									<em></em>
+									<a href="../../auth/join.html" class="button_signup">회원가입</a>
+								</div>
+							</div>
+						</div>
+
+						<div class="side_account">
+							<div class="account_subject">OTP 앱 인증코드</div>
+							<input type="text" placeholder="코드입력" id="totpcode" name="totpcode" value=""
+								class="input_code">
+							<div class="account_submit">
+								<label class="check_auto"><input type="checkbox" name="devicePass"><span
+										class="checkbox"></span>신뢰하는 기기</label>
+								<button type="button" onclick="auth.otpLoginConfirm();" name="인증하기"
+									class="button_submit" style="width: 100%">인증하기</button>
+							</div>
+							<div class="account_signup">
+								<a href="../faq/17526373.html#lost" class="button_find" style="width: 100%;"><span
+										class="fa fa-question-circle"></span> 인증코드를 받지 못하는 경우</a>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+
+
+
+
+		</div>
+	</div>
+
+
+
+	<script>
+		var today = new Date();
+		document.getElementById("nowYear").innerHTML = today.getFullYear();
+
+		function deleteViewCookie() {
+			var expire = new Date();
+			expire.setDate(expire.getDate() - 1);
+			cookies = "P2M=; domain=.clien.net; path=/; expires=" + expire.toGMTString() + ";";
+			document.cookie = cookies;
+
+			var url = document.location.href;
+			url = url.replace("www", "m");
+			location.href = url;
+		}
+	</script>
+
+	<script src="../../js/lib/jquery-1.11.1.min.js"></script>
+	<script src="../../js/lib/jquery-ui.min.js"></script>
+	<script src="../../js/lib/isMobile.min.js"></script>
+	<script src="../../js/lib/cl.dropmenu.js"></script>
+	<script src="../../js/lib/jquery.extend.js"></script>
+	<script src="../../js/lib/jquery.cookie.js"></script>
+
+	<script>
+		var IS_DEBUG = false;
+		var BASE_URL = "/service";
+		var API_HOST = "/service/api";
+		var CDN_URL = "https://edgio.clien.net";
+		var COOKIE_DOMAIN = "clien.net";
+
+		var IS_LOGIN = false;
+		var sessionUserId = '';
+
+
+		var IsMobile = false;
+
+
+		var PAGE_SETTING_THEME = "";
+		var PAGE_SETTING_FONT_SIZE = "";
+		var PAGE_SETTING_KIND_OF_FONT = "";
+		var PAGE_SETTING_SHORT_CUT = "";
+		var PAGE_SETTING_LIST_SIZE = "";
+
+		PAGE_SETTING_THEME = "white";
+		PAGE_SETTING_FONT_SIZE = "normal";
+		PAGE_SETTING_KIND_OF_FONT = "basic";
+		PAGE_SETTING_SHORT_CUT = "on";
+		PAGE_SETTING_LIST_SIZE = "normal";
+
+		var HONGBO_IMG_PARAMETER = "?scale=width[320],options[limit]";
+		var COMMENT_IMG_PARAMETER = "?scale=width[480],options[limit]";
+		var IMG_PARAMETER = "?scale=width[740],options[limit]";
+
+		var keyData = new Object();
+		keyData[""] = "/service/group/board_all";
+		keyData["c"] = "/service/group/community";
+		keyData["f"] = "/service/board/park";
+		keyData["i"] = "/service/board/image";
+		keyData["q"] = "/service/board/kin";
+		keyData["d"] = "/service/group/allinfo";
+		keyData["n"] = "/service/board/news";
+		keyData["t"] = "/service/board/useful";
+		keyData["p"] = "/service/board/pds";
+		keyData["e"] = "/service/group/allreview";
+		keyData["l"] = "/service/board/lecture";
+		keyData["u"] = "/service/board/use";
+		keyData[""] = "/service/board/chehum";
+		keyData["w"] = "/service/group/allsell";
+		keyData["j"] = "/service/board/jirum";
+		keyData["s"] = "/service/board/sold";
+		keyData["b"] = "/service/board/hongbo";
+		keyData[""] = "/service/group/insure";
+		keyData["h"] = "/service/";
+		keyData[""] = "/service/group/cm_all";
+		keyData[""] = "/service/somoim";
+		keyData[""] = "/service/board/cm_main";
+		keyData[""] = "/service/board/cm_cat";
+		keyData[""] = "/service/board/cm_dog";
+		keyData[""] = "/service/board/cm_fish";
+		keyData[""] = "/service/board/cm_app";
+		keyData[""] = "/service/board/cm_note";
+		keyData[""] = "/service/board/cm_redeem";
+		keyData[""] = "/service/board/cm_stock";
+		keyData[""] = "/service/board/cm_vcoin";
+		keyData[""] = "/service/board/cm_venture";
+		keyData[""] = "/service/board/cm_lang";
+		keyData[""] = "/service/board/cm_wine";
+		keyData[""] = "/service/board/cm_cook";
+		keyData[""] = "/service/board/cm_food";
+		keyData[""] = "/service/board/cm_simsik";
+		keyData[""] = "/service/board/cm_iphonien";
+		keyData[""] = "/service/board/cm_mac";
+		keyData[""] = "/service/board/cm_bike";
+		keyData[""] = "/service/board/cm_nas";
+		keyData[""] = "/service/board/cm_andro";
+		keyData[""] = "/service/board/cm_keyboard";
+		keyData[""] = "/service/board/cm_airplane";
+		keyData[""] = "/service/board/cm_formula1";
+		keyData[""] = "/service/board/cm_pctuning";
+		keyData[""] = "/service/board/cm_iot";
+		keyData[""] = "/service/board/cm_applewatch";
+		keyData[""] = "/service/board/cm_mbike";
+		keyData[""] = "/service/board/cm_watch";
+		keyData[""] = "/service/board/cm_rasp";
+		keyData[""] = "/service/board/cm_slate";
+		keyData[""] = "/service/board/cm_ebook";
+		keyData[""] = "/service/board/cm_blockchain";
+		keyData[""] = "/service/board/cm_thinkpad";
+		keyData[""] = "/service/board/cm_bb";
+		keyData[""] = "/service/board/cm_tpad";
+		keyData[""] = "/service/board/cm_drone";
+		keyData[""] = "/service/board/cm_nokien";
+		keyData[""] = "/service/board/cm_ebicycle";
+		keyData[""] = "/service/board/cm_tiwatch";
+		keyData[""] = "/service/board/cm_webos";
+		keyData[""] = "/service/board/cm_wp";
+		keyData[""] = "/service/board/cm_aigurim";
+		keyData[""] = "/service/board/cm_ai";
+		keyData[""] = "/service/board/cm_console";
+		keyData[""] = "/service/board/cm_werule";
+		keyData[""] = "/service/board/cm_dia";
+		keyData[""] = "/service/board/cm_steam";
+		keyData[""] = "/service/board/cm_poe";
+		keyData[""] = "/service/board/cm_kordle";
+		keyData[""] = "/service/board/cm_lol";
+		keyData[""] = "/service/board/cm_heroes";
+		keyData[""] = "/service/board/cm_gemwar";
+		keyData[""] = "/service/board/cm_board";
+		keyData[""] = "/service/board/";
+		keyData[""] = "/service/board/cm_dongsup";
+		keyData[""] = "/service/board/cm_civilize";
+		keyData[""] = "/service/board/cm_cookierun";
+		keyData[""] = "/service/board/cm_eve";
+		keyData[""] = "/service/board/cm_fm";
+		keyData[""] = "/service/board/cm_gta";
+		keyData[""] = "/service/board/cm_gun";
+		keyData[""] = "/service/board/cm_hearth";
+		keyData[""] = "/service/board/cm_mabi";
+		keyData[""] = "/service/board/cm_mine";
+		keyData[""] = "/service/board/cm_mtg";
+		keyData[""] = "/service/board/cm_rhythm";
+		keyData[""] = "/service/board/cm_sim";
+		keyData[""] = "/service/board/cm_star";
+		keyData[""] = "/service/board/cm_wow";
+		keyData[""] = "/service/board/cm_keyboard";
+		keyData[""] = "/service/board/cm_rowing";
+		keyData[""] = "/service/board/cm_lego";
+		keyData[""] = "/service/board/cm_ku";
+		keyData[""] = "/service/board/cm_dduk";
+		keyData[""] = "/service/board/cm_wine";
+		keyData[""] = "/service/board/cm_onair";
+		keyData[""] = "/service/board/cm_book";
+		keyData[""] = "/service/board/cm_photo";
+		keyData[""] = "/service/board/cm_3dmaking";
+		keyData[""] = "/service/board/cm_ebook";
+		keyData[""] = "/service/board/cm_midra";
+		keyData[""] = "/service/board/cm_surfing";
+		keyData[""] = "/service/board/cm_military";
+		keyData[""] = "/service/board/cm_classic";
+		keyData[""] = "/service/board/cm_drone";
+		keyData[""] = "/service/board/cm_fisher";
+		keyData[""] = "/service/board/cm_movie";
+		keyData[""] = "/service/board/cm_baby";
+		keyData[""] = "/service/board/cm_glasses";
+		keyData[""] = "/service/board/cm_edc";
+		keyData[""] = "/service/board/cm_danger";
+		keyData[""] = "/service/board/cm_adhd";
+		keyData[""] = "/service/board/cm_fashion";
+		keyData[""] = "/service/board/cm_japanlive";
+		keyData[""] = "/service/board/cm_oversea";
+		keyData[""] = "/service/board/cm_daegu";
+		keyData[""] = "/service/board/cm_instar";
+		keyData[""] = "/service/board/cm_solo";
+		keyData[""] = "/service/board/cm_70";
+		keyData[""] = "/service/board/cm_fisher";
+		keyData[""] = "/service/board/cm_twit";
+		keyData[""] = "/service/board/cm_bts";
+		keyData[""] = "/service/board/cm_girl";
+		keyData[""] = "/service/board/cm_music";
+		keyData[""] = "/service/board/cm_classic";
+		keyData[""] = "/service/board/cm_kara";
+		keyData[""] = "/service/board/cm_bts";
+		keyData[""] = "/service/board/cm_girlgroup";
+		keyData[""] = "/service/board/cm_girl";
+		keyData[""] = "/service/board/cm_kara";
+		keyData[""] = "/service/board/cm_bike";
+		keyData[""] = "/service/board/cm_golf";
+		keyData[""] = "/service/board/cm_rowing";
+		keyData[""] = "/service/board/cm_soccer";
+		keyData[""] = "/service/board/cm_baseball";
+		keyData[""] = "/service/board/cm_gym";
+		keyData[""] = "/service/board/cm_swim";
+		keyData[""] = "/service/board/cm_billiards";
+		keyData[""] = "/service/board/cm_surfing";
+		keyData[""] = "/service/board/cm_snow";
+		keyData[""] = "/service/board/cm_badmin";
+		keyData[""] = "/service/board/cm_basket";
+		keyData[""] = "/service/board/cm_mount";
+		keyData[""] = "/service/board/cm_sea";
+		keyData[""] = "/service/board/cm_tennis";
+		keyData[""] = "/service/board/cm_camp";
+		keyData[""] = "/service/board/cm_tour";
+
+
+		$.ajaxSetup({
+			beforeSend: function (xhr, settings) {
+				if (settings.type == 'POST' || settings.type == 'PUT' || settings.type == 'DELETE') {
+					if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+						xhr.setRequestHeader("X-CSRF-TOKEN", "066e4515-17c7-4450-aa61-6e8d1b3da195");
+					}
+				}
+			}
+		});
+
+		setTimeout(function () {
+			var height = $('#div_content').outerHeight();
+			$("#sideBarHeight").css("height", height);
+		}, 2000);
+
+	</script>
+
+	<script src="../../js/common/clien.storage%EF%B9%960503v1.js"></script>
+	<script src="../../js/common/clien.alarm%EF%B9%960503v1.js"></script>
+	<script src="../../js/common/clien.auth%EF%B9%960503v1.js"></script>
+	<script src="../../js/common/clien.paging%EF%B9%960503v1.js"></script>
+	<script src="../../js/common/clien.util%EF%B9%960503v1.js"></script>
+	<script src="../../js/common/clien.popup%EF%B9%960503v1.js"></script>
+	<script src="../../js/common/clien.setting%EF%B9%960503v1.js"></script>
+	<script src="../../js/common/clien.search%EF%B9%960503v1.js"></script>
+
+	<script src="../../js/app/clien.agent%EF%B9%960503v1.js"></script>
+	<script src="../../js/app/clien.ui%EF%B9%960503v1.js"></script>
+
+	<script>
+		function detectBlockers() {
+			var ad = document.createElement('div');
+			ad.innerHTML = '&nbsp;';
+			ad.className = 'adsbox';
+			ad.style.position = 'absolute';
+			ad.style.fontSize = '0';
+			ad.style.height = '10px';
+			ad.style.width = '10px';
+			ad.style.zIndex = '-1000';
+			ad.style.top = '-1000px';
+			document.body.appendChild(ad);
+
+			setTimeout(function () {
+				if (ad.offsetHeight === 0) {
+					trackBlockerUsage();
+					console.log("adBolckUse");
+				}
+				document.body.removeChild(ad);
+			}, 100);
+		}
+
+		function trackBlockerUsage() {
+			if (typeof gtag !== 'undefined') {
+				gtag('event', 'adblocker_detected', {
+					'event_category': 'adblocker',
+					'event_label': 'Ad Blocker Usage'
+				});
+			}
+		}
+
+		window.onload = detectBlockers;
+	</script>
+
+
+
+	<div class="modal_gif">
+		<div class="modal_gif_content">
+			<div class="modal_title">
+				<strong><i class="fa fa-download"></i> GIF 파일 다운로드</strong>
+				<button type="button" class="modal_close" onclick="app.gifDownClose();" aria-label="close">
+					<div class="modal_button_close"></div>
+				</button>
+			</div>
+			<div class="modal_key_display">
+				<span id="gif_modal_1">0</span>
+				<span id="gif_modal_2">0</span>
+				<span id="gif_modal_3">0</span>
+				<span id="gif_modal_4">0</span>
+			</div>
+			<div class="modal_help_msg">GIF 파일을 다운로드 받으려면<br>화면에 표시된 4자리 번호를 입력해주세요.</div>
+			<div class="modal_input">
+				<input id="gif_check" type="text" class="key_input" placeholder="번호를 입력하세요.">
+			</div>
+			<div class="modal_footer">
+				<button type="button" class="modal_button_confirm" onclick="app.gofDownCheck();">확인</button>
+				<button type="button" class="modal_button_cancel" onclick="app.gifDownClose();">취소</button>
+			</div>
+		</div>
+		<div class="modal_bg" onclick="app.gifDownClose();"></div>
+
+		<input type="hidden" id="gif_modal_file_sn" value="">
+		<input type="hidden" id="gif_modal_key" value="">
+		<input type="hidden" id="gif_modal_width" value="">
+		<input type="hidden" id="gif_modal_height" value="">
+	</div>
+
+	<div class="modal_clipboard" id="clipboard_modal">
+		<div class="modal_clipboard_content">
+			<div class="modal_title">
+				<strong>댓글 주소복사</strong>
+				<button type="button" class="modal_close" onclick="clipboardModalClose();" aria-label="close">
+					<div class="modal_button_close"></div>
+				</button>
+			</div>
+			<div class="modal_input">
+				<input id="commentClipboard_value" type="text" class="key_input" placeholder="URL" value="">
+				<button type="button" class="modal_button_confirm btn" data-clipboard-target="#commentClipboard_value"
+					title="주소복사"><i class="fa fa-clipboard"></i></button>
+			</div>
+		</div>
+	</div>
+
+
+	<script>
+		function clipboardModalClose() {
+			$('#clipboard_modal').removeClass('open');
+		}
+	</script>
+	<input type="hidden" value="ieukori" id="writer">
+	<input type="hidden" value="" id="loginUserId">
+	<input type="hidden" value="useful" id="boardCd">
+	<input type="hidden" value="18040620" id="boardSn">
+	<input type="hidden" value="1000000" id="category">
+	<input type="hidden" value="26" id="commentCount">
+	<input type="hidden" value="0">
+	<input type="hidden" value="26" id="nowCommentCount">
+	<input type="hidden" value="ST03" id="webTag">
+	<input type="hidden" value="https://www.clien.net/service/board/useful/18040620" id="shareUrl">
+
+	<input type="hidden" value="write" id="comment_mode">
+	<input type="hidden" value="" id="comment_commentSn">
+	<input type="hidden" value="NO" id="comment_link_isvaild">
+
+	<input type="hidden" value="100" id="configCommentPageSize">
+	<input type="hidden" value="20000" id="configMaxContentLength">
+	<input type="hidden" value="3" id="configMinContentLength">
+	<input type="hidden" value="luxmall,레플리카, 레플,럭셔리몰, !important, fixed" id="configStopWord"> <input type="hidden"
+		value="T31" id="od">
+	<input type="hidden" value="0" id="po">
+	<input type="hidden" value="0" id="voCategory">
+	<input type="hidden" value="" id="sk">
+	<input type="hidden" value="" id="sv">
+	<input type="hidden" value="" id="groupCd"> <input type="hidden" value="0" id="pt">
+	<input type="hidden" value="유용한사이트" id="boardName">
+	<input type="hidden" value="윤석열의 (얼려진) 모든 것" id="subject">
+	<input type="hidden" value="모공에 현창용님이 소개해주신 사이트입니다. https://yoontime.kr/ 윤씨의 발언, 시사만화, 남은 임기 등등을 전부 모아놓은 사이트입니다."
+		id="content">
+	<input type="hidden" value="M01" id="mainTag">
+
+	<input type="hidden" value="boardView" id="pageName">
+	<input type="hidden" value="" id="bizType"> <input type="hidden" value="" id="preListType">
+	<input type="hidden" value="0" id="moreCount">
+
+	<input type="hidden" value="false" id="combine">
+	<input type="hidden" value="" id="combine_q">
+	<input type="hidden" value="0" id="combine_p">
+	<input type="hidden" value="recency" id="combine_sort">
+	<input type="hidden" value="useful" id="combine_boardCd">
+	<input type="hidden" value="false" id="combine_isBoard">
+
+	<script src="https://www.clien.net/service/js/lib/tribute/tribute.min.js"></script>
+	<script src="../../js/lib/mark.min.js"></script>
+	<script src="https://www.clien.net/service/js/lib/clipboard.min.js"></script>
+
+	<script src="../../js/app/clien.hongbo%EF%B9%960503v1.js"></script>
+	<script src="../../js/common/clien.observe%EF%B9%960503v1.js"></script>
+	<script src="https://www.clien.net/service/js/common/clien.list.js?0503v1"></script>
+	<script src="../../js/common/clien.recommend%EF%B9%960503v1.js"></script>
+	<script src="https://www.clien.net/service/js/common/clien.myView.js?0503v1"></script>
+	<script src="https://www.clien.net/service/js/app/pageJs/view.js?0503v1"></script>
+	<script src="https://www.clien.net/service/js/common/clien.like.js?0503v1"></script>
+	<script src="https://www.clien.net/service/js/lib/dropzone/dropzone.min.js?20220308_1"></script>
+
+	<script>
+		function CommentImgUpload() {
+
+			var _this = this;
+
+			Dropzone.autoDiscover = false;
+
+			var dropzone_comment = new Dropzone('#comment-img-upload', {
+				previewTemplate: document.querySelector('#preview-comment-template').innerHTML,
+				url: API_HOST + '/file/uploads',
+				method: 'POST',
+				params: {
+					'fileType': 'F03'
+				},
+				parallelUploads: 1,
+				thumbnailHeight: null,
+				thumbnailWidth: 150,
+				maxFiles: 1, // 업로드 파일수
+				filesizeBase: 1024, // 파일 용량 표시 기준
+				maxFilesize: 15, // 파일 업로드 최대 용량 Mb단위
+				parallelUploads: 1, // 동시 파일업로드 수
+				acceptedFiles: '.jpg,.gif,.png,.jpeg,',
+				addRemoveLinks: false,
+				uploadMultiple: false,
+				autoProcessQueue: true,
+				dictRemoveFileConfirmation: '이미지를 삭제하시겠습니까?',
+				headers: {
+					'X-CSRF-Token': "066e4515-17c7-4450-aa61-6e8d1b3da195"
+				},
+				processing: function () {
+					$('.fr-overlay').addClass('active');
+					document.getElementById("loading").style.display = "block";
+				},
+				thumbnail: function (file, dataUrl, check) {
+
+					if (file.fileExt == 'mp4' || file.fileExt == 'org') {
+						file.previewElement.remove();
+					};
+
+					if (file.previewElement) {
+
+						file.previewElement.classList.remove("dz-file-preview");
+						var images = file.previewElement.querySelectorAll("[data-dz-thumbnail]");
+
+						for (var i = 0; i < images.length; i++) {
+							var thumbnailElement = images[i];
+							thumbnailElement.alt = file.name;
+							thumbnailElement.src = dataUrl;
+						}
+
+						if (check) {
+							var mp4IsVaild = false;
+							var mp4Sn = 0;
+							if (file.fileExt == 'gif') {
+								app.env.images.forEach(function (info, index) {
+									if (file.fileKey == info.fileKey && info.fileExt == 'mp4') {
+										mp4IsVaild = true;
+										mp4Sn = info.fileSn;
+									};
+								});
+							};
+
+							if (mp4IsVaild) {
+								file.previewElement.querySelector('.dz-filename').dataset.fileSn = mp4Sn;
+							} else {
+								file.previewElement.querySelector('.dz-filename').dataset.fileSn = file.fileSn;
+							}
+						}
+
+						setTimeout(function () {
+							file.previewElement.classList.add("dz-image-preview");
+						}, 1);
+					}
+				},
+				success: function (file, response) {
+					if (response.length == 1) {
+						app.env.images.push(response[0]);
+
+						file.previewElement.querySelector('.dz-image').dataset.url = response[0].url;
+						file.previewElement.querySelector('img').src = "https://edgio.clien.net" + response[0].url + IMG_PARAMETER;
+
+						file.previewElement.querySelector('.dz-filename').dataset.fileSn = response[0].fileSn;
+
+					} else if (response.length > 1) {
+						var fileSn = "";
+						var posterUrl = "";
+						var fileKey = "";
+						var url = "";
+
+						response.forEach(function (info, index) {
+							app.env.images.push(response[index]);
+
+							if ('gif' == info.fileExt) {
+								file.previewElement.querySelector('.dz-image').dataset.url = info.url;
+								posterUrl = info.url;
+								file.previewElement.querySelector('img').src = "https://edgio.clien.net" + info.url + IMG_PARAMETER;
+							} else if ('mp4' == info.fileExt) {
+								file.previewElement.querySelector('.dz-filename').dataset.fileSn = info.fileSn;
+								fileSn = info.fileSn;
+								fileKey = info.fileKey;
+								url = info.url;
+							};
+						});
+
+					}
+				},
+				error: function (file, response, e) {
+					var errorMessage = "";
+
+					file.previewElement.classList.add("clien-upload-error");
+
+					if (e == undefined) {
+						if (response.indexOf("You can not upload any more files") >= 0) {
+							errorMessage = '최대 업로드 개수를 초과. 다시 업로드 하려면 삭제하세요.';
+						};
+						if (response.indexOf("File is too big") >= 0) {
+							errorMessage = '최대 업로드 용량 초과';
+						};
+						if (response.indexOf("You can't upload files of this type") >= 0) {
+							errorMessage = '허용되지 않는 확장자 파일';
+						};
+					} else {
+						errorMessage = e.responseText;
+						if (errorMessage == undefined || errorMessage == null || errorMessage == '') {
+							errorMessage = '이미지 업로드 실패';
+						}
+						if (e.status != 400) {
+							errorMessage = '이미지 업로드 실패';
+						}
+					}
+
+					if (file.previewElement) {
+						file.previewElement.classList.add("dz-error");
+						for (let node of file.previewElement.querySelectorAll("[data-dz-errormessage]")) {
+							node.textContent = errorMessage;
+						}
+					}
+				},
+				queuecomplete: function (data) {
+					$('.fr-overlay').removeClass('active');
+					document.getElementById("loading").style.display = "none";
+				},
+				removedfile: function (file) {
+					var fileSn = file.previewElement.querySelector('.dz-filename').getAttribute('data-file-sn');
+					var thumbSn = '';
+					var oriSn = '';
+					var fileKey = '';
+					var fileExt = '';
+
+					if (fileSn == null) {
+						file.previewTemplate.remove();
+						return;
+					};
+
+					app.env.images.forEach(function (info, index) {
+						if (fileSn == info.fileSn) {
+							fileKey = info.fileKey;
+							fileExt = info.fileExt;
+						};
+					});
+
+					if (fileExt == 'mp4') {
+						app.env.images.forEach(function (info, index) {
+							if (fileKey == info.fileKey && info.fileExt == 'gif') {
+								thumbSn = info.fileSn;
+							} else if (fileKey == info.fileKey && info.fileExt == 'org') {
+								oriSn = info.fileSn;
+							}
+						});
+					};
+
+					var data = {
+						fileType: 'F01',
+						fileSn: fileSn,
+						thumbSn: thumbSn,
+						oriSn: oriSn,
+						k: fileKey
+					};
+
+					var url = API_HOST + '/file/delete';
+					$.ajax({
+						url: url,
+						type: 'POST',
+						data: data,
+						success: function (result) {
+							// 수정일 경우, 내가 할당한 데이터 수동으로 삭제하기 위해 만듬.
+							dropzone_comment.files = [];
+							app.env.images = [];
+
+							file.previewTemplate.remove();
+						},
+						error: function (result) {
+							var res = JSON.parse(result.responseText);
+							alert(res.message);
+						}
+					});
+
+				}
+			});
+
+			_this.modifyCommentImgSet = function () {
+				app.env.images.forEach(function (info, index) {
+
+					if (info.fileExt != 'mp4') {
+						info.name = info.originName;
+						info.size = info.fileSize;
+
+						dropzone_comment.emit("addedfile", info);
+						dropzone_comment.emit("thumbnail", info, CDN_URL + info.url + IMG_PARAMETER, true);
+						dropzone_comment.emit("complete", info);
+
+						var imgCnt = {
+							'accepted': true,
+							'fileSn': info.fileSn,
+							'fileKey': info.fileKey,
+							'fileExt': info.fileExt,
+							'originName': info.originName
+						};
+						dropzone_comment.files.push(imgCnt);
+					}
+				});
+			};
+
+			_this.initializationImgPrev = function () {
+				$('.dz-preview').remove();
+				dropzone_comment.files = [];
+			};
+
+		};
+
+		var commentImgUpload = new CommentImgUpload();
+	</script>
+
+	<script type="text/javascript"
+		src="https://ssl.pstatic.net/adimg3.search/adpost/js/adpost_show_ads_v2.min.js"></script>
+	<script src="https://www.clien.net/service/js/common/clien.naver.js?0503v1"></script>
+
+	<script type="text/javascript">
+
+
+		var title = "윤석열의 (얼려진) 모든 것";
+		title = util.cutByte(title, 99);
+
+		var content = "모공에 현창용님이 소개해주신 사이트입니다. https://yoontime.kr/ 윤씨의 발언, 시사만화, 남은 임기 등등을 전부 모아놓은 사이트입니다.";
+		content = util.cutByte(content, 999);
+
+		NAVER_ADPOST_V2({
+			channel: "clien.ch1"
+			, pageSize: 4
+			, url: document.location.href
+
+			, title: title
+			, content: content
+			, keywordGroup: "크롤링테스트_공통"
+
+			, test: false
+			, mock: false
+			, callback: "pc_naver_ads_view"
+		});
+
+	</script>
+
+	<script>
+		$("textarea.autosize").on('focus keydown keyup', function () {
+			$(this).height(1).height($(this).prop('scrollHeight') - 13);
+		});
+	</script>
+
+	<script>
+		var KAAN_CLIENT_ID = '125ftq6p04OPT0uUgs.www.clien.net';
+		(function (d) {
+			var se = d.createElement('script'); se.type = 'text/javascript'; se.async = true;
+			se.src = location.protocol + '//search1.daumcdn.net/kaan/kaan.js';
+			var s = d.getElementsByTagName('head')[0]; s.appendChild(se);
+		})(document);
+	</script>
+
+	<script>
+		function loadCountScript() {
+
+			var msCountDay = new Date();
+			var script = document.createElement('script');
+
+			var cntParameters = "&type=pc&boardCd=useful&bot=N";
+			cntParameters += "&login=N&auth=N";
+
+			script.src = "/service/js/common/clien.count.js?" + msCountDay.getTime() + cntParameters;
+			document.getElementsByTagName('head')[0].appendChild(script);
+		};
+
+		loadCountScript(); 
+	</script>
+
+	<script>window._epn = { campaign: 5338113437 };</script>
+	<script src="https://epnt.ebay.com/static/epn-smart-tools.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,2603 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+
+<head>
+	<title>크롤링테스트 : 운영소통게시판</title>
+	<meta name="description" content="" />
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="referrer" content="unsafe-url">
+	<meta name="viewport" content="width=1280" />
+	<meta name="author" content="크롤링테스트" />
+	<meta name="apple-mobile-web-app-title" content="크롤링테스트">
+
+	<link rel="canonical" href="symposium.html">
+
+	<link rel="stylesheet" href="../css/font-awesome.min%EF%B9%960510v1.css">
+	<link rel="stylesheet" href="../css/fontello%EF%B9%960510v1.css">
+
+	<link rel="stylesheet" href="../css/clien%EF%B9%960515v1.css">
+	<link rel="stylesheet" href="../css/clien.scheme%EF%B9%960515v1.css">
+
+	<link rel="stylesheet" href="../css/font-Noto%EF%B9%960510v1.css">
+
+
+
+	<link rel="stylesheet" href="../css/jquery-ui.css">
+
+	<link rel="shortcut icon" href="../image/favicon.ico">
+
+	<link rel=apple-touch-icon href="../image/icon180x180.png" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<script>
+		googletag.cmd.push(function () {
+			googletag.defineSlot('/44950606/cs4-pc-list-top', [728, 90], 'div-pc-list-top').addService(googletag.pubads());
+			googletag.defineSlot('/44950606/cs4-pc-list-below', [728, 90], 'div-pc-list-below').addService(googletag.pubads());
+			googletag.defineSlot('/44950606/cs4-pc-side', [160, 600], 'div-pc-side').addService(googletag.pubads());
+			googletag.pubads().setTargeting('board', ["symposium"]);
+			googletag.enableServices();
+		});
+	</script>
+
+</head>
+
+<body>
+
+
+	<div class="back-to-top" id="top"></div>
+	<nav class="header_wrap">
+		<div class="nav_header" data-role="account-open">
+			<h1 class="header_logo" style="color:white">
+				CRAWING
+			</h1>
+			<a href="#div_content" class="skip_to">본문 바로가기</a>
+			<a href="#menuTop" class="skip_to">메뉴 바로가기</a>
+			<a href="javascript:;" class="skip_to text-large">폰트크기변경</a>
+			<a href="javascript:;" class="skip_to button-dark">색상반전보기</a>
+			<div class="header_menu">
+				<a href="" class="all_view" title="톺아보기 바로가기">톺아보기</a>
+				<a href="" class="all_symph" title="톺아보기의 공감글">공감글</a>
+				<a href="../recommend.html" class="all_recommend" title="추천글 바로가기">추천글</a>
+			</div>
+
+			<div class="search ad_banner" data-role="total-search">
+				<input type="search" name="search" class="search_input" data-role="total-input-keyword" title="통합검색"
+					placeholder="검색어를 입력하세요." />
+				<button type="button" class="search_button" data-role="total-submit" title="검색하기"><span
+						class="fa fa-search"></span></button>
+			</div>
+
+		</div>
+	</nav>
+
+	<Script>
+
+		var setEventDay = [{ month: 3, day: 1, class: 'kr', url: '/service/image/kflag.png', size: 26 }
+			, { month: 4, day: 16, class: 'ribbon', url: '/service/image/ribbon.png', size: 21 }
+			, { month: 6, day: 6, class: 'kr', url: '/service/image/kflag.png', size: 26 }
+			, { month: 8, day: 15, class: 'kr', url: '/service/image/kflag.png', size: 26 }, { month: 10, day: 3, class: 'kr', url: '/service/image/kflag.png', size: 26 }
+			, { month: 10, day: 9, class: 'han', url: '/service/image/han_clien_m.png', size: 108 }
+			, { month: 10, day: 29, class: 'ribbon', url: '/service/image/ribbon_b.png', size: 21 }];
+
+		var eventNowDay = new Date();
+		var eventNowMonth = eventNowDay.getMonth() + 1;
+		var eventNowDay = eventNowDay.getDate();
+		var eventIsVaild = false;
+		var eventLogoHtml = '';
+
+		setEventDay.forEach(function (value) {
+
+			if (eventNowMonth == value.month && eventNowDay == value.day) {
+				if (value.class == 'han') {
+					eventLogoHtml = '<a href="/service" class="image_logo han" title="크롤링테스트홈 바로가기"><img src="' + value.url + '" width="' + value.size + 'px"></a>';
+				} else {
+					eventLogoHtml = '<span class="image_logo ' + value.class + '"><img src="' + value.url + '" width="' + value.size + 'px"></span>';
+				}
+				eventIsVaild = true;
+			};
+		});
+
+
+		if (eventIsVaild) {
+			console.log(eventLogoHtml);
+			document.getElementById("eventImgLogo").innerHTML = eventLogoHtml;
+		};
+
+	</script>
+	<div class="nav_container">
+		<div class="snb" id="menuTop">
+			<div class="side_nav" id="menu-scroll">
+
+				<div class="navmenu">
+
+
+					<a class="menu-group all" href="">
+
+						<span class="fa fa-angle-right"></span>
+						<span class="menu_over">커뮤니티</span>
+
+
+						<a class="menu-group" href="">
+
+							<span class="icon-board">C</span>
+							<span class="menu_over">모두의광장</span>
+
+
+							<a class="menu-list" href="park.html">
+
+								<span class="icon-board">F</span>
+								<span class="menu_over">모두의공원</span>
+
+
+								<a class="menu-list" href="image.html">
+
+									<span class="icon-board">I</span>
+									<span class="menu_over">사진게시판</span>
+
+
+									<a class="menu-list" href="kin.html">
+
+										<span class="icon-board">Q</span>
+										<span class="menu_over">아무거나질문</span>
+
+
+										<a class="menu-group" href="">
+
+											<span class="icon-board">D</span>
+											<span class="menu_over">정보와자료</span>
+
+
+											<a class="menu-list" href="news.html">
+
+												<span class="icon-board">N</span>
+												<span class="menu_over">새로운소식</span>
+
+
+												<a class="menu-list" href="useful.html">
+
+													<span class="icon-board">T</span>
+													<span class="menu_over">유용한사이트</span>
+
+
+													<a class="menu-list" href="pds.html">
+
+														<span class="icon-board">P</span>
+														<span class="menu_over">자료실</span>
+
+
+														<a class="menu-group" href="">
+
+															<span class="icon-board">E</span>
+															<span class="menu_over">강좌/사용기</span>
+
+
+															<a class="menu-list" href="lecture.html">
+
+																<span class="icon-board">L</span>
+																<span class="menu_over">팁과강좌</span>
+
+
+																<a class="menu-list" href="use.html">
+
+																	<span class="icon-board">U</span>
+																	<span class="menu_over">사용기</span>
+
+
+																	<a class="menu-list" href="chehum.html">
+
+																		<span class="icon-board">·</span>
+																		<span class="menu_over">체험단사용기</span>
+
+
+																		<a class="menu-group"
+																			href="https://www.clien.net/service/group/allsell">
+
+																			<span class="icon-board">W</span>
+																			<span class="menu_over">사고팔고</span>
+
+
+																			<a class="menu-list" href="jirum.html">
+
+																				<span class="icon-board">J</span>
+																				<span class="menu_over">알뜰구매</span>
+
+
+																				<a class="menu-list" href="sold.html">
+
+																					<span class="icon-board">S</span>
+																					<span
+																						class="menu_over">회원중고장터</span>
+
+
+																					<a class="menu-list"
+																						href="hongbo.html">
+
+																						<span
+																							class="icon-board">B</span>
+																						<span
+																							class="menu_over">직접홍보</span>
+
+
+																						<a class="menu-insurance"
+																							href="">
+
+																							<span
+																								class="icon-board">·</span>
+																							<span
+																								class="menu_over">보험상담실</span>
+
+
+																							<a class="menu-promo invisible"
+																								href="../index.html">
+
+																								<span
+																									class="icon-board">H</span>
+																								<span
+																									class="menu_over">크롤링테스트홈</span>
+				</div>
+				<button type="button" class="button_more_nav" id="nav-more"><span class="fa fa-angle-down"></span><span
+						class="fa fa-angle-up"></span></button>
+				<div class="menu_somoim">
+					<a class="menu-group all somoim" href="../somoim.html">
+						<span class="fa fa-angle-right"></span>
+						<span class="menu_over">소모임</span>
+					</a>
+					<a class="menu-group somoim" href="">
+						<span class="fa fa-bookmark"></span>
+						<span class="menu_over">소모임전체</span>
+					</a>
+					<a class="menu-group somoim etc" href="cm_main.html">
+						<span class="fa fa-plus-square-o"></span>
+						<span class="menu_over">임시소모임</span>
+					</a>
+
+					<a class="menu-list somoim" href="cm_car.html"><span class="icon-board">·</span><span
+							class="menu_over">굴러간당</span></a>
+					<a class="menu-list somoim" href="cm_iphonien.html"><span class="icon-board">·</span><span
+							class="menu_over">아이포니앙</span></a>
+					<a class="menu-list somoim" href="cm_bike.html"><span class="icon-board">·</span><span
+							class="menu_over">자전거당</span></a>
+					<a class="menu-list somoim" href="cm_mac.html"><span class="icon-board">·</span><span
+							class="menu_over">MaCrawling</span></a>
+					<a class="menu-list somoim" href="cm_stock.html"><span class="icon-board">·</span><span
+							class="menu_over">주식한당</span></a>
+					<a class="menu-list somoim" href="cm_bts.html"><span class="icon-board">·</span><span
+							class="menu_over">방탄소년당</span></a>
+					<a class="menu-list somoim" href="cm_dia.html"><span class="icon-board">·</span><span
+							class="menu_over">디아블로당</span></a>
+					<a class="menu-list somoim" href="cm_japanlive.html"><span class="icon-board">·</span><span
+							class="menu_over">일본산당</span></a>
+					<a class="menu-list somoim" href="cm_golf.html"><span class="icon-board">·</span><span
+							class="menu_over">골프당</span></a>
+					<a class="menu-list somoim" href="cm_oversea.html"><span class="icon-board">·</span><span
+							class="menu_over">바다건너당</span></a>
+					<a class="menu-list somoim" href="cm_nas.html"><span class="icon-board">·</span><span
+							class="menu_over">나스당</span></a>
+					<a class="menu-list somoim" href="cm_werule.html"><span class="icon-board">·</span><span
+							class="menu_over">소셜게임한당</span></a>
+					<a class="menu-list somoim" href="cm_aigurim.html"><span class="icon-board">·</span><span
+							class="menu_over">AI그림당</span></a>
+					<a class="menu-list somoim" href="cm_andro.html"><span class="icon-board">·</span><span
+							class="menu_over">안드로메당</span></a>
+					<a class="menu-list somoim" href="cm_vcoin.html"><span class="icon-board">·</span><span
+							class="menu_over">가상화폐당</span></a>
+					<a class="menu-list somoim" href="cm_keyboard.html"><span class="icon-board">·</span><span
+							class="menu_over">키보드당</span></a>
+					<a class="menu-list somoim" href="cm_gym.html"><span class="icon-board">·</span><span
+							class="menu_over">땀흘린당</span></a>
+					<a class="menu-list somoim" href="cm_rowing.html"><span class="icon-board">·</span><span
+							class="menu_over">노젓는당</span></a>
+					<a class="menu-list somoim" href="cm_military.html"><span class="icon-board">·</span><span
+							class="menu_over">밀리터리당</span></a>
+					<a class="menu-list somoim" href="cm_console.html"><span class="icon-board">·</span><span
+							class="menu_over">콘솔한당</span></a>
+					<a class="menu-list somoim" href="cm_baby.html"><span class="icon-board">·</span><span
+							class="menu_over">육아당</span></a>
+					<a class="menu-list somoim" href="cm_app.html"><span class="icon-board">·</span><span
+							class="menu_over">개발한당</span></a>
+					<a class="menu-list somoim" href="cm_kordle.html"><span class="icon-board">·</span><span
+							class="menu_over">꼬들한당</span></a>
+					<a class="menu-list somoim" href="cm_swim.html"><span class="icon-board">·</span><span
+							class="menu_over">퐁당퐁당</span></a>
+					<a class="menu-list somoim" href="cm_airplane.html"><span class="icon-board">·</span><span
+							class="menu_over">날아간당</span></a>
+					<a class="menu-list somoim" href="cm_lego.html"><span class="icon-board">·</span><span
+							class="menu_over">레고당</span></a>
+					<a class="menu-list somoim" href="cm_cat.html"><span class="icon-board">·</span><span
+							class="menu_over">냐옹이당</span></a>
+					<a class="menu-list somoim" href="cm_girl.html"><span class="icon-board">·</span><span
+							class="menu_over">소시당</span></a>
+					<a class="menu-list somoim" href="cm_camp.html"><span class="icon-board">·</span><span
+							class="menu_over">캠핑간당</span></a>
+					<a class="menu-list somoim" href="cm_coffee.html"><span class="icon-board">·</span><span
+							class="menu_over">클다방</span></a>
+					<a class="menu-list somoim" href="cm_vr.html"><span class="icon-board">·</span><span
+							class="menu_over">VR당</span></a>
+					<a class="menu-list somoim" href="cm_edc.html"><span class="icon-board">·</span><span
+							class="menu_over">갖고다닌당</span></a>
+					<a class="menu-list somoim" href="cm_pctuning.html"><span class="icon-board">·</span><span
+							class="menu_over">PC튜닝한당</span></a>
+					<a class="menu-list somoim" href="cm_mbike.html"><span class="icon-board">·</span><span
+							class="menu_over">이륜차당</span></a>
+					<a class="menu-list somoim" href="cm_tennis.html"><span class="icon-board">·</span><span
+							class="menu_over">테니스친당</span></a>
+					<a class="menu-list somoim" href="cm_formula1.html"><span class="icon-board">·</span><span
+							class="menu_over">포뮬러당</span></a>
+					<a class="menu-list somoim" href="cm_poe.html"><span class="icon-board">·</span><span
+							class="menu_over">패스오브엑자일당</span></a>
+					<a class="menu-list somoim" href="cm_baseball.html"><span class="icon-board">·</span><span
+							class="menu_over">야구당</span></a>
+					<a class="menu-list somoim" href="cm_ai.html"><span class="icon-board">·</span><span
+							class="menu_over">AI당</span></a>
+					<a class="menu-list somoim" href="cm_applewatch.html"><span class="icon-board">·</span><span
+							class="menu_over">사과시계당</span></a>
+					<a class="menu-list somoim" href="cm_soccer.html"><span class="icon-board">·</span><span
+							class="menu_over">축구당</span></a>
+					<a class="menu-list somoim" href="cm_dduk.html"><span class="icon-board">·</span><span
+							class="menu_over">뚝딱뚝당</span></a>
+					<a class="menu-list somoim" href="cm_pic.html"><span class="icon-board">·</span><span
+							class="menu_over">그림그린당</span></a>
+					<a class="menu-list somoim" href="cm_adhd.html"><span class="icon-board">·</span><span
+							class="menu_over">ADHD당</span></a>
+					<a class="menu-list somoim" href="cm_glasses.html"><span class="icon-board">·</span><span
+							class="menu_over">안경쓴당</span></a>
+					<a class="menu-list somoim" href="cm_wine.html"><span class="icon-board">·</span><span
+							class="menu_over">와인마신당</span></a>
+					<a class="menu-list somoim" href="cm_iot.html"><span class="icon-board">·</span><span
+							class="menu_over">IoT당</span></a>
+					<a class="menu-list somoim" href="cm_gemwar.html"><span class="icon-board">·</span><span
+							class="menu_over">젬워한당</span></a>
+					<a class="menu-list somoim" href="cm_ku.html"><span class="icon-board">·</span><span
+							class="menu_over">덕질한당</span></a>
+					<a class="menu-list somoim" href="cm_linux.html"><span class="icon-board">·</span><span
+							class="menu_over">리눅서당</span></a>
+					<a class="menu-list somoim" href="cm_cook.html"><span class="icon-board">·</span><span
+							class="menu_over">요리한당</span></a>
+					<a class="menu-list somoim" href="cm_ebicycle.html"><span class="icon-board">·</span><span
+							class="menu_over">전기자전거당</span></a>
+					<a class="menu-list somoim" href="cm_food.html"><span class="icon-board">·</span><span
+							class="menu_over">맛있겠당</span></a>
+					<a class="menu-list somoim" href="cm_onair.html"><span class="icon-board">·</span><span
+							class="menu_over">방송한당</span></a>
+					<a class="menu-list somoim" href="cm_rasp.html"><span class="icon-board">·</span><span
+							class="menu_over">라즈베리파이당</span></a>
+					<a class="menu-list somoim" href="cm_bb.html"><span class="icon-board">·</span><span
+							class="menu_over">블랙베리당</span></a>
+					<a class="menu-list somoim" href="cm_book.html"><span class="icon-board">·</span><span
+							class="menu_over">활자중독당</span></a>
+					<a class="menu-list somoim" href="cm_mine.html"><span class="icon-board">·</span><span
+							class="menu_over">땅판당</span></a>
+					<a class="menu-list somoim" href="cm_heroes.html"><span class="icon-board">·</span><span
+							class="menu_over">히어로즈한당</span></a>
+					<a class="menu-list somoim" href="cm_star.html"><span class="icon-board">·</span><span
+							class="menu_over">스타한당</span></a>
+					<a class="menu-list somoim" href="cm_fisher.html"><span class="icon-board">·</span><span
+							class="menu_over">도시어부당</span></a>
+					<a class="menu-list somoim" href="cm_3dmaking.html"><span class="icon-board">·</span><span
+							class="menu_over">3D메이킹</span></a>
+					<a class="menu-list somoim" href="cm_watch.html"><span class="icon-board">·</span><span
+							class="menu_over">시계찬당</span></a>
+					<a class="menu-list somoim" href="cm_lang.html"><span class="icon-board">·</span><span
+							class="menu_over">어학당</span></a>
+					<a class="menu-list somoim" href="cm_movie.html"><span class="icon-board">·</span><span
+							class="menu_over">영화본당</span></a>
+					<a class="menu-list somoim" href="cm_tour.html"><span class="icon-board">·</span><span
+							class="menu_over">여행을떠난당</span></a>
+					<a class="menu-list somoim" href="cm_venture.html"><span class="icon-board">·</span><span
+							class="menu_over">창업한당</span></a>
+					<a class="menu-list somoim" href="cm_danger.html"><span class="icon-board">·</span><span
+							class="menu_over">DANGER당</span></a>
+					<a class="menu-list somoim" href="cm_photo.html"><span class="icon-board">·</span><span
+							class="menu_over">찰칵찍당</span></a>
+					<a class="menu-list somoim" href="cm_drone.html"><span class="icon-board">·</span><span
+							class="menu_over">날아올랑</span></a>
+					<a class="menu-list somoim" href="cm_midra.html"><span class="icon-board">·</span><span
+							class="menu_over">미드당</span></a>
+					<a class="menu-list somoim" href="cm_70.html"><span class="icon-board">·</span><span
+							class="menu_over">X세대당</span></a>
+					<a class="menu-list somoim" href="cm_badmin.html"><span class="icon-board">·</span><span
+							class="menu_over">배드민턴당</span></a>
+					<a class="menu-list somoim" href="cm_basket.html"><span class="icon-board">·</span><span
+							class="menu_over">농구당</span></a>
+					<a class="menu-list somoim" href="cm_bear.html"><span class="icon-board">·</span><span
+							class="menu_over">곰돌이당</span></a>
+					<a class="menu-list somoim" href="cm_billiards.html"><span class="icon-board">·</span><span
+							class="menu_over">뽀록이당(당구)</span></a>
+					<a class="menu-list somoim" href="cm_blockchain.html"><span class="icon-board">·</span><span
+							class="menu_over">블록체인당</span></a>
+					<a class="menu-list somoim" href="cm_board.html"><span class="icon-board">·</span><span
+							class="menu_over">보드게임당</span></a>
+					<a class="menu-list somoim" href="cm_bowling.html"><span class="icon-board">·</span><span
+							class="menu_over">볼링친당</span></a>
+					<a class="menu-list somoim" href="cm_civilize.html"><span class="icon-board">·</span><span
+							class="menu_over">문명하셨당</span></a>
+					<a class="menu-list somoim" href="cm_classic.html"><span class="icon-board">·</span><span
+							class="menu_over">클래시앙</span></a>
+					<a class="menu-list somoim" href="cm_cookierun.html"><span class="icon-board">·</span><span
+							class="menu_over">쿠키런당</span></a>
+					<a class="menu-list somoim" href="cm_daegu.html"><span class="icon-board">·</span><span
+							class="menu_over">대구당</span></a>
+					<a class="menu-list somoim" href="cm_dog.html"><span class="icon-board">·</span><span
+							class="menu_over">개판이당</span></a>
+					<a class="menu-list somoim" href="cm_dongsup.html"><span class="icon-board">·</span><span
+							class="menu_over">동숲한당</span></a>
+					<a class="menu-list somoim" href="cm_ebook.html"><span class="icon-board">·</span><span
+							class="menu_over">e북본당</span></a>
+					<a class="menu-list somoim" href="cm_eve.html"><span class="icon-board">·</span><span
+							class="menu_over">이브한당</span></a>
+					<a class="menu-list somoim" href="cm_fashion.html"><span class="icon-board">·</span><span
+							class="menu_over">패셔니앙</span></a>
+					<a class="menu-list somoim" href="cm_fish.html"><span class="icon-board">·</span><span
+							class="menu_over">물고기당</span></a>
+					<a class="menu-list somoim" href="cm_fm.html"><span class="icon-board">·</span><span
+							class="menu_over">FM한당</span></a>
+					<a class="menu-list somoim" href="cm_girlgroup.html"><span class="icon-board">·</span><span
+							class="menu_over">걸그룹당</span></a>
+					<a class="menu-list somoim" href="cm_gta.html"><span class="icon-board">·</span><span
+							class="menu_over">차턴당</span></a>
+					<a class="menu-list somoim" href="cm_gun.html"><span class="icon-board">·</span><span
+							class="menu_over">총쏜당</span></a>
+					<a class="menu-list somoim" href="../close.html"><span class="icon-board">·</span><span
+							class="menu_over">내집마련당</span></a>
+					<a class="menu-list somoim" href="cm_hearth.html"><span class="icon-board">·</span><span
+							class="menu_over">하스스톤한당</span></a>
+					<a class="menu-list somoim" href="cm_instar.html"><span class="icon-board">·</span><span
+							class="menu_over">인스타한당</span></a>
+					<a class="menu-list somoim" href="cm_kara.html"><span class="icon-board">·</span><span
+							class="menu_over">KARA당</span></a>
+					<a class="menu-list somoim" href="cm_leather.html"><span class="icon-board">·</span><span
+							class="menu_over">가죽당</span></a>
+					<a class="menu-list somoim" href="cm_lol.html"><span class="icon-board">·</span><span
+							class="menu_over">LOLien</span></a>
+					<a class="menu-list somoim" href="cm_mabi.html"><span class="icon-board">·</span><span
+							class="menu_over">Mabinogien</span></a>
+					<a class="menu-list somoim" href="cm_main.html"><span class="icon-board">·</span><span
+							class="menu_over">임시소모임</span></a>
+					<a class="menu-list somoim" href="cm_monhunt.html"><span class="icon-board">·</span><span
+							class="menu_over">헌팅한당</span></a>
+					<a class="menu-list somoim" href="cm_mount.html"><span class="icon-board">·</span><span
+							class="menu_over">오른당</span></a>
+					<a class="menu-list somoim" href="cm_mtg.html"><span class="icon-board">·</span><span
+							class="menu_over">MTG한당</span></a>
+					<a class="menu-list somoim" href="cm_music.html"><span class="icon-board">·</span><span
+							class="menu_over">소리당</span></a>
+					<a class="menu-list somoim" href="cm_nokien.html"><span class="icon-board">·</span><span
+							class="menu_over">노키앙</span></a>
+					<a class="menu-list somoim" href="cm_note.html"><span class="icon-board">·</span><span
+							class="menu_over">적는당</span></a>
+					<a class="menu-list somoim" href="cm_picnic.html"><span class="icon-board">·</span><span
+							class="menu_over">소풍간당</span></a>
+					<a class="menu-list somoim" href="cm_plant.html"><span class="icon-board">·</span><span
+							class="menu_over">심는당</span></a>
+					<a class="menu-list somoim" href="cm_redeem.html"><span class="icon-board">·</span><span
+							class="menu_over">품앱이당</span></a>
+					<a class="menu-list somoim" href="cm_rhythm.html"><span class="icon-board">·</span><span
+							class="menu_over">리듬탄당</span></a>
+					<a class="menu-list somoim" href="cm_sea.html"><span class="icon-board">·</span><span
+							class="menu_over">Sea마당</span></a>
+					<a class="menu-list somoim" href="cm_sim.html"><span class="icon-board">·</span><span
+							class="menu_over">SimSim하당</span></a>
+					<a class="menu-list somoim" href="cm_simsik.html"><span class="icon-board">·</span><span
+							class="menu_over">심야식당</span></a>
+					<a class="menu-list somoim" href="cm_slate.html"><span class="icon-board">·</span><span
+							class="menu_over">윈태블릿당</span></a>
+					<a class="menu-list somoim" href="cm_snow.html"><span class="icon-board">·</span><span
+							class="menu_over">미끄러진당</span></a>
+					<a class="menu-list somoim" href="cm_solo.html"><span class="icon-board">·</span><span
+							class="menu_over">나혼자산당</span></a>
+					<a class="menu-list somoim" href="cm_steam.html"><span class="icon-board">·</span><span
+							class="menu_over">스팀한당</span></a>
+					<a class="menu-list somoim" href="cm_surfing.html"><span class="icon-board">·</span><span
+							class="menu_over">파도탄당</span></a>
+					<a class="menu-list somoim" href="cm_test.html"><span class="icon-board">·</span><span
+							class="menu_over">테스트당</span></a>
+					<a class="menu-list somoim" href="cm_thinkpad.html"><span class="icon-board">·</span><span
+							class="menu_over">빨콩이당</span></a>
+					<a class="menu-list somoim" href="cm_tiwatch.html"><span class="icon-board">·</span><span
+							class="menu_over">공대시계당</span></a>
+					<a class="menu-list somoim" href="cm_tpad.html"><span class="icon-board">·</span><span
+							class="menu_over">터치패드당</span></a>
+					<a class="menu-list somoim" href="cm_twit.html"><span class="icon-board">·</span><span
+							class="menu_over">트윗당</span></a>
+					<a class="menu-list somoim" href="cm_webos.html"><span class="icon-board">·</span><span
+							class="menu_over">WebOs당</span></a>
+					<a class="menu-list somoim" href="cm_wow.html"><span class="icon-board">·</span><span
+							class="menu_over">WOW당</span></a>
+					<a class="menu-list somoim" href="cm_wp.html"><span class="icon-board">·</span><span
+							class="menu_over">윈폰이당</span></a>
+				</div>
+
+			</div>
+
+		</div>
+		<div class="nav_body">
+			<div class="nav_content">
+				<div class="bullhorn info" style="display: none;" id="noticeBullhom">
+					<div class="bullhorn_msg">
+						<span class="bullhorn_label">공지</span><span class="bullhorn_txt">잠시후(19일 0시) 서버 점검이 진행될
+							예정입니다.</span>
+						<a href="annonce/18086663.html" class="bullhorn_link">더보기</a>
+						<button type="button" class="bullhorn_button" onclick="setNoticeCookie();">
+							<div class="button_close"></div>
+						</button>
+					</div>
+				</div>
+
+				<div class="content_list" id="div_content">
+					<div class="board_head ">
+						<div class="board_name">
+
+
+							<h2><a href="symposium.html">운영소통게시판</a></h2>
+
+						</div>
+
+						<div class="board_intro ">
+							<span>
+							</span>
+						</div>
+
+						<div class="board_user">
+							<span class="board_block" id="blockCountSpan" style="display:none;">
+								<span>차단글 : <span class="block_count" id="blockCount">0</span>건</span>
+							</span>
+
+							<a class="button_recent" href="../recent.html" title="내가본글"><i
+									class="fa fa-check-circle"></i> 내가본글</a>
+						</div>
+					</div>
+
+
+
+
+
+
+
+
+
+
+					<div class="board_nav">
+						<div class="board_navigation">
+							<div class="board_filter">
+								<select class="select" name="od" onchange="paging.getBoard('odtype')">
+									<option value="T31" selected>등록일순</option>
+									<option value="T32">댓글등록순</option>
+									<option value="T33">공감순</option>
+									<option value="T34">댓글순</option>
+								</select>
+							</div>
+
+						</div>
+						<div class="board_option">
+							<a href="javascript:;" class="list-small tooltip">
+								<span class="fa fa-list"></span><span class="tooltiptext">목록좁게</span>
+							</a>
+							<a href="javascript:;" class="text-large tooltip">
+								<span class="fa fa-text-height"></span><span class="tooltiptext">글자크기</span>
+							</a>
+							<a href="javascript:;" class="button-dark tooltip">
+								<span class="fa fa-adjust"></span>
+								<span class="tooltiptext">색상반전</span>
+							</a>
+
+							<div class="board_filter font_style">
+								<select class="select" id="fontSetting">
+									<option value="basic">본고딕</option>
+									<option value="fontNanum">나눔고딕</option>
+									<option value="fontMg">맑은고딕</option>
+									<option value="fontGulim">굴림</option>
+								</select>
+							</div>
+						</div>
+					</div>
+
+
+
+
+					<div class="list_item notice">
+						<div class="list_symph">
+							<span>공지</span>
+						</div>
+						<div class="list_title">
+							<a class="list_subject" href="https://www.clien.net/service/board/symposium/15076050">[완료]현재
+								작업 예정이며 회원분들과 논의가 필요한 내용</a>
+						</div>
+						<div class="list_author">
+							<span class="nickname">
+								<img src="https://edgio.clien.net/F94/10153810/8cbadf818f13fd.gif" alt="운영자" />
+							</span>
+						</div>
+
+						<div class="list_hit">
+							<span class="hit">114.1 k</span>
+						</div>
+
+						<div class="list_time">
+							<span class="time popover">06-16<span class="timestamp">2020-06-16 12:04:25</span></span>
+						</div>
+					</div>
+					<div class="list_item notice">
+						<div class="list_symph">
+							<span>공지</span>
+						</div>
+						<div class="list_title">
+							<a class="list_subject" href="https://www.clien.net/service/board/symposium/15076385">운영소통
+								게시판의 목적 및 이용 안내</a>
+						</div>
+						<div class="list_author">
+							<span class="nickname">
+								<img src="https://edgio.clien.net/F94/10153810/8cbadf818f13fd.gif" alt="운영자" />
+							</span>
+						</div>
+
+						<div class="list_hit">
+							<span class="hit">6751</span>
+						</div>
+
+						<div class="list_time">
+							<span class="time popover">06-16<span class="timestamp">2020-06-16 13:49:30</span></span>
+						</div>
+					</div>
+
+
+
+
+
+
+					<div class="list_content">
+
+
+
+
+
+
+
+
+
+
+						<div class="list_item symph_row  " data-role="list-row" data-author-id=fineash
+							data-board-sn=18127807 data-comment-count=1>
+							<span class="list_stare" style="display: none;" data-role="observeIcon"><i
+									class="fa fa-eye"></i></span>
+
+
+							<div class="list_symph view_symph" data-role="list-like-count"><span>3</span></div>
+
+							<div class="list_title " data-role="list-title" data-toggle-custom="dropdown">
+								<a class="list_subject"
+									href="https://www.clien.net/service/board/symposium/18127807?od=T31&amp;po=0&amp;category=0&amp;groupCd="
+									data-role="cut-string">
+
+									<span class="subject_fixed" data-role="list-title-text" title="재검토요청 게시판 이용 문의">
+										재검토요청 게시판 이용 문의
+									</span>
+								</a>
+
+								<span class="icon_pic fa fa-picture-o"></span>
+								<a class="list_reply reply_symph"
+									href="https://www.clien.net/service/board/symposium/18127807?od=T31&amp;po=0&amp;category=0&amp;groupCd=#comment-point"
+									data-role="ele-after" title="댓글1개">
+									<span class="rSymph05">1</span>
+									<strong class="color_red" data-role="observeCmCount"></strong>
+									<strong class="color_red" data-role="recentCmCount"></strong>
+								</a>
+							</div>
+							<div class="list_author" data-role="list-author">
+								<span class="memo none" data-role="list_memo"></span>
+
+
+								<span class="nickname"">
+			 
+				<img src=" https://edgio.clien.net/F94/9729110/70d8ea5a46c3a8.gif" alt="고은재" title="고은재">
+								</span>
+
+							</div>
+
+							<div class="list_hit">
+								<span class="hit">80</span>
+							</div>
+
+							<div class="list_time">
+								<span class="time popover">
+									06-11
+									<span class="timestamp">2023-06-11 01:03:40</span>
+								</span>
+							</div>
+						</div>
+
+
+
+						<div class="list_item symph_row  " data-role="list-row" data-author-id=goopal
+							data-board-sn=18126159 data-comment-count=0>
+							<span class="list_stare" style="display: none;" data-role="observeIcon"><i
+									class="fa fa-eye"></i></span>
+
+
+							<div class="list_symph view_symph" data-role="list-like-count"><span>5</span></div>
+
+							<div class="list_title " data-role="list-title" data-toggle-custom="dropdown">
+								<a class="list_subject"
+									href="https://www.clien.net/service/board/symposium/18126159?od=T31&amp;po=0&amp;category=0&amp;groupCd="
+									data-role="cut-string">
+
+									<span class="subject_fixed" data-role="list-title-text"
+										title="하나의 게시물에 작성자 IP가 무려 28번 바뀌는 정황">
+										하나의 게시물에 작성자 IP가 무려 28번 바뀌는 정황
+									</span>
+								</a>
+							</div>
+							<div class="list_author" data-role="list-author">
+								<span class="memo none" data-role="list_memo"></span>
+
+
+								<span class="nickname"">
+			 
+					<span title=" 미드나잇">미드나잇</span>
+								</span>
+
+							</div>
+
+							<div class="list_hit">
+								<span class="hit">217</span>
+							</div>
+
+							<div class="list_time">
+								<span class="time popover">
+									06-09
+									<span class="timestamp">2023-06-09 22:14:29</span>
+								</span>
+							</div>
+						</div>
+
+
+
+						<div class="list_item symph_row  " data-role="list-row" data-author-id=fineash
+							data-board-sn=18125513 data-comment-count=0>
+							<span class="list_stare" style="display: none;" data-role="observeIcon"><i
+									class="fa fa-eye"></i></span>
+
+
+							<div class="list_symph view_symph" data-role="list-like-count"><span>1</span></div>
+
+							<div class="list_title " data-role="list-title" data-toggle-custom="dropdown">
+								<a class="list_subject"
+									href="https://www.clien.net/service/board/symposium/18125513?od=T31&amp;po=0&amp;category=0&amp;groupCd="
+									data-role="cut-string">
+
+									<span class="subject_fixed" data-role="list-title-text"
+										title="경어체 비사용 신고 재검토 부탁드립니다.">
+										경어체 비사용 신고 재검토 부탁드립니다.
+									</span>
+								</a>
+
+								<span class="icon_pic fa fa-picture-o"></span>
+							</div>
+							<div class="list_author" data-role="list-author">
+								<span class="memo none" data-role="list_memo"></span>
+
+
+								<span class="nickname"">
+			 
+				<img src=" https://edgio.clien.net/F94/9729110/70d8ea5a46c3a8.gif" alt="고은재" title="고은재">
+								</span>
+
+							</div>
+
+							<div class="list_hit">
+								<span class="hit">186</span>
+							</div>
+
+							<div class="list_time">
+								<span class="time popover">
+									06-09
+									<span class="timestamp">2023-06-09 15:27:17</span>
+								</span>
+							</div>
+						</div>
+
+
+
+						<div class="list_item symph_row  " data-role="list-row" data-author-id=rarcissus
+							data-board-sn=18123187 data-comment-count=1>
+							<span class="list_stare" style="display: none;" data-role="observeIcon"><i
+									class="fa fa-eye"></i></span>
+
+
+							<div class="list_symph view_symph" data-role="list-like-count"><span>1</span></div>
+
+							<div class="list_title " data-role="list-title" data-toggle-custom="dropdown">
+								<a class="list_subject"
+									href="https://www.clien.net/service/board/symposium/18123187?od=T31&amp;po=0&amp;category=0&amp;groupCd="
+									data-role="cut-string">
+
+									<span class="subject_fixed" data-role="list-title-text" title="모바일 광고 관리가 필요해 보입니다">
+										모바일 광고 관리가 필요해 보입니다
+									</span>
+								</a>
+
+								<span class="icon_pic fa fa-picture-o"></span>
+								<a class="list_reply reply_symph"
+									href="https://www.clien.net/service/board/symposium/18123187?od=T31&amp;po=0&amp;category=0&amp;groupCd=#comment-point"
+									data-role="ele-after" title="댓글1개">
+									<span class="rSymph05">1</span>
+									<strong class="color_red" data-role="observeCmCount"></strong>
+									<strong class="color_red" data-role="recentCmCount"></strong>
+								</a>
+							</div>
+							<div class="list_author" data-role="list-author">
+								<span class="memo none" data-role="list_memo"></span>
+
+
+								<span class="nickname"">
+			 
+				<img src=" https://edgio.clien.net/F94/1090951/20bd54890ce644ab9a6.gif" alt="체리인형" title="체리인형">
+								</span>
+
+							</div>
+
+							<div class="list_hit">
+								<span class="hit">171</span>
+							</div>
+
+							<div class="list_time">
+								<span class="time popover">
+									06-08
+									<span class="timestamp">2023-06-08 11:41:44</span>
+								</span>
+							</div>
+						</div>
+
+
+
+						<div class="list_item symph_row  " data-role="list-row" data-author-id=handh16
+							data-board-sn=18122733 data-comment-count=7>
+							<span class="list_stare" style="display: none;" data-role="observeIcon"><i
+									class="fa fa-eye"></i></span>
+
+
+							<div class="list_symph view_symph" data-role="list-like-count"><span>0</span></div>
+
+							<div class="list_title " data-role="list-title" data-toggle-custom="dropdown">
+								<a class="list_subject"
+									href="https://www.clien.net/service/board/symposium/18122733?od=T31&amp;po=0&amp;category=0&amp;groupCd="
+									data-role="cut-string">
+
+									<span class="subject_fixed" data-role="list-title-text"
+										title="가입 연도 대비 사진 첨부 갯수를 차등할 수 있을까요">
+										가입 연도 대비 사진 첨부 갯수를 차등할 수 있을까요
+									</span>
+								</a>
+								<a class="list_reply reply_symph"
+									href="https://www.clien.net/service/board/symposium/18122733?od=T31&amp;po=0&amp;category=0&amp;groupCd=#comment-point"
+									data-role="ele-after" title="댓글7개">
+									<span class="rSymph05">7</span>
+									<strong class="color_red" data-role="observeCmCount"></strong>
+									<strong class="color_red" data-role="recentCmCount"></strong>
+								</a>
+							</div>
+							<div class="list_author" data-role="list-author">
+								<span class="memo none" data-role="list_memo"></span>
+
+
+								<span class="nickname"">
+			 
+				<img src=" https://edgio.clien.net/F94/1087443/0cf86b6679cf43de811.gif" alt="SMILEMAN" title="SMILEMAN">
+								</span>
+
+							</div>
+
+							<div class="list_hit">
+								<span class="hit">199</span>
+							</div>
+
+							<div class="list_time">
+								<span class="time popover">
+									06-08
+									<span class="timestamp">2023-06-08 02:17:06</span>
+								</span>
+							</div>
+						</div>
+
+
+
+						<div class="list_item symph_row  " data-role="list-row" data-author-id=handh16
+							data-board-sn=18122730 data-comment-count=1>
+							<span class="list_stare" style="display: none;" data-role="observeIcon"><i
+									class="fa fa-eye"></i></span>
+
+
+							<div class="list_symph view_symph" data-role="list-like-count"><span>0</span></div>
+
+							<div class="list_title " data-role="list-title" data-toggle-custom="dropdown">
+								<a class="list_subject"
+									href="https://www.clien.net/service/board/symposium/18122730?od=T31&amp;po=0&amp;category=0&amp;groupCd="
+									data-role="cut-string">
+
+									<span class="subject_fixed" data-role="list-title-text" title="사진 첨부시 갯수 표시해주세요">
+										사진 첨부시 갯수 표시해주세요
+									</span>
+								</a>
+								<a class="list_reply reply_symph"
+									href="https://www.clien.net/service/board/symposium/18122730?od=T31&amp;po=0&amp;category=0&amp;groupCd=#comment-point"
+									data-role="ele-after" title="댓글1개">
+									<span class="rSymph05">1</span>
+									<strong class="color_red" data-role="observeCmCount"></strong>
+									<strong class="color_red" data-role="recentCmCount"></strong>
+								</a>
+							</div>
+							<div class="list_author" data-role="list-author">
+								<span class="memo none" data-role="list_memo"></span>
+
+
+								<span class="nickname"">
+			 
+				<img src=" https://edgio.clien.net/F94/1087443/0cf86b6679cf43de811.gif" alt="SMILEMAN" title="SMILEMAN">
+								</span>
+
+							</div>
+
+							<div class="list_hit">
+								<span class="hit">141</span>
+							</div>
+
+							<div class="list_time">
+								<span class="time popover">
+									06-08
+									<span class="timestamp">2023-06-08 02:14:09</span>
+								</span>
+							</div>
+						</div>
+
+
+
+						<div class="list_item symph_row  " data-role="list-row" data-author-id=vegesarada
+							data-board-sn=18122273 data-comment-count=1>
+							<span class="list_stare" style="display: none;" data-role="observeIcon"><i
+									class="fa fa-eye"></i></span>
+
+
+							<div class="list_symph view_symph" data-role="list-like-count"><span>0</span></div>
+
+							<div class="list_title " data-role="list-title" data-toggle-custom="dropdown">
+								<a class="list_subject"
+									href="https://www.clien.net/service/board/symposium/18122273?od=T31&amp;po=0&amp;category=0&amp;groupCd="
+									data-role="cut-string">
+
+									<span class="subject_fixed" data-role="list-title-text" title="성인 필터링">
+										성인 필터링
+									</span>
+								</a>
+								<a class="list_reply reply_symph"
+									href="https://www.clien.net/service/board/symposium/18122273?od=T31&amp;po=0&amp;category=0&amp;groupCd=#comment-point"
+									data-role="ele-after" title="댓글1개">
+									<span class="rSymph05">1</span>
+									<strong class="color_red" data-role="observeCmCount"></strong>
+									<strong class="color_red" data-role="recentCmCount"></strong>
+								</a>
+							</div>
+							<div class="list_author" data-role="list-author">
+								<span class="memo none" data-role="list_memo"></span>
+
+
+								<span class="nickname"">
+			 
+					<span title=" 별세다">별세다</span>
+								</span>
+
+							</div>
+
+							<div class="list_hit">
+								<span class="hit">268</span>
+							</div>
+
+							<div class="list_time">
+								<span class="time popover">
+									06-07
+									<span class="timestamp">2023-06-07 19:28:36</span>
+								</span>
+							</div>
+						</div>
+
+
+
+						<div class="list_item symph_row  " data-role="list-row" data-author-id=xpzmfgog
+							data-board-sn=18113047 data-comment-count=3>
+							<span class="list_stare" style="display: none;" data-role="observeIcon"><i
+									class="fa fa-eye"></i></span>
+
+
+							<div class="list_symph view_symph" data-role="list-like-count"><span>0</span></div>
+
+							<div class="list_title " data-role="list-title" data-toggle-custom="dropdown">
+								<a class="list_subject"
+									href="https://www.clien.net/service/board/symposium/18113047?od=T31&amp;po=0&amp;category=0&amp;groupCd="
+									data-role="cut-string">
+
+									<span class="subject_fixed" data-role="list-title-text"
+										title="경어체 비사용에 대한 기준이 왜 왔다갔다 하는거죠?">
+										경어체 비사용에 대한 기준이 왜 왔다갔다 하는거죠?
+									</span>
+								</a>
+								<a class="list_reply reply_symph"
+									href="https://www.clien.net/service/board/symposium/18113047?od=T31&amp;po=0&amp;category=0&amp;groupCd=#comment-point"
+									data-role="ele-after" title="댓글3개">
+									<span class="rSymph05">3</span>
+									<strong class="color_red" data-role="observeCmCount"></strong>
+									<strong class="color_red" data-role="recentCmCount"></strong>
+								</a>
+							</div>
+							<div class="list_author" data-role="list-author">
+								<span class="memo none" data-role="list_memo"></span>
+
+
+								<span class="nickname"">
+			 
+					<span title=" 중간보스">중간보스</span>
+								</span>
+
+							</div>
+
+							<div class="list_hit">
+								<span class="hit">342</span>
+							</div>
+
+							<div class="list_time">
+								<span class="time popover">
+									06-02
+									<span class="timestamp">2023-06-02 16:09:00</span>
+								</span>
+							</div>
+						</div>
+
+
+
+						<div class="list_item symph_row  " data-role="list-row" data-author-id=nextidea
+							data-board-sn=18107483 data-comment-count=1>
+							<span class="list_stare" style="display: none;" data-role="observeIcon"><i
+									class="fa fa-eye"></i></span>
+
+
+							<div class="list_symph view_symph" data-role="list-like-count"><span>0</span></div>
+
+							<div class="list_title " data-role="list-title" data-toggle-custom="dropdown">
+								<a class="list_subject"
+									href="https://www.clien.net/service/board/symposium/18107483?od=T31&amp;po=0&amp;category=0&amp;groupCd="
+									data-role="cut-string">
+
+									<span class="subject_fixed" data-role="list-title-text" title="해외접속 차단">
+										해외접속 차단
+									</span>
+								</a>
+
+								<span class="icon_pic fa fa-picture-o"></span>
+								<a class="list_reply reply_symph"
+									href="https://www.clien.net/service/board/symposium/18107483?od=T31&amp;po=0&amp;category=0&amp;groupCd=#comment-point"
+									data-role="ele-after" title="댓글1개">
+									<span class="rSymph05">1</span>
+									<strong class="color_red" data-role="observeCmCount"></strong>
+									<strong class="color_red" data-role="recentCmCount"></strong>
+								</a>
+							</div>
+							<div class="list_author" data-role="list-author">
+								<span class="memo none" data-role="list_memo"></span>
+
+
+								<span class="nickname"">
+			 
+					<span title=" T*">T*</span>
+								</span>
+
+							</div>
+
+							<div class="list_hit">
+								<span class="hit">403</span>
+							</div>
+
+							<div class="list_time">
+								<span class="time popover">
+									05-30
+									<span class="timestamp">2023-05-30 23:44:25</span>
+								</span>
+							</div>
+						</div>
+
+
+
+						<div class="list_item symph_row  " data-role="list-row" data-author-id=petergram
+							data-board-sn=18097712 data-comment-count=1>
+							<span class="list_stare" style="display: none;" data-role="observeIcon"><i
+									class="fa fa-eye"></i></span>
+
+
+							<div class="list_symph view_symph" data-role="list-like-count"><span>0</span></div>
+
+							<div class="list_title " data-role="list-title" data-toggle-custom="dropdown">
+								<a class="list_subject"
+									href="https://www.clien.net/service/board/symposium/18097712?od=T31&amp;po=0&amp;category=0&amp;groupCd="
+									data-role="cut-string">
+
+									<span class="subject_fixed" data-role="list-title-text" title="유튜브 링크 오류?">
+										유튜브 링크 오류?
+									</span>
+								</a>
+
+								<span class="icon_pic fa fa-picture-o"></span>
+								<a class="list_reply reply_symph"
+									href="https://www.clien.net/service/board/symposium/18097712?od=T31&amp;po=0&amp;category=0&amp;groupCd=#comment-point"
+									data-role="ele-after" title="댓글1개">
+									<span class="rSymph05">1</span>
+									<strong class="color_red" data-role="observeCmCount"></strong>
+									<strong class="color_red" data-role="recentCmCount"></strong>
+								</a>
+							</div>
+							<div class="list_author" data-role="list-author">
+								<span class="memo none" data-role="list_memo"></span>
+
+
+								<span class="nickname"">
+			 
+					<span title=" 피터상">피터상</span>
+								</span>
+
+							</div>
+
+							<div class="list_hit">
+								<span class="hit">542</span>
+							</div>
+
+							<div class="list_time">
+								<span class="time popover">
+									05-24
+									<span class="timestamp">2023-05-24 22:19:29</span>
+								</span>
+							</div>
+						</div>
+
+
+
+						<div class="list_item symph_row  " data-role="list-row" data-author-id=nuss
+							data-board-sn=18084855 data-comment-count=4>
+							<span class="list_stare" style="display: none;" data-role="observeIcon"><i
+									class="fa fa-eye"></i></span>
+
+
+							<div class="list_symph view_symph" data-role="list-like-count"><span>1</span></div>
+
+							<div class="list_title " data-role="list-title" data-toggle-custom="dropdown">
+								<a class="list_subject"
+									href="https://www.clien.net/service/board/symposium/18084855?od=T31&amp;po=0&amp;category=0&amp;groupCd="
+									data-role="cut-string">
+
+									<span class="subject_fixed" data-role="list-title-text"
+										title="제가 삭제하지 않은 제 글이 회원삭제 되었습니다">
+										제가 삭제하지 않은 제 글이 회원삭제 되었습니다
+									</span>
+								</a>
+
+								<span class="icon_pic fa fa-picture-o"></span>
+								<a class="list_reply reply_symph"
+									href="https://www.clien.net/service/board/symposium/18084855?od=T31&amp;po=0&amp;category=0&amp;groupCd=#comment-point"
+									data-role="ele-after" title="댓글4개">
+									<span class="rSymph05">4</span>
+									<strong class="color_red" data-role="observeCmCount"></strong>
+									<strong class="color_red" data-role="recentCmCount"></strong>
+								</a>
+							</div>
+							<div class="list_author" data-role="list-author">
+								<span class="memo none" data-role="list_memo"></span>
+
+
+								<span class="nickname"">
+			 
+					<span title=" nuss">nuss</span>
+								</span>
+
+							</div>
+
+							<div class="list_hit">
+								<span class="hit">816</span>
+							</div>
+
+							<div class="list_time">
+								<span class="time popover">
+									05-17
+									<span class="timestamp">2023-05-17 12:44:10</span>
+								</span>
+							</div>
+						</div>
+
+
+
+						<div class="list_item symph_row  " data-role="list-row" data-author-id=dawnbreath
+							data-board-sn=18084490 data-comment-count=1>
+							<span class="list_stare" style="display: none;" data-role="observeIcon"><i
+									class="fa fa-eye"></i></span>
+
+
+							<div class="list_symph view_symph" data-role="list-like-count"><span>0</span></div>
+
+							<div class="list_title " data-role="list-title" data-toggle-custom="dropdown">
+								<a class="list_subject"
+									href="https://www.clien.net/service/board/symposium/18084490?od=T31&amp;po=0&amp;category=0&amp;groupCd="
+									data-role="cut-string">
+
+									<span class="subject_fixed" data-role="list-title-text" title="장터기능 업그레이드">
+										장터기능 업그레이드
+									</span>
+								</a>
+								<a class="list_reply reply_symph"
+									href="https://www.clien.net/service/board/symposium/18084490?od=T31&amp;po=0&amp;category=0&amp;groupCd=#comment-point"
+									data-role="ele-after" title="댓글1개">
+									<span class="rSymph05">1</span>
+									<strong class="color_red" data-role="observeCmCount"></strong>
+									<strong class="color_red" data-role="recentCmCount"></strong>
+								</a>
+							</div>
+							<div class="list_author" data-role="list-author">
+								<span class="memo none" data-role="list_memo"></span>
+
+
+								<span class="nickname"">
+			 
+					<span title=" dawnbreath">dawnbreath</span>
+								</span>
+
+							</div>
+
+							<div class="list_hit">
+								<span class="hit">663</span>
+							</div>
+
+							<div class="list_time">
+								<span class="time popover">
+									05-17
+									<span class="timestamp">2023-05-17 10:03:27</span>
+								</span>
+							</div>
+						</div>
+
+
+
+						<div class="list_item symph_row  " data-role="list-row" data-author-id=sunxg
+							data-board-sn=18068759 data-comment-count=2>
+							<span class="list_stare" style="display: none;" data-role="observeIcon"><i
+									class="fa fa-eye"></i></span>
+
+
+							<div class="list_symph view_symph" data-role="list-like-count"><span>0</span></div>
+
+							<div class="list_title " data-role="list-title" data-toggle-custom="dropdown">
+								<a class="list_subject"
+									href="https://www.clien.net/service/board/symposium/18068759?od=T31&amp;po=0&amp;category=0&amp;groupCd="
+									data-role="cut-string">
+
+									<span class="subject_fixed" data-role="list-title-text" title="운영 형평성에 대한 문의">
+										운영 형평성에 대한 문의
+									</span>
+								</a>
+
+								<span class="icon_pic fa fa-picture-o"></span>
+								<a class="list_reply reply_symph"
+									href="https://www.clien.net/service/board/symposium/18068759?od=T31&amp;po=0&amp;category=0&amp;groupCd=#comment-point"
+									data-role="ele-after" title="댓글2개">
+									<span class="rSymph05">2</span>
+									<strong class="color_red" data-role="observeCmCount"></strong>
+									<strong class="color_red" data-role="recentCmCount"></strong>
+								</a>
+							</div>
+							<div class="list_author" data-role="list-author">
+								<span class="memo none" data-role="list_memo"></span>
+
+
+								<span class="nickname"">
+			 
+					<span title=" 한화저글스">한화저글스</span>
+								</span>
+
+							</div>
+
+							<div class="list_hit">
+								<span class="hit">975</span>
+							</div>
+
+							<div class="list_time">
+								<span class="time popover">
+									05-08
+									<span class="timestamp">2023-05-08 14:46:39</span>
+								</span>
+							</div>
+						</div>
+
+
+
+						<div class="list_item symph_row  " data-role="list-row" data-author-id=ptetr
+							data-board-sn=18065500 data-comment-count=1>
+							<span class="list_stare" style="display: none;" data-role="observeIcon"><i
+									class="fa fa-eye"></i></span>
+
+
+							<div class="list_symph view_symph" data-role="list-like-count"><span>1</span></div>
+
+							<div class="list_title " data-role="list-title" data-toggle-custom="dropdown">
+								<a class="list_subject"
+									href="https://www.clien.net/service/board/symposium/18065500?od=T31&amp;po=0&amp;category=0&amp;groupCd="
+									data-role="cut-string">
+
+									<span class="subject_fixed" data-role="list-title-text" title="아이포니앙 배너 바꿔주세요!">
+										아이포니앙 배너 바꿔주세요!
+									</span>
+								</a>
+
+								<span class="icon_pic fa fa-picture-o"></span>
+								<a class="list_reply reply_symph"
+									href="https://www.clien.net/service/board/symposium/18065500?od=T31&amp;po=0&amp;category=0&amp;groupCd=#comment-point"
+									data-role="ele-after" title="댓글1개">
+									<span class="rSymph05">1</span>
+									<strong class="color_red" data-role="observeCmCount"></strong>
+									<strong class="color_red" data-role="recentCmCount"></strong>
+								</a>
+							</div>
+							<div class="list_author" data-role="list-author">
+								<span class="memo none" data-role="list_memo"></span>
+
+
+								<span class="nickname"">
+			 
+				<img src=" https://edgio.clien.net/F94/1090791/0e0623a801134a42a6f.gif" alt="LukeBryan" title="LukeBryan">
+								</span>
+
+							</div>
+
+							<div class="list_hit">
+								<span class="hit">930</span>
+							</div>
+
+							<div class="list_time">
+								<span class="time popover">
+									05-06
+									<span class="timestamp">2023-05-06 11:56:29</span>
+								</span>
+							</div>
+						</div>
+
+
+
+						<div class="list_item symph_row  " data-role="list-row" data-author-id=soljie74
+							data-board-sn=18065295 data-comment-count=1>
+							<span class="list_stare" style="display: none;" data-role="observeIcon"><i
+									class="fa fa-eye"></i></span>
+
+
+							<div class="list_symph view_symph" data-role="list-like-count"><span>0</span></div>
+
+							<div class="list_title " data-role="list-title" data-toggle-custom="dropdown">
+								<a class="list_subject"
+									href="https://www.clien.net/service/board/symposium/18065295?od=T31&amp;po=0&amp;category=0&amp;groupCd="
+									data-role="cut-string">
+
+									<span class="subject_fixed" data-role="list-title-text" title="신고 글에 대한 문의">
+										신고 글에 대한 문의
+									</span>
+								</a>
+								<a class="list_reply reply_symph"
+									href="https://www.clien.net/service/board/symposium/18065295?od=T31&amp;po=0&amp;category=0&amp;groupCd=#comment-point"
+									data-role="ele-after" title="댓글1개">
+									<span class="rSymph05">1</span>
+									<strong class="color_red" data-role="observeCmCount"></strong>
+									<strong class="color_red" data-role="recentCmCount"></strong>
+								</a>
+							</div>
+							<div class="list_author" data-role="list-author">
+								<span class="memo none" data-role="list_memo"></span>
+
+
+								<span class="nickname"">
+			 
+					<span title=" SoCoool">SoCoool</span>
+								</span>
+
+							</div>
+
+							<div class="list_hit">
+								<span class="hit">865</span>
+							</div>
+
+							<div class="list_time">
+								<span class="time popover">
+									05-06
+									<span class="timestamp">2023-05-06 09:23:35</span>
+								</span>
+							</div>
+						</div>
+
+
+
+						<div class="list_item symph_row  " data-role="list-row" data-author-id=oreoos
+							data-board-sn=18060792 data-comment-count=3>
+							<span class="list_stare" style="display: none;" data-role="observeIcon"><i
+									class="fa fa-eye"></i></span>
+
+
+							<div class="list_symph view_symph" data-role="list-like-count"><span>5</span></div>
+
+							<div class="list_title " data-role="list-title" data-toggle-custom="dropdown">
+								<a class="list_subject"
+									href="https://www.clien.net/service/board/symposium/18060792?od=T31&amp;po=0&amp;category=0&amp;groupCd="
+									data-role="cut-string">
+
+									<span class="subject_fixed" data-role="list-title-text"
+										title="사기방지를 위해 만든 기능을 운영진이 사용 못하게 냅두시면 어쩌시나요?">
+										사기방지를 위해 만든 기능을 운영진이 사용 못하게 냅두시면 어쩌시나요?
+									</span>
+								</a>
+								<a class="list_reply reply_symph"
+									href="https://www.clien.net/service/board/symposium/18060792?od=T31&amp;po=0&amp;category=0&amp;groupCd=#comment-point"
+									data-role="ele-after" title="댓글3개">
+									<span class="rSymph05">3</span>
+									<strong class="color_red" data-role="observeCmCount"></strong>
+									<strong class="color_red" data-role="recentCmCount"></strong>
+								</a>
+							</div>
+							<div class="list_author" data-role="list-author">
+								<span class="memo none" data-role="list_memo"></span>
+
+
+								<span class="nickname"">
+			 
+				<img src=" https://edgio.clien.net/F94/13988683/a1e0dff72e89c.gif" alt="OREO OZ" title="OREO OZ">
+								</span>
+
+							</div>
+
+							<div class="list_hit">
+								<span class="hit">1079</span>
+							</div>
+
+							<div class="list_time">
+								<span class="time popover">
+									05-03
+									<span class="timestamp">2023-05-03 17:50:22</span>
+								</span>
+							</div>
+						</div>
+
+
+
+						<div class="list_item symph_row  " data-role="list-row" data-author-id=bbar0109
+							data-board-sn=18058357 data-comment-count=1>
+							<span class="list_stare" style="display: none;" data-role="observeIcon"><i
+									class="fa fa-eye"></i></span>
+
+
+							<div class="list_symph view_symph" data-role="list-like-count"><span>0</span></div>
+
+							<div class="list_title " data-role="list-title" data-toggle-custom="dropdown">
+								<a class="list_subject"
+									href="https://www.clien.net/service/board/symposium/18058357?od=T31&amp;po=0&amp;category=0&amp;groupCd="
+									data-role="cut-string">
+
+									<span class="subject_fixed" data-role="list-title-text" title="ㅂㅅ은 욕설이 아닌가요?">
+										ㅂㅅ은 욕설이 아닌가요?
+									</span>
+								</a>
+								<a class="list_reply reply_symph"
+									href="https://www.clien.net/service/board/symposium/18058357?od=T31&amp;po=0&amp;category=0&amp;groupCd=#comment-point"
+									data-role="ele-after" title="댓글1개">
+									<span class="rSymph05">1</span>
+									<strong class="color_red" data-role="observeCmCount"></strong>
+									<strong class="color_red" data-role="recentCmCount"></strong>
+								</a>
+							</div>
+							<div class="list_author" data-role="list-author">
+								<span class="memo none" data-role="list_memo"></span>
+
+
+								<span class="nickname"">
+			 
+					<span title=" viper_JS">viper_JS</span>
+								</span>
+
+							</div>
+
+							<div class="list_hit">
+								<span class="hit">973</span>
+							</div>
+
+							<div class="list_time">
+								<span class="time popover">
+									05-02
+									<span class="timestamp">2023-05-02 16:09:35</span>
+								</span>
+							</div>
+						</div>
+
+
+
+						<div class="list_item symph_row  " data-role="list-row" data-author-id=oreoos
+							data-board-sn=18045212 data-comment-count=1>
+							<span class="list_stare" style="display: none;" data-role="observeIcon"><i
+									class="fa fa-eye"></i></span>
+
+
+							<div class="list_symph view_symph" data-role="list-like-count"><span>1</span></div>
+
+							<div class="list_title " data-role="list-title" data-toggle-custom="dropdown">
+								<a class="list_subject"
+									href="https://www.clien.net/service/board/symposium/18045212?od=T31&amp;po=0&amp;category=0&amp;groupCd="
+									data-role="cut-string">
+
+									<span class="subject_fixed" data-role="list-title-text" title="해당 문의글 답변 없으신가요?">
+										해당 문의글 답변 없으신가요?
+									</span>
+								</a>
+								<a class="list_reply reply_symph"
+									href="https://www.clien.net/service/board/symposium/18045212?od=T31&amp;po=0&amp;category=0&amp;groupCd=#comment-point"
+									data-role="ele-after" title="댓글1개">
+									<span class="rSymph05">1</span>
+									<strong class="color_red" data-role="observeCmCount"></strong>
+									<strong class="color_red" data-role="recentCmCount"></strong>
+								</a>
+							</div>
+							<div class="list_author" data-role="list-author">
+								<span class="memo none" data-role="list_memo"></span>
+
+
+								<span class="nickname"">
+			 
+				<img src=" https://edgio.clien.net/F94/13988683/a1e0dff72e89c.gif" alt="OREO OZ" title="OREO OZ">
+								</span>
+
+							</div>
+
+							<div class="list_hit">
+								<span class="hit">1041</span>
+							</div>
+
+							<div class="list_time">
+								<span class="time popover">
+									04-25
+									<span class="timestamp">2023-04-25 13:47:57</span>
+								</span>
+							</div>
+						</div>
+
+
+
+						<div class="list_item symph_row  " data-role="list-row" data-author-id=andydufresne
+							data-board-sn=18032045 data-comment-count=1>
+							<span class="list_stare" style="display: none;" data-role="observeIcon"><i
+									class="fa fa-eye"></i></span>
+
+
+							<div class="list_symph view_symph" data-role="list-like-count"><span>3</span></div>
+
+							<div class="list_title " data-role="list-title" data-toggle-custom="dropdown">
+								<a class="list_subject"
+									href="https://www.clien.net/service/board/symposium/18032045?od=T31&amp;po=0&amp;category=0&amp;groupCd="
+									data-role="cut-string">
+
+									<span class="subject_fixed" data-role="list-title-text"
+										title="신고글에 대한 보류 판단 기준이 궁금합니다.">
+										신고글에 대한 보류 판단 기준이 궁금합니다.
+									</span>
+								</a>
+								<a class="list_reply reply_symph"
+									href="https://www.clien.net/service/board/symposium/18032045?od=T31&amp;po=0&amp;category=0&amp;groupCd=#comment-point"
+									data-role="ele-after" title="댓글1개">
+									<span class="rSymph05">1</span>
+									<strong class="color_red" data-role="observeCmCount"></strong>
+									<strong class="color_red" data-role="recentCmCount"></strong>
+								</a>
+							</div>
+							<div class="list_author" data-role="list-author">
+								<span class="memo none" data-role="list_memo"></span>
+
+
+								<span class="nickname"">
+			 
+					<span title=" 앤디듀프레인">앤디듀프레인</span>
+								</span>
+
+							</div>
+
+							<div class="list_hit">
+								<span class="hit">1143</span>
+							</div>
+
+							<div class="list_time">
+								<span class="time popover">
+									04-18
+									<span class="timestamp">2023-04-18 16:57:13</span>
+								</span>
+							</div>
+						</div>
+
+
+
+						<div class="list_item symph_row  " data-role="list-row" data-author-id=vespertines
+							data-board-sn=18031123 data-comment-count=6>
+							<span class="list_stare" style="display: none;" data-role="observeIcon"><i
+									class="fa fa-eye"></i></span>
+
+
+							<div class="list_symph view_symph" data-role="list-like-count"><span>0</span></div>
+
+							<div class="list_title " data-role="list-title" data-toggle-custom="dropdown">
+								<a class="list_subject"
+									href="https://www.clien.net/service/board/symposium/18031123?od=T31&amp;po=0&amp;category=0&amp;groupCd="
+									data-role="cut-string">
+
+									<span class="subject_fixed" data-role="list-title-text" title="글 행간을 늘려주세요.">
+										글 행간을 늘려주세요.
+									</span>
+								</a>
+								<a class="list_reply reply_symph"
+									href="https://www.clien.net/service/board/symposium/18031123?od=T31&amp;po=0&amp;category=0&amp;groupCd=#comment-point"
+									data-role="ele-after" title="댓글6개">
+									<span class="rSymph05">6</span>
+									<strong class="color_red" data-role="observeCmCount"></strong>
+									<strong class="color_red" data-role="recentCmCount"></strong>
+								</a>
+							</div>
+							<div class="list_author" data-role="list-author">
+								<span class="memo none" data-role="list_memo"></span>
+
+
+								<span class="nickname"">
+			 
+					<span title=" Wolowitz">Wolowitz</span>
+								</span>
+
+							</div>
+
+							<div class="list_hit">
+								<span class="hit">1233</span>
+							</div>
+
+							<div class="list_time">
+								<span class="time popover">
+									04-18
+									<span class="timestamp">2023-04-18 10:05:14</span>
+								</span>
+							</div>
+						</div>
+
+
+
+						<div class="list_item symph_row  " data-role="list-row" data-author-id=goopal
+							data-board-sn=18028406 data-comment-count=2>
+							<span class="list_stare" style="display: none;" data-role="observeIcon"><i
+									class="fa fa-eye"></i></span>
+
+
+							<div class="list_symph view_symph" data-role="list-like-count"><span>2</span></div>
+
+							<div class="list_title " data-role="list-title" data-toggle-custom="dropdown">
+								<a class="list_subject"
+									href="https://www.clien.net/service/board/symposium/18028406?od=T31&amp;po=0&amp;category=0&amp;groupCd="
+									data-role="cut-string">
+
+									<span class="subject_fixed" data-role="list-title-text" title="이렇게 게시판을 도배해도 되나요?">
+										이렇게 게시판을 도배해도 되나요?
+									</span>
+								</a>
+
+								<span class="icon_pic fa fa-picture-o"></span>
+								<a class="list_reply reply_symph"
+									href="https://www.clien.net/service/board/symposium/18028406?od=T31&amp;po=0&amp;category=0&amp;groupCd=#comment-point"
+									data-role="ele-after" title="댓글2개">
+									<span class="rSymph05">2</span>
+									<strong class="color_red" data-role="observeCmCount"></strong>
+									<strong class="color_red" data-role="recentCmCount"></strong>
+								</a>
+							</div>
+							<div class="list_author" data-role="list-author">
+								<span class="memo none" data-role="list_memo"></span>
+
+
+								<span class="nickname"">
+			 
+					<span title=" 미드나잇">미드나잇</span>
+								</span>
+
+							</div>
+
+							<div class="list_hit">
+								<span class="hit">1470</span>
+							</div>
+
+							<div class="list_time">
+								<span class="time popover">
+									04-16
+									<span class="timestamp">2023-04-16 20:32:45</span>
+								</span>
+							</div>
+						</div>
+
+
+
+						<div class="list_item symph_row  " data-role="list-row" data-author-id=sangje
+							data-board-sn=18026909 data-comment-count=2>
+							<span class="list_stare" style="display: none;" data-role="observeIcon"><i
+									class="fa fa-eye"></i></span>
+
+
+							<div class="list_symph view_symph" data-role="list-like-count"><span>0</span></div>
+
+							<div class="list_title " data-role="list-title" data-toggle-custom="dropdown">
+								<a class="list_subject"
+									href="https://www.clien.net/service/board/symposium/18026909?od=T31&amp;po=0&amp;category=0&amp;groupCd="
+									data-role="cut-string">
+
+									<span class="subject_fixed" data-role="list-title-text"
+										title="버그?) 키워드 필터링, 강조가 꼬인 듯하네요?">
+										버그?) 키워드 필터링, 강조가 꼬인 듯하네요?
+									</span>
+								</a>
+								<a class="list_reply reply_symph"
+									href="https://www.clien.net/service/board/symposium/18026909?od=T31&amp;po=0&amp;category=0&amp;groupCd=#comment-point"
+									data-role="ele-after" title="댓글2개">
+									<span class="rSymph05">2</span>
+									<strong class="color_red" data-role="observeCmCount"></strong>
+									<strong class="color_red" data-role="recentCmCount"></strong>
+								</a>
+							</div>
+							<div class="list_author" data-role="list-author">
+								<span class="memo none" data-role="list_memo"></span>
+
+
+								<span class="nickname"">
+			 
+					<span title=" 에일리언">에일리언</span>
+								</span>
+
+							</div>
+
+							<div class="list_hit">
+								<span class="hit">1102</span>
+							</div>
+
+							<div class="list_time">
+								<span class="time popover">
+									04-16
+									<span class="timestamp">2023-04-16 08:28:54</span>
+								</span>
+							</div>
+						</div>
+
+
+
+						<div class="list_item symph_row  " data-role="list-row" data-author-id=oreoos
+							data-board-sn=18022683 data-comment-count=2>
+							<span class="list_stare" style="display: none;" data-role="observeIcon"><i
+									class="fa fa-eye"></i></span>
+
+
+							<div class="list_symph view_symph" data-role="list-like-count"><span>3</span></div>
+
+							<div class="list_title " data-role="list-title" data-toggle-custom="dropdown">
+								<a class="list_subject"
+									href="https://www.clien.net/service/board/symposium/18022683?od=T31&amp;po=0&amp;category=0&amp;groupCd="
+									data-role="cut-string">
+
+									<span class="subject_fixed" data-role="list-title-text" title="다중계정 의심 신고합니다">
+										다중계정 의심 신고합니다
+									</span>
+								</a>
+
+								<span class="icon_pic fa fa-picture-o"></span>
+								<a class="list_reply reply_symph"
+									href="https://www.clien.net/service/board/symposium/18022683?od=T31&amp;po=0&amp;category=0&amp;groupCd=#comment-point"
+									data-role="ele-after" title="댓글2개">
+									<span class="rSymph05">2</span>
+									<strong class="color_red" data-role="observeCmCount"></strong>
+									<strong class="color_red" data-role="recentCmCount"></strong>
+								</a>
+							</div>
+							<div class="list_author" data-role="list-author">
+								<span class="memo none" data-role="list_memo"></span>
+
+
+								<span class="nickname"">
+			 
+				<img src=" https://edgio.clien.net/F94/13988683/a1e0dff72e89c.gif" alt="OREO OZ" title="OREO OZ">
+								</span>
+
+							</div>
+
+							<div class="list_hit">
+								<span class="hit">1524</span>
+							</div>
+
+							<div class="list_time">
+								<span class="time popover">
+									04-13
+									<span class="timestamp">2023-04-13 23:44:07</span>
+								</span>
+							</div>
+						</div>
+
+
+
+						<div class="list_item symph_row  " data-role="list-row" data-author-id=dreamer23
+							data-board-sn=18021893 data-comment-count=3>
+							<span class="list_stare" style="display: none;" data-role="observeIcon"><i
+									class="fa fa-eye"></i></span>
+
+
+							<div class="list_symph view_symph" data-role="list-like-count"><span>2</span></div>
+
+							<div class="list_title " data-role="list-title" data-toggle-custom="dropdown">
+								<a class="list_subject"
+									href="https://www.clien.net/service/board/symposium/18021893?od=T31&amp;po=0&amp;category=0&amp;groupCd="
+									data-role="cut-string">
+
+									<span class="subject_fixed" data-role="list-title-text"
+										title="소모임 굴러간당에서 관리자 삭제된 게시물 관련으로 문의드립니다.">
+										소모임 굴러간당에서 관리자 삭제된 게시물 관련으로 문의드립니다.
+									</span>
+								</a>
+								<a class="list_reply reply_symph"
+									href="https://www.clien.net/service/board/symposium/18021893?od=T31&amp;po=0&amp;category=0&amp;groupCd=#comment-point"
+									data-role="ele-after" title="댓글3개">
+									<span class="rSymph05">3</span>
+									<strong class="color_red" data-role="observeCmCount"></strong>
+									<strong class="color_red" data-role="recentCmCount"></strong>
+								</a>
+							</div>
+							<div class="list_author" data-role="list-author">
+								<span class="memo none" data-role="list_memo"></span>
+
+
+								<span class="nickname"">
+			 
+				<img src=" https://edgio.clien.net/F94/1086700/305b6feabc504fbbb84.gif" alt="초코클랸" title="초코클랸">
+								</span>
+
+							</div>
+
+							<div class="list_hit">
+								<span class="hit">1406</span>
+							</div>
+
+							<div class="list_time">
+								<span class="time popover">
+									04-13
+									<span class="timestamp">2023-04-13 15:41:19</span>
+								</span>
+							</div>
+						</div>
+
+
+
+						<div class="list_item symph_row  " data-role="list-row" data-author-id=norm
+							data-board-sn=18020938 data-comment-count=1>
+							<span class="list_stare" style="display: none;" data-role="observeIcon"><i
+									class="fa fa-eye"></i></span>
+
+
+							<div class="list_symph view_symph" data-role="list-like-count"><span>1</span></div>
+
+							<div class="list_title " data-role="list-title" data-toggle-custom="dropdown">
+								<a class="list_subject"
+									href="https://www.clien.net/service/board/symposium/18020938?od=T31&amp;po=0&amp;category=0&amp;groupCd="
+									data-role="cut-string">
+
+									<span class="subject_fixed" data-role="list-title-text" title="욕설 관련 의문">
+										욕설 관련 의문
+									</span>
+								</a>
+								<a class="list_reply reply_symph"
+									href="https://www.clien.net/service/board/symposium/18020938?od=T31&amp;po=0&amp;category=0&amp;groupCd=#comment-point"
+									data-role="ele-after" title="댓글1개">
+									<span class="rSymph05">1</span>
+									<strong class="color_red" data-role="observeCmCount"></strong>
+									<strong class="color_red" data-role="recentCmCount"></strong>
+								</a>
+							</div>
+							<div class="list_author" data-role="list-author">
+								<span class="memo none" data-role="list_memo"></span>
+
+
+								<span class="nickname"">
+			 
+				<img src=" https://edgio.clien.net/F94/14118900/17054210abe158.gif" alt="그로구" title="그로구">
+								</span>
+
+							</div>
+
+							<div class="list_hit">
+								<span class="hit">1223</span>
+							</div>
+
+							<div class="list_time">
+								<span class="time popover">
+									04-13
+									<span class="timestamp">2023-04-13 07:16:41</span>
+								</span>
+							</div>
+						</div>
+
+
+
+						<div class="list_item symph_row  " data-role="list-row" data-author-id=peng1987
+							data-board-sn=18017825 data-comment-count=2>
+							<span class="list_stare" style="display: none;" data-role="observeIcon"><i
+									class="fa fa-eye"></i></span>
+
+
+							<div class="list_symph view_symph" data-role="list-like-count"><span>0</span></div>
+
+							<div class="list_title " data-role="list-title" data-toggle-custom="dropdown">
+								<a class="list_subject"
+									href="https://www.clien.net/service/board/symposium/18017825?od=T31&amp;po=0&amp;category=0&amp;groupCd="
+									data-role="cut-string">
+
+									<span class="subject_fixed" data-role="list-title-text"
+										title="webp, jfif 등 이미지 포맷 지원 계획이 있나요?">
+										webp, jfif 등 이미지 포맷 지원 계획이 있나요?
+									</span>
+								</a>
+								<a class="list_reply reply_symph"
+									href="https://www.clien.net/service/board/symposium/18017825?od=T31&amp;po=0&amp;category=0&amp;groupCd=#comment-point"
+									data-role="ele-after" title="댓글2개">
+									<span class="rSymph05">2</span>
+									<strong class="color_red" data-role="observeCmCount"></strong>
+									<strong class="color_red" data-role="recentCmCount"></strong>
+								</a>
+							</div>
+							<div class="list_author" data-role="list-author">
+								<span class="memo none" data-role="list_memo"></span>
+
+
+								<span class="nickname"">
+			 
+				<img src=" https://edgio.clien.net/F94/9035146/3dd5e5e935b6e3.gif" alt="pirit" title="pirit">
+								</span>
+
+							</div>
+
+							<div class="list_hit">
+								<span class="hit">1475</span>
+							</div>
+
+							<div class="list_time">
+								<span class="time popover">
+									04-11
+									<span class="timestamp">2023-04-11 14:33:20</span>
+								</span>
+							</div>
+						</div>
+
+
+
+						<div class="list_item symph_row  " data-role="list-row" data-author-id=Silica
+							data-board-sn=18017342 data-comment-count=2>
+							<span class="list_stare" style="display: none;" data-role="observeIcon"><i
+									class="fa fa-eye"></i></span>
+
+
+							<div class="list_symph view_symph" data-role="list-like-count"><span>0</span></div>
+
+							<div class="list_title " data-role="list-title" data-toggle-custom="dropdown">
+								<a class="list_subject"
+									href="https://www.clien.net/service/board/symposium/18017342?od=T31&amp;po=0&amp;category=0&amp;groupCd="
+									data-role="cut-string">
+
+									<span class="subject_fixed" data-role="list-title-text" title="지난 나의글 관련">
+										지난 나의글 관련
+									</span>
+								</a>
+								<a class="list_reply reply_symph"
+									href="https://www.clien.net/service/board/symposium/18017342?od=T31&amp;po=0&amp;category=0&amp;groupCd=#comment-point"
+									data-role="ele-after" title="댓글2개">
+									<span class="rSymph05">2</span>
+									<strong class="color_red" data-role="observeCmCount"></strong>
+									<strong class="color_red" data-role="recentCmCount"></strong>
+								</a>
+							</div>
+							<div class="list_author" data-role="list-author">
+								<span class="memo none" data-role="list_memo"></span>
+
+
+								<span class="nickname"">
+			 
+					<span title=" 토란토란">토란토란</span>
+								</span>
+
+							</div>
+
+							<div class="list_hit">
+								<span class="hit">1243</span>
+							</div>
+
+							<div class="list_time">
+								<span class="time popover">
+									04-11
+									<span class="timestamp">2023-04-11 11:14:16</span>
+								</span>
+							</div>
+						</div>
+
+
+
+						<div class="list_item symph_row  " data-role="list-row" data-author-id=shindk731
+							data-board-sn=18011414 data-comment-count=3>
+							<span class="list_stare" style="display: none;" data-role="observeIcon"><i
+									class="fa fa-eye"></i></span>
+
+
+							<div class="list_symph view_symph" data-role="list-like-count"><span>0</span></div>
+
+							<div class="list_title " data-role="list-title" data-toggle-custom="dropdown">
+								<a class="list_subject"
+									href="https://www.clien.net/service/board/symposium/18011414?od=T31&amp;po=0&amp;category=0&amp;groupCd="
+									data-role="cut-string">
+
+									<span class="subject_fixed" data-role="list-title-text"
+										title="저를 포함해 몇몇 이미지 닉네임이 잘 표시가 되지 않습니다">
+										저를 포함해 몇몇 이미지 닉네임이 잘 표시가 되지 않습니다
+									</span>
+								</a>
+								<a class="list_reply reply_symph"
+									href="https://www.clien.net/service/board/symposium/18011414?od=T31&amp;po=0&amp;category=0&amp;groupCd=#comment-point"
+									data-role="ele-after" title="댓글3개">
+									<span class="rSymph05">3</span>
+									<strong class="color_red" data-role="observeCmCount"></strong>
+									<strong class="color_red" data-role="recentCmCount"></strong>
+								</a>
+							</div>
+							<div class="list_author" data-role="list-author">
+								<span class="memo none" data-role="list_memo"></span>
+
+
+								<span class="nickname"">
+			 
+				<img src=" https://edgio.clien.net/F94/1091495/03b7bf1e17664fb58a1.gif" alt="DeeKay" title="DeeKay">
+								</span>
+
+							</div>
+
+							<div class="list_hit">
+								<span class="hit">1267</span>
+							</div>
+
+							<div class="list_time">
+								<span class="time popover">
+									04-07
+									<span class="timestamp">2023-04-07 21:42:57</span>
+								</span>
+							</div>
+						</div>
+
+
+
+						<div class="list_item symph_row  " data-role="list-row" data-author-id=sjryoo
+							data-board-sn=18010027 data-comment-count=1>
+							<span class="list_stare" style="display: none;" data-role="observeIcon"><i
+									class="fa fa-eye"></i></span>
+
+
+							<div class="list_symph view_symph" data-role="list-like-count"><span>0</span></div>
+
+							<div class="list_title " data-role="list-title" data-toggle-custom="dropdown">
+								<a class="list_subject"
+									href="https://www.clien.net/service/board/symposium/18010027?od=T31&amp;po=0&amp;category=0&amp;groupCd="
+									data-role="cut-string">
+
+									<span class="subject_fixed" data-role="list-title-text" title="회원중고장터 관리">
+										회원중고장터 관리
+									</span>
+								</a>
+								<a class="list_reply reply_symph"
+									href="https://www.clien.net/service/board/symposium/18010027?od=T31&amp;po=0&amp;category=0&amp;groupCd=#comment-point"
+									data-role="ele-after" title="댓글1개">
+									<span class="rSymph05">1</span>
+									<strong class="color_red" data-role="observeCmCount"></strong>
+									<strong class="color_red" data-role="recentCmCount"></strong>
+								</a>
+							</div>
+							<div class="list_author" data-role="list-author">
+								<span class="memo none" data-role="list_memo"></span>
+
+
+								<span class="nickname"">
+			 
+					<span title=" 선종">선종</span>
+								</span>
+
+							</div>
+
+							<div class="list_hit">
+								<span class="hit">1278</span>
+							</div>
+
+							<div class="list_time">
+								<span class="time popover">
+									04-07
+									<span class="timestamp">2023-04-07 09:37:37</span>
+								</span>
+							</div>
+						</div>
+
+
+
+						<div class="list_item symph_row  " data-role="list-row" data-author-id=fineash
+							data-board-sn=18009191 data-comment-count=3>
+							<span class="list_stare" style="display: none;" data-role="observeIcon"><i
+									class="fa fa-eye"></i></span>
+
+
+							<div class="list_symph view_symph" data-role="list-like-count"><span>4</span></div>
+
+							<div class="list_title " data-role="list-title" data-toggle-custom="dropdown">
+								<a class="list_subject"
+									href="https://www.clien.net/service/board/symposium/18009191?od=T31&amp;po=0&amp;category=0&amp;groupCd="
+									data-role="cut-string">
+
+									<span class="subject_fixed" data-role="list-title-text" title="징계 회피 목적의 재가입 신고">
+										징계 회피 목적의 재가입 신고
+									</span>
+								</a>
+
+								<span class="icon_pic fa fa-picture-o"></span>
+								<a class="list_reply reply_symph"
+									href="https://www.clien.net/service/board/symposium/18009191?od=T31&amp;po=0&amp;category=0&amp;groupCd=#comment-point"
+									data-role="ele-after" title="댓글3개">
+									<span class="rSymph05">3</span>
+									<strong class="color_red" data-role="observeCmCount"></strong>
+									<strong class="color_red" data-role="recentCmCount"></strong>
+								</a>
+							</div>
+							<div class="list_author" data-role="list-author">
+								<span class="memo none" data-role="list_memo"></span>
+
+
+								<span class="nickname"">
+			 
+				<img src=" https://edgio.clien.net/F94/9729110/70d8ea5a46c3a8.gif" alt="고은재" title="고은재">
+								</span>
+
+							</div>
+
+							<div class="list_hit">
+								<span class="hit">1518</span>
+							</div>
+
+							<div class="list_time">
+								<span class="time popover">
+									04-06
+									<span class="timestamp">2023-04-06 19:11:14</span>
+								</span>
+							</div>
+						</div>
+					</div>
+
+
+
+					<div class="list_button_area">
+						<a href="javascript:;" class="button_next_page" onclick="paging.getBoard('side_plus')"><span
+								class="button_name">다음페이지</span><i class="fa fa-caret-right"></i></a>
+
+
+
+						<div class="board-pagination">
+							<div class="board-nav">
+
+
+
+
+								<div class="board-nav-area">
+									<a href="javascript:paging.getBoard('direct', 0);" id="pagingActiveId_1"
+										class="board-nav-page">1</a>
+									<a href="javascript:paging.getBoard('direct', 1);" id="pagingActiveId_2"
+										class="board-nav-page">2</a>
+									<a href="javascript:paging.getBoard('direct', 2);" id="pagingActiveId_3"
+										class="board-nav-page">3</a>
+									<a href="javascript:paging.getBoard('direct', 3);" id="pagingActiveId_4"
+										class="board-nav-page">4</a>
+									<a href="javascript:paging.getBoard('direct', 4);" id="pagingActiveId_5"
+										class="board-nav-page">5</a>
+									<a href="javascript:paging.getBoard('direct', 5);" id="pagingActiveId_6"
+										class="board-nav-page">6</a>
+									<a href="javascript:paging.getBoard('direct', 6);" id="pagingActiveId_7"
+										class="board-nav-page">7</a>
+									<a href="javascript:paging.getBoard('direct', 7);" id="pagingActiveId_8"
+										class="board-nav-page">8</a>
+									<a href="javascript:paging.getBoard('direct', 8);" id="pagingActiveId_9"
+										class="board-nav-page">9</a>
+									<a href="javascript:paging.getBoard('direct', 9);" id="pagingActiveId_10"
+										class="board-nav-page">10</a>
+								</div>
+
+								<a href="javascript:paging.getBoard('direct', 10);" class="board-nav-next">다음</a>
+
+							</div>
+						</div>
+
+						<input type="hidden" value="1" id="startPagePo">
+
+						<script>
+							var num = 0 + 1;
+							var activeId = 'pagingActiveId_' + num.toString();
+							document.getElementById(activeId).className += " active";
+						</script>
+
+						<div class="button_post">
+
+							<div class="action_write" data-role="dropdown-write-article">
+								<a href="javascript:;" class="action_icon fix blue tooltip">
+									<span class="fa fa-pencil button_icon"></span>
+									<span class="tooltiptext">글쓰기</span>
+								</a>
+
+								<div class="dropdown-menu post_menu" data-role="select-depth"
+									data-action="/service/board/regist">
+									<div class="post_menu_title">운영소통게시판 게시판</div>
+									<ul class="post_menu_list">
+
+
+										<li><a href="javascript:;" onclick="ui.moveWriteGroupPage('hongbo')">직접홍보</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+
+
+				</div>
+			</div>
+
+
+
+		</div>
+		<div class="aside">
+
+
+
+
+
+
+		</div>
+	</div>
+
+	<div class="footer_wrap" id="down">
+		<div class="area_terms">
+			<a class="at_item" href="rule.html">이용규칙</a>
+			<a class="at_item" href="annonce.html">운영알림판</a>
+			<a class="at_item black" href="symposium.html">운영소통</a>
+			<a class="at_item" href="claim.html">재검토요청</a>
+			<a class="at_item" href="faq.html">도움말</a>
+			<a class="at_item noline" href="bug.html">버그신고</a>
+			<div class="button_cs">
+				<a href="javascript:;" class="button_dropmenu" data-toggle="dropdown">고객지원</a>
+				<ul class="dropdown-menu up">
+					<li><a href="https://www.clien.net/service/cs/singo/article">게시물 삭제 요청</a></li>
+					<li><a href="https://www.clien.net/service/cs/singo/message">쪽지 신고</a></li>
+					<li><a href="https://www.clien.net/service/cs/singo/nickname">닉네임 신고</a></li>
+					<li><a href="mailto:admin@clien.net">제보 및 기타 제안</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="area_legal">
+			<a href="https://www.clien.net/service/cs/privacy" target="_blank">개인정보처리방침</a>
+			<a href="https://www.clien.net/service/cs/conditions" target="_blank">이용약관</a>
+			<a href="https://www.clien.net/service/cs/policy" target="_blank">책임의 한계와 법적고지</a>
+			<a href="https://www.clien.net/service/cs/teenager" target="_blank">청소년 보호정책</a>
+		</div>
+		<div class="area_company">© <span id="nowYear"></span>&nbsp;&nbsp;•&nbsp;&nbsp;CLIEN.NET</div>
+
+	</div>
+
+	<script>
+		var today = new Date();
+		document.getElementById("nowYear").innerHTML = today.getFullYear();
+
+		function deleteViewCookie() {
+			var expire = new Date();
+			expire.setDate(expire.getDate() - 1);
+			cookies = "P2M=; domain=.clien.net; path=/; expires=" + expire.toGMTString() + ";";
+			document.cookie = cookies;
+
+			var url = document.location.href;
+			url = url.replace("www", "m");
+			location.href = url;
+		}
+	</script>
+
+	<script src="https://www.clien.net/service/js/lib/jquery-1.11.1.min.js"></script>
+	<script src="https://www.clien.net/service/js/lib/jquery-ui.min.js"></script>
+	<script src="https://www.clien.net/service/js/lib/isMobile.min.js"></script>
+	<script src="https://www.clien.net/service/js/lib/cl.dropmenu.js"></script>
+	<script src="https://www.clien.net/service/js/lib/jquery.extend.js"></script>
+	<script src="https://www.clien.net/service/js/lib/jquery.cookie.js"></script>
+
+	<script>
+		var IS_DEBUG = false;
+		var BASE_URL = "/service";
+		var API_HOST = "/service/api";
+		var CDN_URL = "https://edgio.clien.net";
+		var COOKIE_DOMAIN = "clien.net";
+
+		var IS_LOGIN = false;
+		var sessionUserId = '';
+
+
+		var IsMobile = false;
+
+
+		var PAGE_SETTING_THEME = "";
+		var PAGE_SETTING_FONT_SIZE = "";
+		var PAGE_SETTING_KIND_OF_FONT = "";
+		var PAGE_SETTING_SHORT_CUT = "";
+		var PAGE_SETTING_LIST_SIZE = "";
+
+		PAGE_SETTING_THEME = "white";
+		PAGE_SETTING_FONT_SIZE = "normal";
+		PAGE_SETTING_KIND_OF_FONT = "basic";
+		PAGE_SETTING_SHORT_CUT = "on";
+		PAGE_SETTING_LIST_SIZE = "normal";
+
+		var HONGBO_IMG_PARAMETER = "?scale=width[320],options[limit]";
+		var COMMENT_IMG_PARAMETER = "?scale=width[480],options[limit]";
+		var IMG_PARAMETER = "?scale=width[740],options[limit]";
+
+		var keyData = new Object();
+		keyData[""] = "/service/group/board_all";
+		keyData["c"] = "/service/group/community";
+		keyData["f"] = "/service/board/park";
+		keyData["i"] = "/service/board/image";
+		keyData["q"] = "/service/board/kin";
+		keyData["d"] = "/service/group/allinfo";
+		keyData["n"] = "/service/board/news";
+		keyData["t"] = "/service/board/useful";
+		keyData["p"] = "/service/board/pds";
+		keyData["e"] = "/service/group/allreview";
+		keyData["l"] = "/service/board/lecture";
+		keyData["u"] = "/service/board/use";
+		keyData[""] = "/service/board/chehum";
+		keyData["w"] = "/service/group/allsell";
+		keyData["j"] = "/service/board/jirum";
+		keyData["s"] = "/service/board/sold";
+		keyData["b"] = "/service/board/hongbo";
+		keyData[""] = "/service/group/insure";
+		keyData["h"] = "/service/";
+		keyData[""] = "/service/group/cm_all";
+		keyData[""] = "/service/somoim";
+		keyData[""] = "/service/board/cm_main";
+		keyData[""] = "/service/board/cm_cat";
+		keyData[""] = "/service/board/cm_dog";
+		keyData[""] = "/service/board/cm_fish";
+		keyData[""] = "/service/board/cm_app";
+		keyData[""] = "/service/board/cm_note";
+		keyData[""] = "/service/board/cm_redeem";
+		keyData[""] = "/service/board/cm_stock";
+		keyData[""] = "/service/board/cm_vcoin";
+		keyData[""] = "/service/board/cm_venture";
+		keyData[""] = "/service/board/cm_lang";
+		keyData[""] = "/service/board/cm_wine";
+		keyData[""] = "/service/board/cm_cook";
+		keyData[""] = "/service/board/cm_food";
+		keyData[""] = "/service/board/cm_simsik";
+		keyData[""] = "/service/board/cm_iphonien";
+		keyData[""] = "/service/board/cm_mac";
+		keyData[""] = "/service/board/cm_bike";
+		keyData[""] = "/service/board/cm_nas";
+		keyData[""] = "/service/board/cm_andro";
+		keyData[""] = "/service/board/cm_keyboard";
+		keyData[""] = "/service/board/cm_airplane";
+		keyData[""] = "/service/board/cm_formula1";
+		keyData[""] = "/service/board/cm_pctuning";
+		keyData[""] = "/service/board/cm_iot";
+		keyData[""] = "/service/board/cm_applewatch";
+		keyData[""] = "/service/board/cm_mbike";
+		keyData[""] = "/service/board/cm_watch";
+		keyData[""] = "/service/board/cm_rasp";
+		keyData[""] = "/service/board/cm_slate";
+		keyData[""] = "/service/board/cm_ebook";
+		keyData[""] = "/service/board/cm_blockchain";
+		keyData[""] = "/service/board/cm_thinkpad";
+		keyData[""] = "/service/board/cm_bb";
+		keyData[""] = "/service/board/cm_tpad";
+		keyData[""] = "/service/board/cm_drone";
+		keyData[""] = "/service/board/cm_nokien";
+		keyData[""] = "/service/board/cm_ebicycle";
+		keyData[""] = "/service/board/cm_tiwatch";
+		keyData[""] = "/service/board/cm_webos";
+		keyData[""] = "/service/board/cm_wp";
+		keyData[""] = "/service/board/cm_aigurim";
+		keyData[""] = "/service/board/cm_ai";
+		keyData[""] = "/service/board/cm_console";
+		keyData[""] = "/service/board/cm_werule";
+		keyData[""] = "/service/board/cm_dia";
+		keyData[""] = "/service/board/cm_steam";
+		keyData[""] = "/service/board/cm_poe";
+		keyData[""] = "/service/board/cm_kordle";
+		keyData[""] = "/service/board/cm_lol";
+		keyData[""] = "/service/board/cm_heroes";
+		keyData[""] = "/service/board/cm_gemwar";
+		keyData[""] = "/service/board/cm_board";
+		keyData[""] = "/service/board/";
+		keyData[""] = "/service/board/cm_dongsup";
+		keyData[""] = "/service/board/cm_civilize";
+		keyData[""] = "/service/board/cm_cookierun";
+		keyData[""] = "/service/board/cm_eve";
+		keyData[""] = "/service/board/cm_fm";
+		keyData[""] = "/service/board/cm_gta";
+		keyData[""] = "/service/board/cm_gun";
+		keyData[""] = "/service/board/cm_hearth";
+		keyData[""] = "/service/board/cm_mabi";
+		keyData[""] = "/service/board/cm_mine";
+		keyData[""] = "/service/board/cm_mtg";
+		keyData[""] = "/service/board/cm_rhythm";
+		keyData[""] = "/service/board/cm_sim";
+		keyData[""] = "/service/board/cm_star";
+		keyData[""] = "/service/board/cm_wow";
+		keyData[""] = "/service/board/cm_keyboard";
+		keyData[""] = "/service/board/cm_rowing";
+		keyData[""] = "/service/board/cm_lego";
+		keyData[""] = "/service/board/cm_ku";
+		keyData[""] = "/service/board/cm_dduk";
+		keyData[""] = "/service/board/cm_wine";
+		keyData[""] = "/service/board/cm_onair";
+		keyData[""] = "/service/board/cm_book";
+		keyData[""] = "/service/board/cm_photo";
+		keyData[""] = "/service/board/cm_3dmaking";
+		keyData[""] = "/service/board/cm_ebook";
+		keyData[""] = "/service/board/cm_midra";
+		keyData[""] = "/service/board/cm_surfing";
+		keyData[""] = "/service/board/cm_military";
+		keyData[""] = "/service/board/cm_classic";
+		keyData[""] = "/service/board/cm_drone";
+		keyData[""] = "/service/board/cm_fisher";
+		keyData[""] = "/service/board/cm_movie";
+		keyData[""] = "/service/board/cm_baby";
+		keyData[""] = "/service/board/cm_glasses";
+		keyData[""] = "/service/board/cm_edc";
+		keyData[""] = "/service/board/cm_danger";
+		keyData[""] = "/service/board/cm_adhd";
+		keyData[""] = "/service/board/cm_fashion";
+		keyData[""] = "/service/board/cm_japanlive";
+		keyData[""] = "/service/board/cm_oversea";
+		keyData[""] = "/service/board/cm_daegu";
+		keyData[""] = "/service/board/cm_instar";
+		keyData[""] = "/service/board/cm_solo";
+		keyData[""] = "/service/board/cm_70";
+		keyData[""] = "/service/board/cm_fisher";
+		keyData[""] = "/service/board/cm_twit";
+		keyData[""] = "/service/board/cm_bts";
+		keyData[""] = "/service/board/cm_girl";
+		keyData[""] = "/service/board/cm_music";
+		keyData[""] = "/service/board/cm_classic";
+		keyData[""] = "/service/board/cm_kara";
+		keyData[""] = "/service/board/cm_bts";
+		keyData[""] = "/service/board/cm_girlgroup";
+		keyData[""] = "/service/board/cm_girl";
+		keyData[""] = "/service/board/cm_kara";
+		keyData[""] = "/service/board/cm_bike";
+		keyData[""] = "/service/board/cm_golf";
+		keyData[""] = "/service/board/cm_rowing";
+		keyData[""] = "/service/board/cm_soccer";
+		keyData[""] = "/service/board/cm_baseball";
+		keyData[""] = "/service/board/cm_gym";
+		keyData[""] = "/service/board/cm_swim";
+		keyData[""] = "/service/board/cm_billiards";
+		keyData[""] = "/service/board/cm_surfing";
+		keyData[""] = "/service/board/cm_snow";
+		keyData[""] = "/service/board/cm_badmin";
+		keyData[""] = "/service/board/cm_basket";
+		keyData[""] = "/service/board/cm_mount";
+		keyData[""] = "/service/board/cm_sea";
+		keyData[""] = "/service/board/cm_tennis";
+		keyData[""] = "/service/board/cm_camp";
+		keyData[""] = "/service/board/cm_tour";
+
+
+		$.ajaxSetup({
+			beforeSend: function (xhr, settings) {
+				if (settings.type == 'POST' || settings.type == 'PUT' || settings.type == 'DELETE') {
+					if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+						xhr.setRequestHeader("X-CSRF-TOKEN", "066e4515-17c7-4450-aa61-6e8d1b3da195");
+					}
+				}
+			}
+		});
+
+		setTimeout(function () {
+			var height = $('#div_content').outerHeight();
+			$("#sideBarHeight").css("height", height);
+		}, 2000);
+
+	</script>
+
+	<script src="https://www.clien.net/service/js/common/clien.storage.js?0503v1"></script>
+	<script src="https://www.clien.net/service/js/common/clien.alarm.js?0503v1"></script>
+	<script src="https://www.clien.net/service/js/common/clien.auth.js?0503v1"></script>
+	<script src="https://www.clien.net/service/js/common/clien.paging.js?0503v1"></script>
+	<script src="https://www.clien.net/service/js/common/clien.util.js?0503v1"></script>
+	<script src="https://www.clien.net/service/js/common/clien.popup.js?0503v1"></script>
+	<script src="https://www.clien.net/service/js/common/clien.setting.js?0503v1"></script>
+	<script src="https://www.clien.net/service/js/common/clien.search.js?0503v1"></script>
+
+	<script src="https://www.clien.net/service/js/app/clien.agent.js?0503v1"></script>
+	<script src="https://www.clien.net/service/js/app/clien.ui.js?0503v1"></script>
+
+	<script>
+		function detectBlockers() {
+			var ad = document.createElement('div');
+			ad.innerHTML = '&nbsp;';
+			ad.className = 'adsbox';
+			ad.style.position = 'absolute';
+			ad.style.fontSize = '0';
+			ad.style.height = '10px';
+			ad.style.width = '10px';
+			ad.style.zIndex = '-1000';
+			ad.style.top = '-1000px';
+			document.body.appendChild(ad);
+
+			setTimeout(function () {
+				if (ad.offsetHeight === 0) {
+					trackBlockerUsage();
+					console.log("adBolckUse");
+				}
+				document.body.removeChild(ad);
+			}, 100);
+		}
+
+		function trackBlockerUsage() {
+			if (typeof gtag !== 'undefined') {
+				gtag('event', 'adblocker_detected', {
+					'event_category': 'adblocker',
+					'event_label': 'Ad Blocker Usage'
+				});
+			}
+		}
+
+		window.onload = detectBlockers;
+	</script>
+
+
+	<input type="hidden" value="L11" id="confListType">
+	<input type="hidden" value="false" id="hongboUseYn"> <input type="hidden" value="0" id="po">
+	<input type="hidden" value="T31" id="od">
+	<input type="hidden" value="" id="sk">
+	<input type="hidden" value="" id="sv">
+	<input type="hidden" value="0" id="voCategory">
+
+	<input type="hidden" value="false" id="isGroup">
+	<input type="hidden" value="" id="groupCd">
+	<input type="hidden" value="symposium" id="boardCd">
+	<input type="hidden" value="운영소통게시판" id="boardName">
+	<input type="hidden" value="false" id="searchIsVaild">
+	<input type="hidden" value="0" id="pt">
+
+	<script src="https://www.clien.net/service/js/lib/mark.min.js"></script>
+	<script src="https://www.clien.net/service/js/lib/chart.min.js"></script>
+
+	<script src="https://www.clien.net/service/js/app/clien.hongbo.js?0503v1"></script>
+	<script src="https://www.clien.net/service/js/common/clien.dashboard.js?0503v1"></script>
+
+
+	<script src="https://www.clien.net/service/js/app/pageJs/list.js?0503v1"></script>
+	<script src="https://www.clien.net/service/js/common/clien.observe.js?0503v1"></script>
+</body>
+
+</html>

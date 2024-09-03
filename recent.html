@@ -1,0 +1,822 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+
+<head>
+	<title>내가 본 글</title>
+	<meta name="robots" content="noindex">
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="referrer" content="unsafe-url">
+	<meta name="viewport" content="width=1280" />
+	<meta name="author" content="크롤링테스트" />
+	<meta name="apple-mobile-web-app-title" content="크롤링테스트">
+
+	<link rel="canonical" href="recent.html">
+
+	<link rel="stylesheet" href="css/font-awesome.min%EF%B9%960510v1.css">
+	<link rel="stylesheet" href="css/fontello%EF%B9%960510v1.css">
+
+	<link rel="stylesheet" href="css/clien%EF%B9%960515v1.css">
+	<link rel="stylesheet" href="css/clien.scheme%EF%B9%960515v1.css">
+
+	<link rel="stylesheet" href="css/font-Noto%EF%B9%960510v1.css">
+
+
+
+	<link rel="stylesheet" href="css/jquery-ui.css">
+
+	<link rel="shortcut icon" href="image/favicon.ico">
+
+	<link rel=apple-touch-icon href="image/icon180x180.png" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<script>
+		googletag.cmd.push(function () {
+			googletag.defineSlot('/44950606/cs4-pc-list-top', [728, 90], 'div-pc-list-top').addService(googletag.pubads());
+			googletag.defineSlot('/44950606/cs4-pc-list-below', [728, 90], 'div-pc-list-below').addService(googletag.pubads());
+			googletag.defineSlot('/44950606/cs4-pc-side', [160, 600], 'div-pc-side').addService(googletag.pubads());
+			googletag.pubads().setTargeting('board', ["etc"]);
+			googletag.enableServices();
+		});
+	</script>
+</head>
+
+<body class="recent">
+
+
+	<div class="back-to-top" id="top"></div>
+	<nav class="header_wrap">
+		<div class="nav_header" data-role="account-open">
+			<h1 class="header_logo" style="color:white">TESTWEB</h1>
+			<a href="#div_content" class="skip_to">본문 바로가기</a>
+			<a href="#menuTop" class="skip_to">메뉴 바로가기</a>
+			<a href="javascript:;" class="skip_to text-large">폰트크기변경</a>
+			<a href="javascript:;" class="skip_to button-dark">색상반전보기</a>
+			<div class="header_menu">
+				<a href="" class="all_view" title="톺아보기 바로가기">톺아보기</a>
+				<a href="" class="all_symph" title="톺아보기의 공감글">공감글</a>
+				<a href="recommend.html" class="all_recommend" title="추천글 바로가기">추천글</a>
+			</div>
+
+			<div class="search ad_banner" data-role="total-search">
+				<input type="search" name="search" class="search_input" data-role="total-input-keyword" title="통합검색"
+					placeholder="검색어를 입력하세요." />
+				<button type="button" class="search_button" data-role="total-submit" title="검색하기"><span
+						class="fa fa-search"></span></button>
+			</div>
+
+		</div>
+	</nav>
+
+	<Script>
+
+		var setEventDay = [{ month: 3, day: 1, class: 'kr', url: '/service/image/kflag.png', size: 26 }
+			, { month: 4, day: 16, class: 'ribbon', url: '/service/image/ribbon.png', size: 21 }
+			, { month: 6, day: 6, class: 'kr', url: '/service/image/kflag.png', size: 26 }
+			, { month: 8, day: 15, class: 'kr', url: '/service/image/kflag.png', size: 26 }, { month: 10, day: 3, class: 'kr', url: '/service/image/kflag.png', size: 26 }
+			, { month: 10, day: 9, class: 'han', url: '/service/image/han_clien_m.png', size: 108 }
+			, { month: 10, day: 29, class: 'ribbon', url: '/service/image/ribbon_b.png', size: 21 }];
+
+		var eventNowDay = new Date();
+		var eventNowMonth = eventNowDay.getMonth() + 1;
+		var eventNowDay = eventNowDay.getDate();
+		var eventIsVaild = false;
+		var eventLogoHtml = '';
+
+		setEventDay.forEach(function (value) {
+
+			if (eventNowMonth == value.month && eventNowDay == value.day) {
+				if (value.class == 'han') {
+					eventLogoHtml = '<a href="/service" class="image_logo han" title="크롤링테스트홈 바로가기"><img src="' + value.url + '" width="' + value.size + 'px"></a>';
+				} else {
+					eventLogoHtml = '<span class="image_logo ' + value.class + '"><img src="' + value.url + '" width="' + value.size + 'px"></span>';
+				}
+				eventIsVaild = true;
+			};
+		});
+
+
+		if (eventIsVaild) {
+			console.log(eventLogoHtml);
+			document.getElementById("eventImgLogo").innerHTML = eventLogoHtml;
+		};
+
+	</script>
+	<div class="nav_container">
+		<div class="snb" id="menuTop">
+			<div class="side_nav" id="menu-scroll">
+
+				<div class="navmenu">
+
+
+					<a class="menu-group all" href="">
+
+						<span class="fa fa-angle-right"></span>
+						<span class="menu_over">커뮤니티</span>
+
+
+						<a class="menu-group" href="">
+
+							<span class="icon-board">C</span>
+							<span class="menu_over">모두의광장</span>
+
+
+							<a class="menu-list" href="board/park.html">
+
+								<span class="icon-board">F</span>
+								<span class="menu_over">모두의공원</span>
+
+
+								<a class="menu-list" href="board/image.html">
+
+									<span class="icon-board">I</span>
+									<span class="menu_over">사진게시판</span>
+
+
+									<a class="menu-list" href="board/kin.html">
+
+										<span class="icon-board">Q</span>
+										<span class="menu_over">아무거나질문</span>
+
+
+										<a class="menu-group" href="">
+
+											<span class="icon-board">D</span>
+											<span class="menu_over">정보와자료</span>
+
+
+											<a class="menu-list" href="board/news.html">
+
+												<span class="icon-board">N</span>
+												<span class="menu_over">새로운소식</span>
+
+
+												<a class="menu-list" href="board/useful.html">
+
+													<span class="icon-board">T</span>
+													<span class="menu_over">유용한사이트</span>
+
+
+													<a class="menu-list" href="board/pds.html">
+
+														<span class="icon-board">P</span>
+														<span class="menu_over">자료실</span>
+
+
+														<a class="menu-group" href="">
+
+															<span class="icon-board">E</span>
+															<span class="menu_over">강좌/사용기</span>
+
+
+															<a class="menu-list" href="board/lecture.html">
+
+																<span class="icon-board">L</span>
+																<span class="menu_over">팁과강좌</span>
+
+
+																<a class="menu-list" href="board/use.html">
+
+																	<span class="icon-board">U</span>
+																	<span class="menu_over">사용기</span>
+
+
+																	<a class="menu-list" href="board/chehum.html">
+
+																		<span class="icon-board">·</span>
+																		<span class="menu_over">체험단사용기</span>
+
+
+																		<a class="menu-group" href="">
+
+																			<span class="icon-board">W</span>
+																			<span class="menu_over">사고팔고</span>
+
+
+																			<a class="menu-list"
+																				href="board/jirum.html">
+
+																				<span class="icon-board">J</span>
+																				<span class="menu_over">알뜰구매</span>
+
+
+																				<a class="menu-list"
+																					href="board/sold.html">
+
+																					<span class="icon-board">S</span>
+																					<span
+																						class="menu_over">회원중고장터</span>
+
+
+																					<a class="menu-list"
+																						href="board/hongbo.html">
+
+																						<span
+																							class="icon-board">B</span>
+																						<span
+																							class="menu_over">직접홍보</span>
+
+
+																						<a class="menu-insurance"
+																							href="">
+
+																							<span
+																								class="icon-board">·</span>
+																							<span
+																								class="menu_over">보험상담실</span>
+
+
+																							<a class="menu-promo invisible"
+																								href="index.html">
+
+																								<span
+																									class="icon-board">H</span>
+																								<span
+																									class="menu_over">크롤링테스트홈</span>
+				</div>
+				<button type="button" class="button_more_nav" id="nav-more"><span class="fa fa-angle-down"></span><span
+						class="fa fa-angle-up"></span></button>
+				<div class="menu_somoim">
+
+
+
+
+
+					<a class="menu-list somoim" href="board/cm_sim.html"><span class="icon-board">·</span><span
+							class="menu_over">SimSim하당</span></a>
+					<a class="menu-list somoim" href="board/cm_simsik.html"><span class="icon-board">·</span><span
+							class="menu_over">심야식당</span></a>
+					<a class="menu-list somoim" href="board/cm_slate.html"><span class="icon-board">·</span><span
+							class="menu_over">윈태블릿당</span></a>
+					<a class="menu-list somoim" href="board/cm_snow.html"><span class="icon-board">·</span><span
+							class="menu_over">미끄러진당</span></a>
+					<a class="menu-list somoim" href="board/cm_solo.html"><span class="icon-board">·</span><span
+							class="menu_over">나혼자산당</span></a>
+					<a class="menu-list somoim" href="board/cm_steam.html"><span class="icon-board">·</span><span
+							class="menu_over">스팀한당</span></a>
+					<a class="menu-list somoim" href="board/cm_surfing.html"><span class="icon-board">·</span><span
+							class="menu_over">파도탄당</span></a>
+					<a class="menu-list somoim" href="board/cm_test.html"><span class="icon-board">·</span><span
+							class="menu_over">테스트당</span></a>
+					<a class="menu-list somoim" href="board/cm_thinkpad.html"><span class="icon-board">·</span><span
+							class="menu_over">빨콩이당</span></a>
+					<a class="menu-list somoim" href="board/cm_tiwatch.html"><span class="icon-board">·</span><span
+							class="menu_over">공대시계당</span></a>
+					<a class="menu-list somoim" href="board/cm_tpad.html"><span class="icon-board">·</span><span
+							class="menu_over">터치패드당</span></a>
+					<a class="menu-list somoim" href="board/cm_twit.html"><span class="icon-board">·</span><span
+							class="menu_over">트윗당</span></a>
+					<a class="menu-list somoim" href="board/cm_webos.html"><span class="icon-board">·</span><span
+							class="menu_over">WebOs당</span></a>
+					<a class="menu-list somoim" href="board/cm_wow.html"><span class="icon-board">·</span><span
+							class="menu_over">WOW당</span></a>
+					<a class="menu-list somoim" href="board/cm_wp.html"><span class="icon-board">·</span><span
+							class="menu_over">윈폰이당</span></a>
+				</div>
+
+			</div>
+
+		</div>
+		<div class="nav_body">
+			<div class="nav_content">
+
+				<div class="content_list" id="div_content">
+					<div class="board_head">
+						<div class="board_name">
+							<h2><a href="recent.html">내가본글</a></h2>
+						</div>
+						<div class="board_intro">
+							<span>회원님이 최근 읽은 게시글 모음 입니다.</span>
+						</div>
+						<div class="board_user">
+							<div class="button_option">
+								<strong>사용</strong>
+								<div class="form">
+									<button id="my_view_use_button" type="button" onclick="app.useMyView();"
+										class="button-history"></button>
+								</div>
+							</div>
+							<button type="button" onclick="app.deleteMyViewHistory();" class="button_deleted"><i
+									class="fa fa-times"></i> 내가본글 삭제</button>
+						</div>
+					</div>
+
+					<div class="board_nav">
+						<div class="board_filter">
+							<select class="select" name="od">
+								<option value="" selected>최근읽은순</option>
+							</select>
+						</div>
+						<div class="board_option">
+							<a href="javascript:;" class="list-small tooltip">
+								<span class="fa fa-list"></span><span class="tooltiptext">목록좁게</span>
+							</a>
+							<a href="javascript:;" class="text-large tooltip">
+								<span class="fa fa-text-height"></span><span class="tooltiptext">글자크기</span>
+							</a>
+							<a href="javascript:;" class="button-dark tooltip">
+								<span class="fa fa-adjust"></span>
+								<span class="tooltiptext">색상반전</span>
+							</a>
+
+							<div class="board_filter font_style">
+								<select class="select" id="fontSetting">
+									<option value="basic">본고딕</option>
+									<option value="fontNanum">나눔고딕</option>
+									<option value="fontMg">맑은고딕</option>
+									<option value="fontGulim">굴림</option>
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div class="list_item notice">
+						<div class="list_symph">
+							<span class="infomation">안내</span>
+						</div>
+						<div class="list_title">
+							<a class="list_subject" href="https://www.clien.net/service/board/faq/14035070">내가 본 글 기능
+								안내</a>
+						</div>
+						<div class="list_author">
+
+							<img src="https://edgio.clien.net/F94/10160260/8d1e3e7e4c521a.gif" alt="운영.A" />
+						</div>
+
+						<div class="list_hit">
+							<span class="hit">11.2 k</span>
+						</div>
+
+						<div class="list_time">
+							<span class="time popover">09-18<span class="timestamp">2019-09-18 16:38:37</span></span>
+						</div>
+					</div>
+
+
+
+
+					<div class="list_empty bin none" id="unUsedExplain">
+						<ul>
+							<li>게시글을 읽은 시점 이후 추가된 댓글수와 알뜰구매게시판의 품절로 변경된 상태를 목록에서 확인할 수 있습니다.</li>
+							<li>최대 240개까시 저장되며, 마지막 열람한 시점부터 7일이 지나면 자동 삭제됩니다.</li>
+							<li>내가본 글 기능의 사용을 원하지 않는 경우 상단의 사용여부를 해제하여주시기 바랍니다.</li>
+							<li>내가본 글의 기록은 사용자의 브라우저에 저장됩니다.</li>
+							<li>사용해제 시 모든 기록이 삭제되며 이후 읽은 게시물을 저장하지 않습니다.</li>
+							<li>보험상담실, 직접홍보, 이용규칙, 도움말 등 저장되지 않는 게시판이 존재합니다.</li>
+						</ul>
+					</div>
+
+					<div class="list_content" id="recentList"></div>
+
+
+
+					<div class="list_button_area" id="pagingArea"></div>
+				</div>
+			</div>
+
+			<div class="nav_action">
+				<div class="action_box">
+
+
+
+
+
+					<a href="#down" class="action_icon none" title="맨아래로 이동">
+						<i class="fa fa-caret-down"></i>
+					</a>
+
+					<div class="backtop" id="back-top">
+						<a href="#top" class="action_icon none" title="맨위로 이동">
+							<i class="fa fa-caret-up"></i>
+						</a>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div class="aside">
+
+			<div class="account_section">
+				<form id="loginForm">
+					<div class="account_swiper" id="otp">
+						<div class="side_account">
+							<div>
+								<input type="hidden" name="_csrf" value="066e4515-17c7-4450-aa61-6e8d1b3da195" />
+								<input type="text" autocapitalize="off" placeholder="아이디" name="userId" value=""
+									class="input_id" spellcheck="false">
+								<input type="password" placeholder="비밀번호" name="userPassword" value="" class="input_pw"
+									spellcheck="false">
+								<input type="hidden" id="deviceId" name="deviceId" value="" />
+								<div class="account_submit">
+									<label class="check_auto"><input type="checkbox" name="remember-me"><span
+											class="checkbox"></span>자동로그인</label>
+									<button type="button" onclick="auth.login()" name="로그인하기"
+										class="button_submit">로그인</button>
+								</div>
+								<div class="account_signup">
+									<a href="https://www.clien.net/service/auth/findAccountCert"
+										class="button_find">아이디·비번 찾기</a>
+									<em></em>
+									<a href="https://www.clien.net/service/auth/join" class="button_signup">회원가입</a>
+								</div>
+							</div>
+						</div>
+
+						<div class="side_account">
+							<div class="account_subject">OTP 앱 인증코드</div>
+							<input type="text" placeholder="코드입력" id="totpcode" name="totpcode" value=""
+								class="input_code">
+							<div class="account_submit">
+								<label class="check_auto"><input type="checkbox" name="devicePass"><span
+										class="checkbox"></span>신뢰하는 기기</label>
+								<button type="button" onclick="auth.otpLoginConfirm();" name="인증하기"
+									class="button_submit" style="width: 100%">인증하기</button>
+							</div>
+							<div class="account_signup">
+								<a href="https://www.clien.net/service/board/faq/17526373#lost" class="button_find"
+									style="width: 100%;"><span class="fa fa-question-circle"></span> 인증코드를 받지 못하는 경우</a>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+
+
+
+
+		</div>
+	</div>
+
+	<div class="footer_wrap" id="down">
+		<div class="area_terms">
+			<a class="at_item" href="https://www.clien.net/service/board/rule">이용규칙</a>
+			<a class="at_item" href="https://www.clien.net/service/board/annonce">운영알림판</a>
+			<a class="at_item black" href="https://www.clien.net/service/board/symposium">운영소통</a>
+			<a class="at_item" href="https://www.clien.net/service/board/claim">재검토요청</a>
+			<a class="at_item" href="https://www.clien.net/service/board/faq">도움말</a>
+			<a class="at_item noline" href="https://www.clien.net/service/board/bug">버그신고</a>
+			<div class="button_cs">
+				<a href="javascript:;" class="button_dropmenu" data-toggle="dropdown">고객지원</a>
+				<ul class="dropdown-menu up">
+					<li><a href="https://www.clien.net/service/cs/singo/article">게시물 삭제 요청</a></li>
+					<li><a href="https://www.clien.net/service/cs/singo/message">쪽지 신고</a></li>
+					<li><a href="https://www.clien.net/service/cs/singo/nickname">닉네임 신고</a></li>
+					<li><a href="mailto:admin@clien.net">제보 및 기타 제안</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="area_legal">
+			<a href="https://www.clien.net/service/cs/privacy" target="_blank">개인정보처리방침</a>
+			<a href="https://www.clien.net/service/cs/conditions" target="_blank">이용약관</a>
+			<a href="https://www.clien.net/service/cs/policy" target="_blank">책임의 한계와 법적고지</a>
+			<a href="https://www.clien.net/service/cs/teenager" target="_blank">청소년 보호정책</a>
+		</div>
+		<div class="area_company">© <span id="nowYear"></span>&nbsp;&nbsp;•&nbsp;&nbsp;CLIEN.NET</div>
+
+	</div>
+
+	<script>
+		var today = new Date();
+		document.getElementById("nowYear").innerHTML = today.getFullYear();
+
+		function deleteViewCookie() {
+			var expire = new Date();
+			expire.setDate(expire.getDate() - 1);
+			cookies = "P2M=; domain=.clien.net; path=/; expires=" + expire.toGMTString() + ";";
+			document.cookie = cookies;
+
+			var url = document.location.href;
+			url = url.replace("www", "m");
+			location.href = url;
+		}
+	</script>
+
+	<script src="https://www.clien.net/service/js/lib/jquery-1.11.1.min.js"></script>
+	<script src="https://www.clien.net/service/js/lib/jquery-ui.min.js"></script>
+	<script src="https://www.clien.net/service/js/lib/isMobile.min.js"></script>
+	<script src="https://www.clien.net/service/js/lib/cl.dropmenu.js"></script>
+	<script src="https://www.clien.net/service/js/lib/jquery.extend.js"></script>
+	<script src="https://www.clien.net/service/js/lib/jquery.cookie.js"></script>
+
+	<script>
+		var IS_DEBUG = false;
+		var BASE_URL = "/service";
+		var API_HOST = "/service/api";
+		var CDN_URL = "https://edgio.clien.net";
+		var COOKIE_DOMAIN = "clien.net";
+
+		var IS_LOGIN = false;
+		var sessionUserId = '';
+
+
+		var IsMobile = false;
+
+
+		var PAGE_SETTING_THEME = "";
+		var PAGE_SETTING_FONT_SIZE = "";
+		var PAGE_SETTING_KIND_OF_FONT = "";
+		var PAGE_SETTING_SHORT_CUT = "";
+		var PAGE_SETTING_LIST_SIZE = "";
+
+		PAGE_SETTING_THEME = "white";
+		PAGE_SETTING_FONT_SIZE = "normal";
+		PAGE_SETTING_KIND_OF_FONT = "basic";
+		PAGE_SETTING_SHORT_CUT = "on";
+		PAGE_SETTING_LIST_SIZE = "normal";
+
+		var HONGBO_IMG_PARAMETER = "?scale=width[320],options[limit]";
+		var COMMENT_IMG_PARAMETER = "?scale=width[480],options[limit]";
+		var IMG_PARAMETER = "?scale=width[740],options[limit]";
+
+		var keyData = new Object();
+		keyData[""] = "/service/group/board_all";
+		keyData["c"] = "/service/group/community";
+		keyData["f"] = "/service/board/park";
+		keyData["i"] = "/service/board/image";
+		keyData["q"] = "/service/board/kin";
+		keyData["d"] = "/service/group/allinfo";
+		keyData["n"] = "/service/board/news";
+		keyData["t"] = "/service/board/useful";
+		keyData["p"] = "/service/board/pds";
+		keyData["e"] = "/service/group/allreview";
+		keyData["l"] = "/service/board/lecture";
+		keyData["u"] = "/service/board/use";
+		keyData[""] = "/service/board/chehum";
+		keyData["w"] = "/service/group/allsell";
+		keyData["j"] = "/service/board/jirum";
+		keyData["s"] = "/service/board/sold";
+		keyData["b"] = "/service/board/hongbo";
+		keyData[""] = "/service/group/insure";
+		keyData["h"] = "/service/";
+		keyData[""] = "/service/group/cm_all";
+		keyData[""] = "/service/somoim";
+		keyData[""] = "/service/board/cm_main";
+		keyData[""] = "/service/board/cm_cat";
+		keyData[""] = "/service/board/cm_dog";
+		keyData[""] = "/service/board/cm_fish";
+		keyData[""] = "/service/board/cm_app";
+		keyData[""] = "/service/board/cm_note";
+		keyData[""] = "/service/board/cm_redeem";
+		keyData[""] = "/service/board/cm_stock";
+		keyData[""] = "/service/board/cm_vcoin";
+		keyData[""] = "/service/board/cm_venture";
+		keyData[""] = "/service/board/cm_lang";
+		keyData[""] = "/service/board/cm_wine";
+		keyData[""] = "/service/board/cm_cook";
+		keyData[""] = "/service/board/cm_food";
+		keyData[""] = "/service/board/cm_simsik";
+		keyData[""] = "/service/board/cm_iphonien";
+		keyData[""] = "/service/board/cm_mac";
+		keyData[""] = "/service/board/cm_bike";
+		keyData[""] = "/service/board/cm_nas";
+		keyData[""] = "/service/board/cm_andro";
+		keyData[""] = "/service/board/cm_keyboard";
+		keyData[""] = "/service/board/cm_airplane";
+		keyData[""] = "/service/board/cm_formula1";
+		keyData[""] = "/service/board/cm_pctuning";
+		keyData[""] = "/service/board/cm_iot";
+		keyData[""] = "/service/board/cm_applewatch";
+		keyData[""] = "/service/board/cm_mbike";
+		keyData[""] = "/service/board/cm_watch";
+		keyData[""] = "/service/board/cm_rasp";
+		keyData[""] = "/service/board/cm_slate";
+		keyData[""] = "/service/board/cm_ebook";
+		keyData[""] = "/service/board/cm_blockchain";
+		keyData[""] = "/service/board/cm_thinkpad";
+		keyData[""] = "/service/board/cm_bb";
+		keyData[""] = "/service/board/cm_tpad";
+		keyData[""] = "/service/board/cm_drone";
+		keyData[""] = "/service/board/cm_nokien";
+		keyData[""] = "/service/board/cm_ebicycle";
+		keyData[""] = "/service/board/cm_tiwatch";
+		keyData[""] = "/service/board/cm_webos";
+		keyData[""] = "/service/board/cm_wp";
+		keyData[""] = "/service/board/cm_aigurim";
+		keyData[""] = "/service/board/cm_ai";
+		keyData[""] = "/service/board/cm_console";
+		keyData[""] = "/service/board/cm_werule";
+		keyData[""] = "/service/board/cm_dia";
+		keyData[""] = "/service/board/cm_steam";
+		keyData[""] = "/service/board/cm_poe";
+		keyData[""] = "/service/board/cm_kordle";
+		keyData[""] = "/service/board/cm_lol";
+		keyData[""] = "/service/board/cm_heroes";
+		keyData[""] = "/service/board/cm_gemwar";
+		keyData[""] = "/service/board/cm_board";
+		keyData[""] = "/service/board/";
+		keyData[""] = "/service/board/cm_dongsup";
+		keyData[""] = "/service/board/cm_civilize";
+		keyData[""] = "/service/board/cm_cookierun";
+		keyData[""] = "/service/board/cm_eve";
+		keyData[""] = "/service/board/cm_fm";
+		keyData[""] = "/service/board/cm_gta";
+		keyData[""] = "/service/board/cm_gun";
+		keyData[""] = "/service/board/cm_hearth";
+		keyData[""] = "/service/board/cm_mabi";
+		keyData[""] = "/service/board/cm_mine";
+		keyData[""] = "/service/board/cm_mtg";
+		keyData[""] = "/service/board/cm_rhythm";
+		keyData[""] = "/service/board/cm_sim";
+		keyData[""] = "/service/board/cm_star";
+		keyData[""] = "/service/board/cm_wow";
+		keyData[""] = "/service/board/cm_keyboard";
+		keyData[""] = "/service/board/cm_rowing";
+		keyData[""] = "/service/board/cm_lego";
+		keyData[""] = "/service/board/cm_ku";
+		keyData[""] = "/service/board/cm_dduk";
+		keyData[""] = "/service/board/cm_wine";
+		keyData[""] = "/service/board/cm_onair";
+		keyData[""] = "/service/board/cm_book";
+		keyData[""] = "/service/board/cm_photo";
+		keyData[""] = "/service/board/cm_3dmaking";
+		keyData[""] = "/service/board/cm_ebook";
+		keyData[""] = "/service/board/cm_midra";
+		keyData[""] = "/service/board/cm_surfing";
+		keyData[""] = "/service/board/cm_military";
+		keyData[""] = "/service/board/cm_classic";
+		keyData[""] = "/service/board/cm_drone";
+		keyData[""] = "/service/board/cm_fisher";
+		keyData[""] = "/service/board/cm_movie";
+		keyData[""] = "/service/board/cm_baby";
+		keyData[""] = "/service/board/cm_glasses";
+		keyData[""] = "/service/board/cm_edc";
+		keyData[""] = "/service/board/cm_danger";
+		keyData[""] = "/service/board/cm_adhd";
+		keyData[""] = "/service/board/cm_fashion";
+		keyData[""] = "/service/board/cm_japanlive";
+		keyData[""] = "/service/board/cm_oversea";
+		keyData[""] = "/service/board/cm_daegu";
+		keyData[""] = "/service/board/cm_instar";
+		keyData[""] = "/service/board/cm_solo";
+		keyData[""] = "/service/board/cm_70";
+		keyData[""] = "/service/board/cm_fisher";
+		keyData[""] = "/service/board/cm_twit";
+		keyData[""] = "/service/board/cm_bts";
+		keyData[""] = "/service/board/cm_girl";
+		keyData[""] = "/service/board/cm_music";
+		keyData[""] = "/service/board/cm_classic";
+		keyData[""] = "/service/board/cm_kara";
+		keyData[""] = "/service/board/cm_bts";
+		keyData[""] = "/service/board/cm_girlgroup";
+		keyData[""] = "/service/board/cm_girl";
+		keyData[""] = "/service/board/cm_kara";
+		keyData[""] = "/service/board/cm_bike";
+		keyData[""] = "/service/board/cm_golf";
+		keyData[""] = "/service/board/cm_rowing";
+		keyData[""] = "/service/board/cm_soccer";
+		keyData[""] = "/service/board/cm_baseball";
+		keyData[""] = "/service/board/cm_gym";
+		keyData[""] = "/service/board/cm_swim";
+		keyData[""] = "/service/board/cm_billiards";
+		keyData[""] = "/service/board/cm_surfing";
+		keyData[""] = "/service/board/cm_snow";
+		keyData[""] = "/service/board/cm_badmin";
+		keyData[""] = "/service/board/cm_basket";
+		keyData[""] = "/service/board/cm_mount";
+		keyData[""] = "/service/board/cm_sea";
+		keyData[""] = "/service/board/cm_tennis";
+		keyData[""] = "/service/board/cm_camp";
+		keyData[""] = "/service/board/cm_tour";
+
+
+		$.ajaxSetup({
+			beforeSend: function (xhr, settings) {
+				if (settings.type == 'POST' || settings.type == 'PUT' || settings.type == 'DELETE') {
+					if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+						xhr.setRequestHeader("X-CSRF-TOKEN", "066e4515-17c7-4450-aa61-6e8d1b3da195");
+					}
+				}
+			}
+		});
+
+		setTimeout(function () {
+			var height = $('#div_content').outerHeight();
+			$("#sideBarHeight").css("height", height);
+		}, 2000);
+
+	</script>
+
+	<script src="https://www.clien.net/service/js/common/clien.storage.js?0503v1"></script>
+	<script src="https://www.clien.net/service/js/common/clien.alarm.js?0503v1"></script>
+	<script src="https://www.clien.net/service/js/common/clien.auth.js?0503v1"></script>
+	<script src="https://www.clien.net/service/js/common/clien.paging.js?0503v1"></script>
+	<script src="https://www.clien.net/service/js/common/clien.util.js?0503v1"></script>
+	<script src="https://www.clien.net/service/js/common/clien.popup.js?0503v1"></script>
+	<script src="https://www.clien.net/service/js/common/clien.setting.js?0503v1"></script>
+	<script src="https://www.clien.net/service/js/common/clien.search.js?0503v1"></script>
+
+	<script src="https://www.clien.net/service/js/app/clien.agent.js?0503v1"></script>
+	<script src="https://www.clien.net/service/js/app/clien.ui.js?0503v1"></script>
+
+	<script>
+		function detectBlockers() {
+			var ad = document.createElement('div');
+			ad.innerHTML = '&nbsp;';
+			ad.className = 'adsbox';
+			ad.style.position = 'absolute';
+			ad.style.fontSize = '0';
+			ad.style.height = '10px';
+			ad.style.width = '10px';
+			ad.style.zIndex = '-1000';
+			ad.style.top = '-1000px';
+			document.body.appendChild(ad);
+
+			setTimeout(function () {
+				if (ad.offsetHeight === 0) {
+					trackBlockerUsage();
+					console.log("adBolckUse");
+				}
+				document.body.removeChild(ad);
+			}, 100);
+		}
+
+		function trackBlockerUsage() {
+			if (typeof gtag !== 'undefined') {
+				gtag('event', 'adblocker_detected', {
+					'event_category': 'adblocker',
+					'event_label': 'Ad Blocker Usage'
+				});
+			}
+		}
+
+		window.onload = detectBlockers;
+	</script>
+
+
+
+
+	<input type="hidden" value="0" id="po">
+
+	<script src="https://www.clien.net/service/js/lib/mark.min.js"></script>
+	<script src="https://www.clien.net/service/js/common/clien.myView.js?0503v1"></script>
+
+	<script>
+
+		function App() {
+			var _this = this;
+
+			_this.env = {};
+
+			_this.myViewActiveButton = function () {
+				var myView = localStorage.getItem('MY_VIEW_LIST_ISVAILD');
+				if (myView == 'N') {
+					$('#my_view_use_button').removeClass('active');
+					$('#unUsedExplain').show();
+					$('#recentList').hide();
+				} else {
+					$('#my_view_use_button').addClass('active');
+					$('#unUsedExplain').hide();
+				}
+			};
+
+			_this.useMyView = function () {
+				if ($('#my_view_use_button').hasClass('active') === true) {
+					var isVaild = confirm("내가본글 사용을 해지 하시겠습니까?\n해지 시 내가본글 이력이 모두 삭제됩니다.");
+					if (isVaild) {
+						$('#my_view_use_button').removeClass('active');
+						localStorage.setItem("MY_VIEW_LIST_ISVAILD", "N");
+						localStorage.setItem("MY_VIEW_LIST", JSON.stringify(new Array()));
+					}
+				} else {
+					$('#my_view_use_button').addClass('active');
+					localStorage.setItem("MY_VIEW_LIST_ISVAILD", "Y");
+
+				}
+				location.reload();
+			};
+
+			_this.deleteMyViewHistory = function () {
+				var isVaild = confirm("내가본글 이력을 모두 삭제하시겠습니까?");
+				if (isVaild) {
+					localStorage.setItem("MY_VIEW_LIST", JSON.stringify(new Array()));
+					location.reload();
+				}
+			};
+
+			_this.init = function () {
+				myView.getMyViewList($('#po').val(), 'pc');
+				_this.myViewActiveButton();
+			}();
+		};
+
+		var app = new App();
+
+	</script>
+
+</body>
+
+</html>
